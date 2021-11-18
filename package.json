@@ -4,15 +4,21 @@
   "description": "",
   "main": "scape.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "env-cmd nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
-    "csv-writer": "^1.6.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongoose": "^6.0.13",
     "node-cron": "^3.0.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0"
   }
 }
