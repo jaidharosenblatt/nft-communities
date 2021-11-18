@@ -41,7 +41,7 @@ async function getTwitterHandles() {
 async function main() {
   const handles = await getTwitterHandles();
   let data = [];
-  const some = handles.slice(100, 300);
+  const some = handles.slice(0, 50);
   try {
     await Promise.all(
       some.map(async (handle) => {

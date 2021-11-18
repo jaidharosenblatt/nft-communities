@@ -1,11 +1,11 @@
 const axios = require("axios");
 
-const token =
+const twitterToken =
   "AAAAAAAAAAAAAAAAAAAAAHOqVwEAAAAAeWMtQR%2BWYGJ6512mo5ClDo2SbjI%3Dwq4W9EuUhRig9N6Ua10UIUM3UVL6xBV89PDKTKc0BWn15UUnVW";
-const api = axios.create({
+const twitterApi = axios.create({
   baseURL: "https://api.twitter.com/2",
   timeout: 1000,
-  headers: { Authorization: "Bearer " + token },
+  headers: { Authorization: "Bearer " + twitterToken },
 });
 
 function handleResponse(res) {
@@ -16,6 +16,6 @@ function handleError(e) {
   console.error(error);
   return Promise.reject(error);
 }
-api.interceptors.response.use(handleResponse, handleError);
+twitterApi.interceptors.response.use(handleResponse, handleError);
 
-module.exports = api;
+module.exports = { twitterApi };
