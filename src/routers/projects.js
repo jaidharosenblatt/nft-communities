@@ -29,7 +29,6 @@ router.post("/updateTwitter", async (req, res) => {
     );
     res.send(updates);
   } catch (error) {
-    console.log(error);
     res.sendStatus(500);
   }
 });
@@ -39,7 +38,6 @@ router.get("/projects", async (req, res) => {
     const projects = await Project.find({}).sort("-twitterFollowers");
     res.send(projects);
   } catch (error) {
-    console.log(error);
     res.sendStatus(500);
   }
 });
