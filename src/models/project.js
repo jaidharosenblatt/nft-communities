@@ -6,6 +6,9 @@ const projectSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    momentLastUpdate: {
+      type: Date,
+    },
     releaseDate: {
       type: Date,
     },

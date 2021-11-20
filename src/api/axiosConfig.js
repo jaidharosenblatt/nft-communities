@@ -2,7 +2,6 @@ const axios = require("axios");
 
 const twitterApi = axios.create({
   baseURL: "https://api.twitter.com/2",
-  timeout: 1000,
   headers: { Authorization: "Bearer " + process.env.TWITTER_BEARER },
 });
 
@@ -17,7 +16,6 @@ function handleError(e) {
       // console.log(e);
     } else {
       console.error(error);
-      console.log(error.data.errors);
     }
   }
 

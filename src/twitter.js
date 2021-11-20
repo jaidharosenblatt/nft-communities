@@ -6,13 +6,14 @@ async function updateAllFollowers() {
   const projects = await Project.find({});
   let usernames = await Promise.all(projects.map(async (p) => p.twitter));
   usernames = usernames.filter((username) => username !== undefined);
-  const maxLimit = 5;
+  const maxLimit = 90;
   let data = [];
   let errors = [];
+
   for (let i = 0; i < usernames.length; i += maxLimit) {
-    const endSplice = Math.min(i + maxLimit, usernames.length);
-    const usernamesSplice = usernames.splice(i, endSplice);
-    const usernameQuery = usernamesSplice.join(",");
+    const endSlice = Math.min(i + maxLimit, usernames.length);
+    const usernamesSlice = usernames.slice(i, endSlice);
+    const usernameQuery = usernamesSlice.join(",");
 
     const res = await twitterApi.get("/users/by", {
       params: {
@@ -42,6 +43,7 @@ async function updateAllFollowers() {
         p.twitterFollowers = followers;
         p.twitterId = d.id;
         p.avatar = d.profile_image_url;
+
         await p.save();
       }
     })
@@ -49,11 +51,12 @@ async function updateAllFollowers() {
 }
 
 async function updateTweetEngagement() {
-  const projects = await Project.find({}).sort("-updatedAt").limit(5);
+  const projects = await Project.find({}).sort("momentLastUpdate").limit(5);
 
   await Promise.all(
     projects.map(async (project) => {
       if (!project.twitterId) {
+        console.log(`Skipping project, ${project.name}`);
         return;
       }
 
@@ -77,7 +80,7 @@ async function updateTweetEngagement() {
 
       // Get tweets and find likes average
       const res2 = await twitterApi.get(`users/${project.twitterId}/tweets`, {
-        params: { "tweet.fields": "public_metrics", max_results: 100 },
+        params: { "tweet.fields": "public_metrics", max_results: n },
       });
       const tweets = res2.data;
       let totalTweetLikes = 0;
@@ -91,16 +94,19 @@ async function updateTweetEngagement() {
 
       // calc averages
       const twitterAverageNTweetEngagement = (topNTweetLikes / n).toFixed(2);
-      const twitterAverageTweetEngagement = (
-        totalTweetLikes / tweets.length
-      ).toFixed(2);
-      const twitterAverageMentionEngagement = (
-        totalMentionLikes / mentions.length
-      ).toFixed(2);
-      const twitterAverageEngagement = (
-        (totalTweetLikes + totalMentionLikes) /
-        (mentions.length + tweets.length)
-      ).toFixed(2);
+      const twitterAverageTweetEngagement =
+        tweets.length === 0 ? 0 : (totalTweetLikes / tweets.length).toFixed(2);
+      const twitterAverageMentionEngagement =
+        mentions.length === 0
+          ? 0
+          : (totalMentionLikes / mentions.length).toFixed(2);
+      const twitterAverageEngagement =
+        mentions.length + tweets.length === 0
+          ? 0
+          : (
+              (totalTweetLikes + totalMentionLikes) /
+              (mentions.length + tweets.length)
+            ).toFixed(2);
 
       const updates = {
         twitterAverageNTweetEngagement,
@@ -116,10 +122,11 @@ async function updateTweetEngagement() {
           project[key] = updates[key];
         }
       });
+      project.momentLastUpdate = new Date();
 
       await project.save();
 
-      const moment = new Moment(updates);
+      const moment = new Moment({ project: project._id, updates });
 
       await moment.save();
     })
