@@ -34,7 +34,7 @@ async function getHowRareProjects() {
             discord,
             twitter,
             releaseDate,
-            description: p[-1] === "" ? undefined : p[-1],
+            description: p[5] === "" ? undefined : p[5],
           };
           if (project.name) {
             projects.push(project);
