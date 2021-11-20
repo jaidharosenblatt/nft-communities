@@ -27,13 +27,14 @@ async function getHowRareProjects() {
             .each((j, e3) => {
               p.push($(e3).text().trim());
             });
-          const { discord, website, twitter } = gerUrls($, e);
+          const { discord, website, twitter } = gerUrls($, e2);
           const project = {
             name: p[0],
             website,
             discord,
             twitter,
             releaseDate,
+            description: p[-1] === "" ? undefined : p[-1],
           };
           if (project.name) {
             projects.push(project);
