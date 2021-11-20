@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(projectsRouter);
-cron.schedule("*/15 * * * *", cronScript);
+cron.schedule("*/16 * * * *", cronScript);
 
 app.listen(port, () => {
   console.log("Server is running on port ", port);

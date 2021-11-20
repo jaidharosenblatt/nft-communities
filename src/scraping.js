@@ -23,7 +23,9 @@ async function getHowRareProjects() {
       discord,
       twitter,
     };
-    projects.push(project);
+    if (project.name) {
+      projects.push(project);
+    }
   });
   return projects;
 }
@@ -44,11 +46,10 @@ function gerUrls($, e) {
       const withoutAt = handle.startsWith("@")
         ? handle.slice(1, handle.length)
         : handle;
-      const withoutSlash =
-        withoutAt[-1] == "/"
-          ? withoutAt.slice(0, withoutAt.length - 1)
-          : withoutAt;
-      twitter = withoutSlash;
+      const withoutSlash = withoutAt.endsWith("/")
+        ? withoutAt.slice(0, -1)
+        : withoutAt;
+      twitter = withoutSlash.toLowerCase();
     } else if (url.startsWith("https://discord.gg")) {
       const handle = url.split("https://discord.gg/")[1].toString();
       const withoutSlash =

@@ -1,28 +1,39 @@
 const { twitterApi } = require("./api/axiosConfig");
 const Project = require("./models/project");
 
-async function getFollowers(username) {
-  try {
-    const res = await twitterApi.get(`/users/by/username/${username}`, {
-      params: { "user.fields": "public_metrics" },
+async function updateAllFollowers() {
+  const projects = await Project.find({});
+  let usernames = await Promise.all(projects.map(async (p) => p.twitter));
+  usernames = usernames.filter((username) => username !== undefined);
+  const maxLimit = 5;
+  let data = [];
+  for (let i = 0; i < usernames.length; i += maxLimit) {
+    const endSplice = Math.min(i + maxLimit, usernames.length);
+    const usernamesSplice = usernames.splice(i, endSplice);
+    const usernameQuery = usernamesSplice.join(",");
+
+    const res = await twitterApi.get("/users/by", {
+      params: { "user.fields": "public_metrics", usernames: usernameQuery },
     });
 
-    const followers = res.data?.public_metrics?.followers_count;
-    return followers;
-  } catch (error) {
-    return -1;
+    data = data.concat(res.data);
   }
+
+  await Promise.all(
+    data.map(async (d) => {
+      if (d.public_metrics?.followers_count) {
+        const followers = d.public_metrics?.followers_count;
+        const p = await Project.findOne({ twitter: d.username.toLowerCase() });
+        if (p) {
+          p.twitterFollowers = followers;
+          await p.save();
+        }
+      } else {
+        console.log("ads");
+        await Project.deleteOne({ twitter: d.username });
+      }
+    })
+  );
 }
 
-async function updateFollowers(_id) {
-  const p = await Project.findById(_id);
-  const followers = await getFollowers(p.twitter);
-  if (followers != -1) {
-    p.twitterFollowers = followers;
-    await p.save();
-    return true;
-  }
-  return false;
-}
-
-module.exports = { getFollowers, updateFollowers };
+module.exports = { updateAllFollowers };
