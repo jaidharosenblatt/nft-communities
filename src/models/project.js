@@ -18,6 +18,10 @@ const projectSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    avatar: {
+      type: String,
+      unique: true,
+    },
     twitterFollowers: {
       type: Number,
     },

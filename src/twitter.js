@@ -13,7 +13,10 @@ async function updateAllFollowers() {
     const usernameQuery = usernamesSplice.join(",");
 
     const res = await twitterApi.get("/users/by", {
-      params: { "user.fields": "public_metrics", usernames: usernameQuery },
+      params: {
+        "user.fields": ["public_metrics", "profile_image_url"].join(","),
+        usernames: usernameQuery,
+      },
     });
 
     data = data.concat(res.data);
@@ -26,6 +29,7 @@ async function updateAllFollowers() {
         const p = await Project.findOne({ twitter: d.username.toLowerCase() });
         if (p) {
           p.twitterFollowers = followers;
+          p.avatar = d.profile_image_url;
           await p.save();
         }
       } else {
