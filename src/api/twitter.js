@@ -8,7 +8,6 @@ async function updateAllFollowers() {
   usernames = usernames.filter((username) => username !== undefined);
   const maxLimit = 90;
   let data = [];
-  let errors = [];
 
   for (let i = 0; i < usernames.length; i += maxLimit) {
     const endSlice = Math.min(i + maxLimit, usernames.length);
@@ -23,14 +22,18 @@ async function updateAllFollowers() {
     });
 
     data = data.concat(res.data);
-    errors = errors.concat(res.errors);
   }
 
-  errors = errors.filter((e) => e !== undefined);
-  // delete all bad usernames (404 and banned users)
+  // get missing usernames by cross checking with data returned from twitter
+  const missingUsernames = usernames.filter((username) => {
+    const found = data.findIndex((d) => d.username.toLowerCase() === username);
+    return found === -1;
+  });
+
+  //delete all bad usernames (404 and banned users)
   await Promise.all(
-    errors.map(async (e) => {
-      await Project.deleteOne({ twitter: e.resource_id });
+    missingUsernames.map(async (username) => {
+      await Project.deleteOne({ twitter: username });
     })
   );
 
