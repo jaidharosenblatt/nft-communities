@@ -7,6 +7,7 @@ async function updateAllFollowers() {
   usernames = usernames.filter((username) => username !== undefined);
   const maxLimit = 5;
   let data = [];
+  let errors = [];
   for (let i = 0; i < usernames.length; i += maxLimit) {
     const endSplice = Math.min(i + maxLimit, usernames.length);
     const usernamesSplice = usernames.splice(i, endSplice);
@@ -20,21 +21,27 @@ async function updateAllFollowers() {
     });
 
     data = data.concat(res.data);
+    errors = errors.concat(res.errors);
   }
 
+  errors = errors.filter((e) => e !== undefined);
+  // delete all bad usernames (404 and banned users)
+  await Promise.all(
+    errors.map(async (e) => {
+      await Project.deleteOne({ twitter: e.resource_id });
+    })
+  );
+
+  // update followers info for each
   await Promise.all(
     data.map(async (d) => {
-      if (d.public_metrics?.followers_count) {
-        const followers = d.public_metrics?.followers_count;
-        const p = await Project.findOne({ twitter: d.username.toLowerCase() });
-        if (p) {
-          p.twitterFollowers = followers;
-          p.twitterId = d.id;
-          p.avatar = d.profile_image_url;
-          await p.save();
-        }
-      } else {
-        await Project.deleteOne({ twitter: d.username });
+      const followers = d.public_metrics?.followers_count;
+      const p = await Project.findOne({ twitter: d.username.toLowerCase() });
+      if (p) {
+        p.twitterFollowers = followers;
+        p.twitterId = d.id;
+        p.avatar = d.profile_image_url;
+        await p.save();
       }
     })
   );
