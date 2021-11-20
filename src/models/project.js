@@ -25,6 +25,14 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+projectSchema.virtual("twitterUrl").get(function () {
+  return "https://twitter.com/" + this.twitter;
+});
+
+projectSchema.virtual("discordUrl").get(function () {
+  return "https://discord.gg/" + this.discord;
+});
+
 const Project = mongoose.model("Project", projectSchema);
 
 module.exports = Project;
