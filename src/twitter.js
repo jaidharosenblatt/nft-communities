@@ -25,19 +25,22 @@ async function updateAllFollowers() {
   await Promise.all(
     data.map(async (d) => {
       if (d.public_metrics?.followers_count) {
+        console.log(d);
         const followers = d.public_metrics?.followers_count;
         const p = await Project.findOne({ twitter: d.username.toLowerCase() });
         if (p) {
           p.twitterFollowers = followers;
+          p.twitterId = d.id;
           p.avatar = d.profile_image_url;
           await p.save();
         }
       } else {
-        console.log("ads");
         await Project.deleteOne({ twitter: d.username });
       }
     })
   );
 }
+
+// async function update
 
 module.exports = { updateAllFollowers };

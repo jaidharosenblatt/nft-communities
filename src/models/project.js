@@ -24,6 +24,10 @@ const projectSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    twitterId: {
+      type: String,
+      unique: true,
+    },
     avatar: {
       type: String,
       unique: true,
