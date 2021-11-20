@@ -35,16 +35,33 @@ const projectSchema = new mongoose.Schema(
     twitterFollowers: {
       type: Number,
     },
+    twitterAverageMentionEngagement: {
+      type: Number,
+    },
+    twitterAverageTweetEngagement: {
+      type: Number,
+    },
+
+    twitterAverageNTweetEngagement: {
+      type: Number,
+    },
+    twitterAverageEngagement: {
+      type: Number,
+    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 projectSchema.virtual("twitterUrl").get(function () {
-  return "https://twitter.com/" + this.twitter;
+  if (this.twitter) {
+    return "https://twitter.com/" + this.twitter;
+  }
 });
 
 projectSchema.virtual("discordUrl").get(function () {
-  return "https://discord.gg/" + this.discord;
+  if (this.discord) {
+    return "https://discord.gg/" + this.discord;
+  }
 });
 
 const Project = mongoose.model("Project", projectSchema);

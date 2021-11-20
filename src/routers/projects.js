@@ -1,7 +1,7 @@
 const express = require("express");
 const Project = require("../models/project");
 const { getHowRareProjects } = require("../scraping");
-const { updateAllFollowers } = require("../twitter");
+const { updateAllFollowers, updateTweetEngagement } = require("../twitter");
 
 const router = new express.Router();
 
@@ -29,9 +29,20 @@ router.post("/updateTwitter", async (req, res) => {
   }
 });
 
+router.post("/updateTweets", async (req, res) => {
+  try {
+    await updateTweetEngagement();
+    res.send("updates");
+  } catch (error) {
+    res.sendStatus(500);
+  }
+});
+
 router.get("/projects", async (req, res) => {
   try {
-    const projects = await Project.find({}).sort("-twitterFollowers");
+    const projects = await Project.find({}).sort(
+      "-twitterAverageNTweetEngagement"
+    );
     res.send(projects);
   } catch (error) {
     res.sendStatus(500);
