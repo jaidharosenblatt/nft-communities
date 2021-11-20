@@ -8,7 +8,10 @@ const router = new express.Router();
 router.post("/updateProjects", async (req, res) => {
   try {
     const projects = await getHowRareProjects();
-    const created = await Project.insertMany(projects, { ordered: false });
+    const created = await Project.insertMany(projects, {
+      ordered: false,
+      silent: true,
+    });
     res.send(created);
   } catch (error) {
     console.log(error);

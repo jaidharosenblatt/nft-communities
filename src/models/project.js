@@ -6,6 +6,12 @@ const projectSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    releaseDate: {
+      type: Date,
+    },
+    description: {
+      type: String,
+    },
     website: {
       type: String,
       unique: true,
