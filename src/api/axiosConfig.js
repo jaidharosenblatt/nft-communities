@@ -11,7 +11,11 @@ function handleResponse(res) {
 }
 function handleError(e) {
   const error = { code: e.response?.status, data: e.response?.data };
-  console.error(error);
+  if (!e.response) {
+    console.log(e);
+  } else {
+    console.error(error);
+  }
   return Promise.reject(error);
 }
 twitterApi.interceptors.response.use(handleResponse, handleError);
