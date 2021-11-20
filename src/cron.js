@@ -1,4 +1,4 @@
-const { updateAllFollowers, updateTweetEngagement } = require("./twitter");
+const { updateAllFollowers, updateTweetEngagement } = require("./api/twitter");
 
 async function main() {
   await updateAllFollowers();

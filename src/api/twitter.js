@@ -1,6 +1,6 @@
-const { twitterApi } = require("./api/axiosConfig");
-const Moment = require("./models/moment");
-const Project = require("./models/project");
+const { twitterApi } = require("./axiosConfig");
+const Moment = require("../models/moment");
+const Project = require("../models/project");
 
 async function updateAllFollowers() {
   const projects = await Project.find({});

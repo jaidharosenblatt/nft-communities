@@ -1,7 +1,7 @@
 const express = require("express");
 const Project = require("../models/project");
-const { getHowRareProjects } = require("../scraping");
-const { updateAllFollowers, updateTweetEngagement } = require("../twitter");
+const { getHowRareProjects } = require("../scraping/howRare");
+const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
 
 const router = new express.Router();
 
