@@ -34,6 +34,7 @@ router.post("/updateTweets", async (req, res) => {
     await updateTweetEngagement();
     res.send("updates");
   } catch (error) {
+    console.log(error);
     res.sendStatus(500);
   }
 });
@@ -43,6 +44,7 @@ router.get("/projects", async (req, res) => {
     const projects = await Project.find({}).sort("-twitterAverageEngagement");
     res.send(projects);
   } catch (error) {
+    console.log(error);
     res.sendStatus(500);
   }
 });
