@@ -1,26 +1,15 @@
 const express = require("express");
 const Project = require("../models/project");
-const { getHowRareProjects } = require("../scraping/howRare");
 const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
-const { getSolanalysisProjects } = require("../scraping/solanalysis");
+const scrapeProjects = require("../scraping/");
 
 const router = new express.Router();
 
 router.post("/updateProjects", async (req, res) => {
   try {
-    // await getSolanalysisProjects();
-    const projects = await getHowRareProjects();
-    const created = await Project.insertMany(projects, {
-      ordered: false,
-    });
-    res.send(created);
+    const status = await scrapeProjects();
+    res.send(status);
   } catch (e) {
-    console.log(e);
-    // duplicate key error
-    if (e.code === 11000) {
-      res.sendStatus(200);
-    }
-
     res.status(e.code);
     res.send(e.data);
   }
