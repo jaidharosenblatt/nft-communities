@@ -14,9 +14,15 @@ router.post("/updateProjects", async (req, res) => {
       ordered: false,
     });
     res.send(created);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+  } catch (e) {
+    console.log(e);
+    // duplicate key error
+    if (e.code === 11000) {
+      res.sendStatus(200);
+    }
+
+    res.status(e.code);
+    res.send(e.data);
   }
 });
 
@@ -24,11 +30,12 @@ router.post("/updateTwitter", async (req, res) => {
   try {
     await updateAllFollowers();
     res.send("updates");
-  } catch (error) {
-    console.log(error);
-    console.log(error.data?.errors[0]);
+  } catch (e) {
+    console.log(e);
+    console.log(e.data?.errors[0]);
 
-    res.sendStatus(500);
+    res.status(e.code);
+    res.send(e.data);
   }
 });
 
@@ -36,19 +43,19 @@ router.post("/updateTweets", async (req, res) => {
   try {
     await updateTweetEngagement();
     res.send("updates");
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+  } catch (e) {
+    res.status(e.code);
+    res.send(e.data);
   }
 });
 
 router.get("/projects", async (req, res) => {
   try {
-    const projects = await Project.find({}).sort("-updatedAt");
+    const projects = await Project.find({}).sort("-twitterAverageEngagement");
     res.send(projects);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
+  } catch (e) {
+    res.status(e.code);
+    res.send(e.data);
   }
 });
 

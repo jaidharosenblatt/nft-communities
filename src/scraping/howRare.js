@@ -36,7 +36,7 @@ async function getHowRareProjects() {
             releaseDate,
             description: p[5] === "" ? undefined : p[5],
           };
-          if (project.name) {
+          if (project.name && project.twitter) {
             projects.push(project);
           }
         });

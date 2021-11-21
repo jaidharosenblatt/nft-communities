@@ -18,17 +18,14 @@ const projectSchema = new mongoose.Schema(
     website: {
       type: String,
       unique: true,
-      sparse: true,
     },
     discord: {
       type: String,
       unique: true,
-      sparse: true,
     },
     twitter: {
       type: String,
       unique: true,
-      sparse: true,
     },
     twitterId: {
       type: String,
@@ -37,7 +34,6 @@ const projectSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      unique: true,
     },
     twitterFollowers: {
       type: Number,

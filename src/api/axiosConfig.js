@@ -9,7 +9,7 @@ function handleResponse(res) {
   return res.data;
 }
 function handleError(e) {
-  const error = { code: e.response?.status, data: e.response?.data };
+  const error = { code: e.response?.status || 500, data: e.response?.data };
   const DEBUG = true;
   if (DEBUG) {
     if (!e.response) {

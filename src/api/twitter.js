@@ -14,7 +14,7 @@ async function updateAllFollowers() {
     })
   );
 
-  const maxLimit = 10;
+  const maxLimit = 90;
   let data = [];
 
   for (let i = 0; i < usernames.length; i += maxLimit) {
@@ -22,7 +22,6 @@ async function updateAllFollowers() {
     const usernamesSlice = usernames.slice(i, endSlice);
 
     const usernameQuery = usernamesSlice.join(",");
-
     const res = await twitterApi.get("/users/by", {
       params: {
         "user.fields": ["public_metrics", "profile_image_url"].join(","),
@@ -34,7 +33,6 @@ async function updateAllFollowers() {
   }
 
   const uniqueData = [...new Set(data)];
-  console.log("ASda", data.length, uniqueData.length);
 
   // get missing usernames by cross checking with data returned from twitter
   const missingUsernames = usernames.filter((username) => {
@@ -67,7 +65,7 @@ async function updateAllFollowers() {
 }
 
 async function updateTweetEngagement() {
-  const projects = await Project.find({}).sort("momentLastUpdate").limit(10);
+  const projects = await Project.find({}).sort("momentLastUpdate").limit(100);
 
   await Promise.all(
     projects.map(async (project) => {
