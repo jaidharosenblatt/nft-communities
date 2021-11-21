@@ -51,7 +51,7 @@ function gerUrls($, e) {
   $(e)
     .find("td > a")
     .each((j, e2) => {
-      urls.push($(e2).attr("href"));
+      urls.push($(e2).attr("href").toLowerCase());
     });
 
   urls.forEach((url) => {
@@ -63,7 +63,7 @@ function gerUrls($, e) {
       const withoutSlash = withoutAt.endsWith("/")
         ? withoutAt.slice(0, -1)
         : withoutAt;
-      twitter = withoutSlash.toLowerCase();
+      twitter = withoutSlash;
     } else if (url.startsWith("https://discord.gg")) {
       const handle = url.split("https://discord.gg/")[1].toString();
       const withoutSlash =

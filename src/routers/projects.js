@@ -12,7 +12,6 @@ router.post("/updateProjects", async (req, res) => {
     const projects = await getHowRareProjects();
     const created = await Project.insertMany(projects, {
       ordered: false,
-      silent: true,
     });
     res.send(created);
   } catch (error) {
@@ -27,6 +26,8 @@ router.post("/updateTwitter", async (req, res) => {
     res.send("updates");
   } catch (error) {
     console.log(error);
+    console.log(error.data?.errors[0]);
+
     res.sendStatus(500);
   }
 });

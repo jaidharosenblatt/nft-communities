@@ -4,14 +4,23 @@ const Project = require("../models/project");
 
 async function updateAllFollowers() {
   const projects = await Project.find({});
-  let usernames = await Promise.all(projects.map(async (p) => p.twitter));
-  usernames = usernames.filter((username) => username !== undefined);
-  const maxLimit = 90;
+  let usernames = await Promise.all(
+    projects.map(async (p) => {
+      if (p.twitter) {
+        return p.twitter;
+      } else {
+        await Project.deleteOne({ _id: p._id });
+      }
+    })
+  );
+
+  const maxLimit = 10;
   let data = [];
 
   for (let i = 0; i < usernames.length; i += maxLimit) {
     const endSlice = Math.min(i + maxLimit, usernames.length);
     const usernamesSlice = usernames.slice(i, endSlice);
+
     const usernameQuery = usernamesSlice.join(",");
 
     const res = await twitterApi.get("/users/by", {
@@ -23,6 +32,9 @@ async function updateAllFollowers() {
 
     data = data.concat(res.data);
   }
+
+  const uniqueData = [...new Set(data)];
+  console.log("ASda", data.length, uniqueData.length);
 
   // get missing usernames by cross checking with data returned from twitter
   const missingUsernames = usernames.filter((username) => {
@@ -42,6 +54,7 @@ async function updateAllFollowers() {
     data.map(async (d) => {
       const followers = d.public_metrics?.followers_count;
       const p = await Project.findOne({ twitter: d.username.toLowerCase() });
+
       if (p) {
         p.twitterFollowers = followers;
         p.twitterId = d.id;
@@ -54,12 +67,12 @@ async function updateAllFollowers() {
 }
 
 async function updateTweetEngagement() {
-  const projects = await Project.find({}).sort("momentLastUpdate").limit(5);
+  const projects = await Project.find({}).sort("momentLastUpdate").limit(10);
 
   await Promise.all(
     projects.map(async (project) => {
       if (!project.twitterId) {
-        console.log(`Skipping project, ${project.name}`);
+        console.log(`Skipping project, ${project}`);
         return;
       }
 
@@ -68,6 +81,7 @@ async function updateTweetEngagement() {
         params: { "user.fields": "public_metrics" },
       });
       const twitterFollowers = res0.data.public_metrics?.followers_count;
+
       // number of tweets/mentions to draw from
       const n = 10;
       const res1 = await twitterApi.get(`users/${project.twitterId}/mentions`, {
@@ -75,7 +89,7 @@ async function updateTweetEngagement() {
       });
 
       // Get mentions and find likes average
-      const mentions = res1.data;
+      const mentions = res1.data || [];
       let totalMentionLikes = 0;
       mentions.forEach(
         (mention) => (totalMentionLikes += mention.public_metrics.like_count)
@@ -85,7 +99,7 @@ async function updateTweetEngagement() {
       const res2 = await twitterApi.get(`users/${project.twitterId}/tweets`, {
         params: { "tweet.fields": "public_metrics", max_results: n },
       });
-      const tweets = res2.data;
+      const tweets = res2.data || [];
       let totalTweetLikes = 0;
       let topNTweetLikes = 0;
 
@@ -129,7 +143,7 @@ async function updateTweetEngagement() {
 
       await project.save();
 
-      const moment = new Moment({ project: project._id, updates });
+      const moment = new Moment({ project: project._id, ...updates });
 
       await moment.save();
     })
