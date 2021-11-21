@@ -1,6 +1,5 @@
 # TODO
 
-- Move to twitter in seperate db model
 - Scrape solanalysis
 - Track growing communities and simple graphs over time
 - Discord activity
