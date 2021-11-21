@@ -1,4 +1,5 @@
 const axios = require("axios");
+const Project = require("../models/project");
 const bodyParams = require("./solanalysisParams");
 
 async function getSolanalysisProjects() {
@@ -7,8 +8,14 @@ async function getSolanalysisProjects() {
     bodyParams
   );
   const projects = res.data?.data?.getUpcomingProjects?.upcoming_projects;
-  console.log(projects.length);
-  if (!projects) return;
+  if (!projects) return [];
+  return projects.map(
+    (p) =>
+      new Project({
+        name: p.project_name,
+        description: p.description,
+      })
+  );
 }
 
 module.exports = { getSolanalysisProjects };

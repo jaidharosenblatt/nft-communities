@@ -1,5 +1,5 @@
 const { updateAllFollowers, updateTweetEngagement } = require("./api/twitter");
-const scrapeProjects = require("./scraping");
+const { scrapeProjects } = require("./scraping");
 
 async function everyThirtyMins() {
   await updateAllFollowers();

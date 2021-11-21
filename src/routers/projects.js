@@ -1,7 +1,7 @@
 const express = require("express");
 const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
-const scrapeProjects = require("../scraping/");
+const { scrapeProjects } = require("../scraping/");
 
 const router = new express.Router();
 

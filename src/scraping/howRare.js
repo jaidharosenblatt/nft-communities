@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const { getTwitterUsernameFromUrl, getDiscordIdFromUrl } = require("./util");
 
 async function getHowRareProjects() {
   const { data } = await axios.get("https://howrare.is/drops");
@@ -56,26 +57,15 @@ function gerUrls($, e) {
 
   urls.forEach((url) => {
     if (url.startsWith("https://twitter.com")) {
-      const handle = url.split("https://twitter.com/")[1].toString();
-      const withoutAt = handle.startsWith("@")
-        ? handle.slice(1, handle.length)
-        : handle;
-      const withoutSlash = withoutAt.endsWith("/")
-        ? withoutAt.slice(0, -1)
-        : withoutAt;
-      twitter = withoutSlash;
+      twitter = getTwitterUsernameFromUrl(url);
     } else if (url.startsWith("https://discord.gg")) {
-      const handle = url.split("https://discord.gg/")[1].toString();
-      const withoutSlash =
-        handle[-1] == "/" ? handle.slice(0, handle.length - 1) : handle;
-      discord = withoutSlash;
+      discord = getDiscordIdFromUrl(url);
     } else {
       website = url;
     }
   });
   return { discord, website, twitter };
 }
-
 function convertDateString(date) {
   const months = [
     "January",
