@@ -6,66 +6,67 @@ async function updateAllProjectTrends() {
   const projects = await Project.find({});
   await Promise.all(
     projects.map(async (project) => {
-      const hourAgo = await getTrend(project._id, 1000 * 60 * 60);
-      const dayAgo = await getTrend(project._id, 1000 * 60 * 60 * 24);
-      const weekAgo = await getTrend(project._id, 1000 * 60 * 60 * 24 * 7);
-      const monthAgo = await getTrend(project._id, 1000 * 60 * 60 * 24 * 30);
-      console.log(hourAgo);
+      await createTrendAndDeleteArchives(project._id, "day");
+      await createTrendAndDeleteArchives(project._id, "week");
+      await createTrendAndDeleteArchives(project._id, "month");
+      await createTrendAndDeleteArchives(project._id, "all");
     })
   );
 }
 
-async function getTrend(projectId, millisecondsAgo) {
-  const trend = await getChange(projectId, millisecondsAgo);
+async function createTrendAndDeleteArchives(projectId, time) {
+  const trend = await getTrendObject(projectId, time);
   const t = new Trend(trend);
-  return await t.save();
+  const newTrend = await t.save();
+  // delete all other trends for this project/time period not matching the new trend
+  await Trend.deleteMany({ project: projectId, timePeriod: time, _id: { $ne: newTrend._id } });
+  return newTrend._id;
 }
 
-async function getChange(projectId, millisecondsAgo) {
-  // find most recent scrape
+// Get object to be created in trend
+async function getTrendObject(projectId, time) {
+  // find most recent scraped moment
   const recentMoment = await Moment.findOne({ project: projectId }, {}, { sort: "-createdAt" });
-  const today = new Date();
 
-  // day time range but most recent first
-  const oneDay = 1000 * 60 * 60 * 24;
-  const start = new Date(today.getTime() - millisecondsAgo - oneDay);
-  const end = new Date(today.getTime() - millisecondsAgo);
-  const agoMoment = await Moment.findOne(
-    {
-      createdAt: { $gt: start, $lte: end },
-      project: projectId,
-    },
-    {},
-    { sort: "-createdAt" } // get most recent most within this range
-  );
-
+  let agoMoment;
+  // get oldest if all time
+  if (time === "all") {
+    agoMoment = await Moment.findOne({ project: projectId }, {}, { sort: "createdAt" });
+  } else {
+    // day time range but most recent first
+    const today = new Date();
+    const millisecondsAgo = timeMap[time];
+    const start = new Date(today.getTime() - millisecondsAgo - timeMap.day);
+    const end = new Date(today.getTime() - millisecondsAgo);
+    agoMoment = await Moment.findOne(
+      {
+        createdAt: { $gt: start, $lte: end },
+        project: projectId,
+      },
+      {},
+      { sort: "-createdAt" } // get most recent most within this range
+    );
+  }
   let trend = {
     project: projectId,
+    timePeriod: time,
     startFollowers: agoMoment?.twitterFollowers || recentMoment.twitterFollowers,
     endFollowers: recentMoment.twitterFollowers,
     followingChange: 0,
     followingPercentChange: 0,
-    startEngagement: agoMoment?.twitterAverageEngagement || recentMoment.twitterAverageEngagement,
-    endEngagement: recentMoment.twitterAverageEngagement,
-    engagementChange: 0,
-    engagementPercentChange: 0,
   };
+
+  // return default if empty of records are same
   if (!recentMoment || !agoMoment || recentMoment._id === agoMoment._id) {
     return trend;
   }
 
   const following = percentIncrease(agoMoment.twitterFollowers, recentMoment.twitterFollowers);
-  const engagement = percentIncrease(
-    agoMoment.twitterAverageEngagement,
-    recentMoment.twitterAverageEngagement
-  );
 
   return {
     ...trend,
     followingChange: following.change,
     followingPercentChange: following.percent,
-    engagementChange: engagement.change,
-    engagementPercentChange: engagement.percent,
   };
 }
 
@@ -82,5 +83,13 @@ function percentIncrease(start, end) {
 
   return { percent, change };
 }
+
+const timeMap = {
+  hour: 1000 * 60 * 60,
+  day: 1000 * 60 * 60 * 24,
+  week: 1000 * 60 * 60 * 24 * 7,
+  month: 1000 * 60 * 60 * 24 * 30,
+  all: -1,
+};
 
 module.exports = { updateAllProjectTrends };

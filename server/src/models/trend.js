@@ -6,6 +6,11 @@ const trendSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       required: true,
     },
+    timePeriod: {
+      type: String,
+      enum: ["day", "week", "month", "all"],
+      required: true,
+    },
     startFollowers: {
       type: Number,
       required: true,
@@ -19,22 +24,6 @@ const trendSchema = new mongoose.Schema(
       required: true,
     },
     followingPercentChange: {
-      type: Number,
-      required: false,
-    },
-    startEngagement: {
-      type: Number,
-      required: true,
-    },
-    endEngagement: {
-      type: Number,
-      required: true,
-    },
-    engagementChange: {
-      type: Number,
-      required: true,
-    },
-    engagementPercentChange: {
       type: Number,
       required: false,
     },
