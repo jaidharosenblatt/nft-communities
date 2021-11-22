@@ -9,6 +9,7 @@ async function everyThirtyMins() {
 async function everyDay() {
   await updateAllFollowers();
   await scrapeProjects();
+  await updateTweetEngagement();
   await updateAllProjectTrends();
 }
 

@@ -15,18 +15,29 @@ async function updateAllProjectTrends() {
 }
 
 async function createTrendAndDeleteArchives(projectId, time) {
-  const trend = await getTrendObject(projectId, time);
-  const t = new Trend(trend);
-  const newTrend = await t.save();
-  // delete all other trends for this project/time period not matching the new trend
-  await Trend.deleteMany({ project: projectId, timePeriod: time, _id: { $ne: newTrend._id } });
-  return newTrend._id;
+  try {
+    const trend = await getTrendObject(projectId, time);
+    const t = new Trend(trend);
+    const newTrend = await t.save();
+    // delete all other trends for this project/time period not matching the new trend
+    await Trend.deleteMany({
+      project: projectId,
+      timePeriod: time,
+      _id: { $ne: newTrend._id },
+    });
+    return newTrend._id;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Get object to be created in trend
 async function getTrendObject(projectId, time) {
   // find most recent scraped moment
   const recentMoment = await Moment.findOne({ project: projectId }, {}, { sort: "-createdAt" });
+  if (!recentMoment) {
+    throw new Error(`No moments available for this project ${projectId}`);
+  }
 
   let agoMoment;
   // get oldest if all time
