@@ -10,6 +10,9 @@ router.post("/updateProjects", async (req, res) => {
     const status = await scrapeProjects();
     res.send(status);
   } catch (e) {
+    if (process.env.DEBUG === "TRUE") {
+      console.error(e);
+    }
     res.status(e.code);
     res.send(e.data);
   }
@@ -20,8 +23,9 @@ router.post("/updateTwitter", async (req, res) => {
     await updateAllFollowers();
     res.send("updates");
   } catch (e) {
-    console.log(e);
-    console.log(e.data?.errors[0]);
+    if (process.env.DEBUG === "TRUE") {
+      console.error(e);
+    }
 
     res.status(e.code);
     res.send(e.data);
@@ -33,7 +37,9 @@ router.post("/updateTweets", async (req, res) => {
     await updateTweetEngagement();
     res.send("updates");
   } catch (e) {
-    res.status(e.code);
+    if (process.env.DEBUG === "TRUE") {
+      console.error(e);
+    }
     res.send(e.data);
   }
 });
@@ -43,6 +49,9 @@ router.get("/projects", async (req, res) => {
     const projects = await Project.find({}).sort("-twitterAverageEngagement");
     res.send(projects);
   } catch (e) {
+    if (process.env.DEBUG === "TRUE") {
+      console.error(e);
+    }
     res.status(e.code);
     res.send(e.data);
   }

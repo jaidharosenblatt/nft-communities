@@ -10,13 +10,9 @@ function handleResponse(res) {
 }
 function handleError(e) {
   const error = { code: e.response?.status || 500, data: e.response?.data };
-  const DEBUG = true;
-  if (DEBUG) {
-    if (!e.response) {
-      // console.log(e);
-    } else {
-      console.error(error);
-    }
+
+  if (process.env.DEBUG === "TRUE") {
+    console.error(error);
   }
 
   return Promise.reject(error);
