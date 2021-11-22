@@ -15,6 +15,7 @@ async function getSolanalysisProjects() {
       return {
         name: p.display_name,
         twitter: getTwitterUsernameFromUrl(p.twitter),
+        twitterUrl: p.twitter,
         discordUrl: p.discord,
         website: p.website,
         releaseDate: d,

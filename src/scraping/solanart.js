@@ -12,6 +12,7 @@ async function getSolanartProjects() {
       return {
         name: p.name,
         twitter: getTwitterUsernameFromUrl(p.twitter),
+        twitterUrl: p.twitter,
         discordUrl: p.discord,
         website: p.website,
         releaseDate: d,
