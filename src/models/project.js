@@ -22,6 +22,7 @@ const projectSchema = new mongoose.Schema(
     discordUrl: {
       type: String,
       unique: true,
+      sparse: true,
     },
     twitter: {
       type: String,
