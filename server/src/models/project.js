@@ -57,6 +57,18 @@ const projectSchema = new mongoose.Schema(
     twitterAverageEngagement: {
       type: Number,
     },
+    dayTrends: {
+      type: mongoose.Types.ObjectId,
+    },
+    weekTrends: {
+      type: mongoose.Types.ObjectId,
+    },
+    monthTrends: {
+      type: mongoose.Types.ObjectId,
+    },
+    allTrends: {
+      type: mongoose.Types.ObjectId,
+    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
