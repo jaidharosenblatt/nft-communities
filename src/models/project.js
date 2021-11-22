@@ -24,6 +24,11 @@ const projectSchema = new mongoose.Schema(
       unique: true,
       sparse: true,
     },
+    twitterUrl: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
     twitter: {
       type: String,
       unique: true,
@@ -55,12 +60,6 @@ const projectSchema = new mongoose.Schema(
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-
-projectSchema.virtual("twitterUrl").get(function () {
-  if (this.twitter) {
-    return "https://twitter.com/" + this.twitter;
-  }
-});
 
 const Project = mongoose.model("Project", projectSchema);
 
