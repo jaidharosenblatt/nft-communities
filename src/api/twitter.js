@@ -89,9 +89,7 @@ async function updateTweetEngagement() {
       // Get mentions and find likes average
       const mentions = res1.data || [];
       let totalMentionLikes = 0;
-      mentions.forEach(
-        (mention) => (totalMentionLikes += mention.public_metrics.like_count)
-      );
+      mentions.forEach((mention) => (totalMentionLikes += mention.public_metrics.like_count));
 
       // Get tweets and find likes average
       const res2 = await twitterApi.get(`users/${project.twitterId}/tweets`, {
@@ -112,16 +110,11 @@ async function updateTweetEngagement() {
       const twitterAverageTweetEngagement =
         tweets.length === 0 ? 0 : (totalTweetLikes / tweets.length).toFixed(2);
       const twitterAverageMentionEngagement =
-        mentions.length === 0
-          ? 0
-          : (totalMentionLikes / mentions.length).toFixed(2);
+        mentions.length === 0 ? 0 : (totalMentionLikes / mentions.length).toFixed(2);
       const twitterAverageEngagement =
         mentions.length + tweets.length === 0
           ? 0
-          : (
-              (totalTweetLikes + totalMentionLikes) /
-              (mentions.length + tweets.length)
-            ).toFixed(2);
+          : ((totalTweetLikes + totalMentionLikes) / (mentions.length + tweets.length)).toFixed(2);
 
       const updates = {
         twitterAverageNTweetEngagement,

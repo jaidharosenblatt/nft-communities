@@ -13,7 +13,7 @@ async function scrapeProjects() {
     });
     return `${created.length} projects created`;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     if (e.code === 11000) {
       return `${e.insertedDocs?.length || 0} projects created`;
     }

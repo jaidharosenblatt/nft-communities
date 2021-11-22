@@ -4,9 +4,7 @@ function getTwitterUsernameFromUrl(url) {
   }
   const urlLowerCase = url.toLowerCase();
   const handle = urlLowerCase.split("https://twitter.com/")[1].toString();
-  const withoutAt = handle.startsWith("@")
-    ? handle.slice(1, handle.length)
-    : handle;
+  const withoutAt = handle.startsWith("@") ? handle.slice(1, handle.length) : handle;
 
   return withoutAt.endsWith("/") ? withoutAt.slice(0, -1) : withoutAt;
 }
