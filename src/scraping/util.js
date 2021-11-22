@@ -5,8 +5,13 @@ function getTwitterUsernameFromUrl(url) {
   const urlLowerCase = url.toLowerCase();
   const handle = urlLowerCase.split("https://twitter.com/")[1].toString();
   const withoutAt = handle.startsWith("@") ? handle.slice(1, handle.length) : handle;
-
-  return withoutAt.endsWith("/") ? withoutAt.slice(0, -1) : withoutAt;
+  // remove trailing chars from end ex https://twitter.com/username?s=20
+  const trailingChars = ["/", "?"];
+  let username = withoutAt;
+  trailingChars.forEach((char) => {
+    if (withoutAt.includes(char)) username = withoutAt.split(char)[0];
+  });
+  return username;
 }
 
 function getDiscordIdFromUrl(url) {

@@ -1,6 +1,5 @@
 const axios = require("axios");
 const { getTwitterUsernameFromUrl, getDiscordIdFromUrl } = require("./util");
-const Project = require("../models/project");
 const bodyParams = require("./solanalysisParams");
 
 async function getSolanalysisProjects() {
@@ -13,14 +12,14 @@ async function getSolanalysisProjects() {
   return projects.map((p) => {
     if (p.twitter && p.display_name) {
       const d = p.launch_date ? new Date(p.launch_date) : undefined;
-      return new Project({
+      return {
         name: p.display_name,
         twitter: getTwitterUsernameFromUrl(p.twitter),
         discordUrl: p.discord,
         website: p.website,
         releaseDate: d,
         description: p.description,
-      });
+      };
     }
   });
 }

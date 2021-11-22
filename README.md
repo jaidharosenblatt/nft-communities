@@ -2,7 +2,8 @@
 
 - Track growing communities and simple graphs over time
 - Discord activity
-- Open Sea
+- CAPTCHA to prevent public API
+- Credit apps scraped from
 
 ## .env file
 
@@ -19,6 +20,7 @@ https://discord.com/developers/docs/resources/guild#get-guild
 
 - https://upcomingnft.live/
 - https://upcomingnftdrops.com/
+- https://solanart.io/collections
 
 ## TODO
 
