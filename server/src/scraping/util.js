@@ -2,14 +2,27 @@ function getTwitterUsernameFromUrl(url) {
   if (!url) {
     return undefined;
   }
+
+  // ordered in reverse priority
+  const twitterPrefixes = [
+    "http://twitter.com/",
+    "https://twitter.com/",
+    "http://twitter.com/@",
+    "https://mobile.twitter.com/",
+    "https://twitter.com/@",
+  ];
   const urlLowerCase = url.toLowerCase();
-  const handle = urlLowerCase.split("https://twitter.com/")[1].toString();
-  const withoutAt = handle.startsWith("@") ? handle.slice(1, handle.length) : handle;
+  let usernamePost = urlLowerCase;
+  twitterPrefixes.forEach((prefix) => {
+    if (urlLowerCase.startsWith(prefix)) {
+      usernamePost = urlLowerCase.split(prefix)[1].toString();
+    }
+  });
   // remove trailing chars from end ex https://twitter.com/username?s=20
   const trailingChars = ["/", "?"];
-  let username = withoutAt;
+  let username = usernamePost;
   trailingChars.forEach((char) => {
-    if (withoutAt.includes(char)) username = withoutAt.split(char)[0];
+    if (usernamePost.includes(char)) username = usernamePost.split(char)[0];
   });
   return username;
 }

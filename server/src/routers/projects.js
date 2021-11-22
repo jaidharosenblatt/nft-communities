@@ -46,7 +46,7 @@ router.post("/updateTweets", async (req, res) => {
 
 router.get("/projects", async (req, res) => {
   try {
-    const projects = await Project.find({}).sort("-twitterAverageEngagement");
+    const projects = await Project.find({}).sort("-twitterFollowers");
     res.send(projects);
   } catch (e) {
     if (process.env.DEBUG === "TRUE") {

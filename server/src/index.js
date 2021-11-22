@@ -3,7 +3,13 @@ const cors = require("cors");
 const cron = require("node-cron");
 const { everyThirtyMins, everyDay } = require("./cron");
 
-require("./db/mongoose");
+if (process.env.MONGO_URL) {
+  require("./db/mongoose");
+} else {
+  console.error(
+    "Missing connection string. Please create a .env file following the README and use `npm run dev`"
+  );
+}
 const projectsRouter = require("./routers/projects");
 const port = process.env.PORT;
 
