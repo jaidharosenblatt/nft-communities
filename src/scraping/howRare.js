@@ -59,7 +59,7 @@ function gerUrls($, e) {
     if (url.startsWith("https://twitter.com")) {
       twitter = getTwitterUsernameFromUrl(url);
     } else if (url.startsWith("https://discord.gg")) {
-      discord = getDiscordIdFromUrl(url);
+      discord = url;
     } else {
       website = url;
     }

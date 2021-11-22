@@ -19,7 +19,7 @@ const projectSchema = new mongoose.Schema(
       type: String,
       unique: true,
     },
-    discord: {
+    discordUrl: {
       type: String,
       unique: true,
     },
@@ -58,12 +58,6 @@ const projectSchema = new mongoose.Schema(
 projectSchema.virtual("twitterUrl").get(function () {
   if (this.twitter) {
     return "https://twitter.com/" + this.twitter;
-  }
-});
-
-projectSchema.virtual("discordUrl").get(function () {
-  if (this.discord) {
-    return "https://discord.gg/" + this.discord;
   }
 });
 
