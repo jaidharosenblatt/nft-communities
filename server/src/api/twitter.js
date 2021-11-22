@@ -65,12 +65,12 @@ async function updateAllFollowers() {
 }
 
 async function updateTweetEngagement() {
-  const projects = await Project.find({}).sort("momentLastUpdate").limit(100);
+  const projects = await Project.find({}).sort("momentLastUpdate").limit(300);
 
   await Promise.all(
     projects.map(async (project) => {
       if (!project.twitterId) {
-        console.log(`Skipping project, ${project}`);
+        console.log(`Skipping project, ${project.name}`);
         return;
       }
 

@@ -40,6 +40,7 @@ router.post("/updateTweets", async (req, res) => {
     if (process.env.DEBUG === "TRUE") {
       console.error(e);
     }
+    res.status(e.code);
     res.send(e.data);
   }
 });
