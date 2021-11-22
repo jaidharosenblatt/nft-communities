@@ -106,15 +106,15 @@ async function updateTweetEngagement() {
       });
 
       // calc averages
-      const twitterAverageNTweetEngagement = (topNTweetLikes / n).toFixed(2);
+      const twitterAverageNTweetEngagement = (topNTweetLikes / n).toFixed(1);
       const twitterAverageTweetEngagement =
-        tweets.length === 0 ? 0 : (totalTweetLikes / tweets.length).toFixed(2);
+        tweets.length === 0 ? 0 : (totalTweetLikes / tweets.length).toFixed(1);
       const twitterAverageMentionEngagement =
-        mentions.length === 0 ? 0 : (totalMentionLikes / mentions.length).toFixed(2);
+        mentions.length === 0 ? 0 : (totalMentionLikes / mentions.length).toFixed(1);
       const twitterAverageEngagement =
         mentions.length + tweets.length === 0
           ? 0
-          : ((totalTweetLikes + totalMentionLikes) / (mentions.length + tweets.length)).toFixed(2);
+          : ((totalTweetLikes + totalMentionLikes) / (mentions.length + tweets.length)).toFixed(1);
 
       const updates = {
         twitterAverageNTweetEngagement,
