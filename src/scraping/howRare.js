@@ -28,12 +28,16 @@ async function getHowRareProjects() {
             .each((j, e3) => {
               p.push($(e3).text().trim());
             });
-          const { discord, website, twitter } = gerUrls($, e2);
+          const twitterUrl = $(e2).find("i.fab.fa-twitter").parent().attr("href");
+          const discordUrl = $(e2).find("i.fab.fa-discord").parent().attr("href");
+          const website = $(e2).find("i.fab.fab.fa-firefox").parent().attr("href");
+          const twitter = getTwitterUsernameFromUrl(twitterUrl);
           const project = {
             name: p[0],
             website,
-            discord,
             twitter,
+            discordUrl,
+            twitterUrl,
             releaseDate,
             description: p[5] === "" ? undefined : p[5],
           };
@@ -45,27 +49,6 @@ async function getHowRareProjects() {
   return projects;
 }
 
-function gerUrls($, e) {
-  let urls = [];
-  let twitter, website, discord;
-  // Get links
-  $(e)
-    .find("td > a")
-    .each((j, e2) => {
-      urls.push($(e2).attr("href").toLowerCase());
-    });
-
-  urls.forEach((url) => {
-    if (url.startsWith("https://twitter.com")) {
-      twitter = getTwitterUsernameFromUrl(url);
-    } else if (url.startsWith("https://discord.gg")) {
-      discord = url;
-    } else {
-      website = url;
-    }
-  });
-  return { discord, website, twitter };
-}
 function convertDateString(date) {
   const months = [
     "January",
@@ -87,8 +70,7 @@ function convertDateString(date) {
   const day = parseInt(dayStr);
   const now = new Date();
   // year + 1 if we have already passed the specified month
-  const year =
-    month < now.getMonth() ? now.getFullYear() + 1 : now.getFullYear();
+  const year = month < now.getMonth() ? now.getFullYear() + 1 : now.getFullYear();
 
   return new Date(`${month}/${day}/${year}`);
 }
