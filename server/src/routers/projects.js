@@ -10,11 +10,7 @@ router.post("/updateProjects", async (req, res) => {
     const status = await scrapeProjects();
     res.send(status);
   } catch (e) {
-    if (process.env.DEBUG === "TRUE") {
-      console.error(e);
-    }
-    res.status(e.code);
-    res.send(e.data);
+    sendError(e, res);
   }
 });
 
@@ -23,12 +19,7 @@ router.post("/updateTwitter", async (req, res) => {
     await updateAllFollowers();
     res.send("updates");
   } catch (e) {
-    if (process.env.DEBUG === "TRUE") {
-      console.error(e);
-    }
-
-    res.status(e.code);
-    res.send(e.data);
+    sendError(e, res);
   }
 });
 
@@ -37,11 +28,7 @@ router.post("/updateTweets", async (req, res) => {
     await updateTweetEngagement();
     res.send("updates");
   } catch (e) {
-    if (process.env.DEBUG === "TRUE") {
-      console.error(e);
-    }
-    res.status(e.code);
-    res.send(e.data);
+    sendError(e, res);
   }
 });
 
@@ -50,12 +37,17 @@ router.get("/projects", async (req, res) => {
     const projects = await Project.find({}).sort("-twitterFollowers");
     res.send(projects);
   } catch (e) {
-    if (process.env.DEBUG === "TRUE") {
-      console.error(e);
-    }
-    res.status(e.code);
-    res.send(e.data);
+    sendError(e, res);
   }
 });
+
+function sendError(e, res) {
+  if (process.env.DEBUG === "TRUE") {
+    console.error(e);
+  }
+  const code = e.code || 500;
+  res.status(code);
+  res.send(e.data);
+}
 
 module.exports = router;

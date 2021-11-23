@@ -27,6 +27,22 @@ const trendSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
+    startEngagement: {
+      type: Number,
+      required: true,
+    },
+    endEngagement: {
+      type: Number,
+      required: true,
+    },
+    engagementChange: {
+      type: Number,
+      required: true,
+    },
+    engagementPercentChange: {
+      type: Number,
+      required: false,
+    },
   },
   { timestamps: true }
 );

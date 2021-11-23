@@ -78,7 +78,7 @@ async function updateTweetEngagement() {
       const res0 = await twitterApi.get(`/users/${project.twitterId}`, {
         params: { "user.fields": "public_metrics" },
       });
-      const twitterFollowers = res0.data.public_metrics?.followers_count;
+      const twitterFollowers = res0.data?.public_metrics?.followers_count;
 
       // number of tweets/mentions to draw from
       const n = 10;
