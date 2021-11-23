@@ -32,8 +32,6 @@ async function updateAllFollowers() {
     data = data.concat(res.data);
   }
 
-  const uniqueData = [...new Set(data)];
-
   // get missing usernames by cross checking with data returned from twitter
   const missingUsernames = usernames.filter((username) => {
     const found = data.findIndex((d) => d.username.toLowerCase() === username);
@@ -81,7 +79,7 @@ async function updateTweetEngagement() {
       const twitterFollowers = res0.data?.public_metrics?.followers_count;
 
       // number of tweets/mentions to draw from
-      const n = 10;
+      const n = 50;
       const res1 = await twitterApi.get(`users/${project.twitterId}/mentions`, {
         params: { "tweet.fields": "public_metrics", max_results: n },
       });
