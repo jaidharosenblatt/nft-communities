@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Trend = require("./trend");
 
 const projectSchema = new mongoose.Schema(
   {
@@ -50,12 +51,27 @@ const projectSchema = new mongoose.Schema(
     twitterAverageTweetEngagement: {
       type: Number,
     },
-
     twitterAverageNTweetEngagement: {
       type: Number,
     },
     twitterAverageEngagement: {
       type: Number,
+    },
+    dayTrend: {
+      type: mongoose.Types.ObjectId,
+      ref: Trend,
+    },
+    weekTrend: {
+      type: mongoose.Types.ObjectId,
+      ref: Trend,
+    },
+    monthTrend: {
+      type: mongoose.Types.ObjectId,
+      ref: Trend,
+    },
+    allTrend: {
+      type: mongoose.Types.ObjectId,
+      ref: Trend,
     },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }

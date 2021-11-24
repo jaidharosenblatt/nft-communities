@@ -40,13 +40,12 @@ router.get("/projects", async (req, res) => {
         // find trend matching this project
         $lookup: {
           from: "trends",
-          localField: "_id",
-          foreignField: "project",
+          localField: "allTrend",
+          foreignField: "_id",
           as: "trends",
         },
       },
       { $unwind: { path: "$trends" } }, // make trends one element
-      { $match: { "trends.timePeriod": "all" } }, // filter just for the desired timePeriod
       {
         $project: {
           name: 1,

@@ -12,18 +12,19 @@ async function updateAllProjectTrends() {
         { sort: "-createdAt" }
       );
       if (recentMoment) {
-        await createTrendAndDeleteArchives(project._id, recentMoment, "day");
-        await createTrendAndDeleteArchives(project._id, recentMoment, "week");
-        await createTrendAndDeleteArchives(project._id, recentMoment, "month");
-        await createTrendAndDeleteArchives(project._id, recentMoment, "all");
+        project.dayTrend = await createTrendAndArchive(project._id, recentMoment, "day");
+        project.weekTrend = await createTrendAndArchive(project._id, recentMoment, "week");
+        project.monthTrend = await createTrendAndArchive(project._id, recentMoment, "month");
+        project.allTrend = await createTrendAndArchive(project._id, recentMoment, "all");
+        await project.save();
       } else {
         console.log(project);
       }
     })
   );
 }
-
-async function createTrendAndDeleteArchives(projectId, recentMoment, time) {
+// create new trend for this day, return it. Also archives old trends
+async function createTrendAndArchive(projectId, recentMoment, time) {
   try {
     const trend = await getTrendObject(projectId, recentMoment, time);
     const t = new Trend(trend);
