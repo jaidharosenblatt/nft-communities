@@ -1,7 +1,7 @@
 .project-card {
   border: #fafafa solid;
   border-radius: 10px;
-  min-width: 500px;
+  width: 300px;
   padding: 24px;
   margin: 12px;
 }
@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  word-wrap: break-word;
 }
 
 .project-card .social svg {
@@ -22,7 +23,7 @@
   flex-direction: row;
 }
 
-.project-card .stats-row .stat {
+.project-card .stats-row .info {
   margin: 4px;
 }
 

@@ -17,7 +17,7 @@ export default function Stat({ caption, change, percentage }: Props) {
     return { color };
   }
   return (
-    <div className="stat">
+    <div className="info">
       <p className="caption"> {caption}</p>
       <p style={getChangeStyle(change)}>{getChangeString(change, percentage)}</p>
     </div>

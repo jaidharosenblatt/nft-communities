@@ -27,10 +27,10 @@ function App(): JSX.Element {
 
   return (
     <div>
-      <h1>
-        Move<span style={{ color: "#3CD184" }}>mint</span>
-      </h1>
       <div className="projects-holder">
+        <h1>
+          Move<span style={{ color: "#3CD184" }}>mint</span>
+        </h1>
         {projects.length} Projects
         {projects.map((p: Project) => (
           <ProjectCard key={p._id} project={p} />

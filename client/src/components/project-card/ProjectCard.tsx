@@ -2,6 +2,7 @@ import "./ProjectCard.css";
 import { Project } from "../../../models";
 import Stat from "./Stat";
 import Socials from "./Socials";
+import { Info } from "./Info";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
@@ -28,13 +29,15 @@ export default function ProjectCard({ project }: Props) {
     <div className="project-card">
       <div className="header">
         <img src={covertAvatar(project.avatar)} />
-        <div className="title">
+        <div>
           <h2>{truncatedName}</h2>
           <Socials size={24} color="black" project={project} />
+          <p>{project.twitterFollowers.toLocaleString()} followers</p>
         </div>
       </div>
 
-      <p>{getDateFromString(project.releaseDate)}</p>
+      {/* <p>{getDateFromString(project.releaseDate)}</p> */}
+      <p>Since Yesterday</p>
       <div className="stats-row">
         <Stat
           caption="Followers"
