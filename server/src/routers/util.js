@@ -5,10 +5,7 @@ function getParamVariable(req, paramName, defaultParam, acceptedParams) {
   }
 
   if (acceptedParams.findIndex((p) => p === param) === -1) {
-    const e = new Error();
-    e.data = `${param} not a valid value`;
-    e.code = 400;
-    throw e;
+    throw new ServerError(400, `${param} not a valid value`);
   }
   return param;
 }
@@ -23,4 +20,16 @@ function sendError(e, res) {
   res.send(e.data);
 }
 
-module.exports = { getParamVariable, sendError };
+class ServerError extends Error {
+  constructor(code, data) {
+    super();
+    this.code = code;
+    this.data = data;
+  }
+}
+
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d);
+}
+
+module.exports = { ServerError, getParamVariable, sendError, isValidDate };

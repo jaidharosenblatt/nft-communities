@@ -2,7 +2,7 @@ const express = require("express");
 const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
-const { getParamVariable, sendError } = require("./util");
+const { getParamVariable, sendError, isValidDate } = require("./util");
 
 const router = new express.Router();
 
@@ -56,8 +56,22 @@ router.get("/projects", async (req, res) => {
     const sortDirection = req.query.sortDirection === "desc" ? -1 : 1;
     const limit = req.query.limit || 100;
 
+    // start in make range
+    let startDate = new Date(-8640000000000000);
+    let endDate = new Date(8640000000000000);
+
+    // add in query specified dates (can be in any Date format that JS accepts)
+    if (req.query.startDate) {
+      const parsedStartDate = new Date(req.query.startDate);
+      startDate = isValidDate(parsedStartDate) && parsedStartDate;
+    }
+    if (req.query.endDate) {
+      const parsedEndDate = new Date(req.query.endDate);
+      endDate = isValidDate(parsedEndDate) && parsedEndDate;
+    }
+
     const projects0 = await Project.aggregate([
-      { $match: { releaseDate: { $gt: new Date() } } }, // query within date range
+      { $match: { releaseDate: { $gte: startDate, $lte: endDate } } }, // query within date range
       {
         // find trend matching this project
         $lookup: {
