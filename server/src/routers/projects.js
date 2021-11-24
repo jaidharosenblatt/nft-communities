@@ -36,6 +36,7 @@ router.post("/updateTweets", async (req, res) => {
 router.get("/projects", async (req, res) => {
   try {
     const projects0 = await Project.aggregate([
+      { $match: { releaseDate: { $gt: new Date() } } }, // query within date range
       {
         // find trend matching this project
         $lookup: {
@@ -51,8 +52,11 @@ router.get("/projects", async (req, res) => {
           name: 1,
           campId: 1,
           articleId: 1,
+          releaseDate: 1,
           "trends.followingPercentChange": 1,
           "trends.followingChange": 1,
+          "trends.engagementPercentChange": 1,
+          "trends.engagementChange": 1,
           twitterFollowers: 1,
           twitterUrl: 1,
           twitterAverageTweetEngagement: 1,
@@ -60,17 +64,8 @@ router.get("/projects", async (req, res) => {
       },
     ])
       .sort("-trends.followingChange")
-      .limit(10);
-    // const projects = await Project.find({});
-    // const modified = await Promise.all(
-    //   projects.map(async (p) => {
-    //     const { followingChange, followingPercentChange } = await Trend.find({
-    //       project: p._id,
-    //     });
-    //     return { ...p._doc, followingPercentChange };
-    //   })
-    // );
-    // modified.sort((a, b) => a._id > b._id);
+      .limit(100);
+
     res.send(projects0);
   } catch (e) {
     sendError(e, res);
