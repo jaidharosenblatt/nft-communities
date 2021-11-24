@@ -17,28 +17,37 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        textAlign: "center",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <h1> MoveMint </h1>
       {projects.map((p, i) => (
-        <ul>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <a target="_blank" href={p.twitterUrl}>
             {p.name}
           </a>
-
-          <li>
+          <p>
             <b>Release date:</b> {p.releaseDate}
-          </li>
-          <li>
+          </p>
+          <p>
             <b> Twitter Followers: </b>
             {p.twitterFollowers}
-          </li>
-          <li>
+          </p>
+          <p>
             <b> Average Tweet Engagement:</b> {p.twitterAverageTweetEngagement}{" "}
-          </li>
-          <li>
-            <b>Following change: </b>+{p.trends.followingChange} ({p.trends.followingPercentChange}
-            %)
-          </li>
-        </ul>
+          </p>
+          <p>
+            <b>Following change: </b>
+            <span style={{ color: p.trends.followingChange > 0 ? "green" : "red" }}>
+              +{p.trends.followingChange}({p.trends.followingPercentChange} %)
+            </span>
+          </p>
+        </div>
       ))}
     </div>
   );

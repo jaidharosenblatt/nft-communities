@@ -2,6 +2,7 @@ const express = require("express");
 const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
+const { getParamVariable, sendError } = require("./util");
 
 const router = new express.Router();
 
@@ -34,13 +35,34 @@ router.post("/updateTweets", async (req, res) => {
 
 router.get("/projects", async (req, res) => {
   try {
+    const trendType = getParamVariable(req, "trendType", "allTrend", [
+      "dayTrend",
+      "weekTrend",
+      "monthTrend",
+      "allTrend",
+    ]);
+    const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", [
+      "twitterFollowers",
+      "trends.followingPercentChange",
+      "trends.engagementPercentChange",
+      "trends.followingChange",
+      "trends.engagementChange",
+      "releaseDate",
+      "name",
+      "twitterAverageTweetEngagement",
+      "twitterFollowers",
+    ]);
+
+    const sortDirection = req.query.sortDirection === "desc" ? -1 : 1;
+    const limit = req.query.limit || 100;
+
     const projects0 = await Project.aggregate([
       { $match: { releaseDate: { $gt: new Date() } } }, // query within date range
       {
         // find trend matching this project
         $lookup: {
           from: "trends",
-          localField: "allTrend",
+          localField: trendType,
           foreignField: "_id",
           as: "trends",
         },
@@ -49,9 +71,8 @@ router.get("/projects", async (req, res) => {
       {
         $project: {
           name: 1,
-          campId: 1,
-          articleId: 1,
           releaseDate: 1,
+          avatar: 1,
           "trends.followingPercentChange": 1,
           "trends.followingChange": 1,
           "trends.engagementPercentChange": 1,
@@ -62,22 +83,13 @@ router.get("/projects", async (req, res) => {
         },
       },
     ])
-      .sort("-trends.followingChange")
-      .limit(100);
+      .sort({ [sortBy]: sortDirection })
+      .limit(limit);
 
     res.send(projects0);
   } catch (e) {
     sendError(e, res);
   }
 });
-
-function sendError(e, res) {
-  if (process.env.DEBUG === "TRUE") {
-    console.error(e);
-  }
-  const code = e.code || 500;
-  res.status(code);
-  res.send(e.data);
-}
 
 module.exports = router;
