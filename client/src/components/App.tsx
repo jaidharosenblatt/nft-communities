@@ -1,7 +1,6 @@
-import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Project } from "../models/index";
+import { Project } from "../../models/index";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -55,10 +54,10 @@ function App(): JSX.Element {
 
   function covertAvatar(avatar: string): string {
     if (avatar.endsWith("png")) {
-      return avatar.split("_normal.png")[0] + "_bigger.png";
+      return avatar.split("_normal.png")[0] + ".png";
     }
     if (avatar.endsWith("jpg")) {
-      return avatar.split("_normal.jpg")[0] + "_bigger.jpg";
+      return avatar.split("_normal.jpg")[0] + ".jpg";
     }
     return "";
   }
