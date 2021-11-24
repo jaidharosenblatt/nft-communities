@@ -2,7 +2,7 @@ import axios from "axios";
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Project } from "../../models/index";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "./project-card/ProjectCard";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);

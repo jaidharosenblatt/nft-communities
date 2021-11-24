@@ -18,7 +18,7 @@ export interface Project {
   twitterAverageTweetEngagement?: number;
   twitterAverageNTweetEngagement?: number;
   twitterAverageEngagement: number;
-  trends?: Trend;
+  trends: Trend;
   __v?: number;
 }
 
