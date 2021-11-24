@@ -1,7 +1,7 @@
 export interface Project {
   _id: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
   momentLastUpdate?: string;
   releaseDate?: string;
   name: string;
@@ -13,13 +13,13 @@ export interface Project {
   discordUrl?: string;
   twitterId: string;
   avatar: string;
-  twitterFollowers: Number;
-  twitterAverageMentionEngagement: Number;
-  twitterAverageTweetEngagement: Number;
-  twitterAverageNTweetEngagement: Number;
-  twitterAverageEngagement: Number;
-  trends?: any;
-  __v: Number;
+  twitterFollowers: number;
+  twitterAverageMentionEngagement?: number;
+  twitterAverageTweetEngagement?: number;
+  twitterAverageNTweetEngagement?: number;
+  twitterAverageEngagement: number;
+  trends?: Trend;
+  __v?: number;
 }
 
 export interface Moment {
@@ -27,12 +27,12 @@ export interface Moment {
   createdAt: Date;
   updatedAt: Date;
   project: string;
-  twitterFollowers: Number;
-  twitterAverageMentionEngagement: Number;
-  twitterAverageTweetEngagement: Number;
-  twitterAverageNTweetEngagement: Number;
-  twitterAverageEngagement: Number;
-  __v: Number;
+  twitterFollowers: number;
+  twitterAverageMentionEngagement: number;
+  twitterAverageTweetEngagement: number;
+  twitterAverageNTweetEngagement: number;
+  twitterAverageEngagement: number;
+  __v: number;
 }
 
 enum timeEnum {
@@ -48,9 +48,11 @@ export interface Trend {
   updatedAt: Date;
   project: string;
   timePeriod: timeEnum;
-  startFollowers: Number;
-  endFollowers: Number;
-  followingChange: Number;
-  followingPercentChange: Number;
-  __v: Number;
+  startFollowers: number;
+  endFollowers: number;
+  followingChange: number;
+  followingPercentChange: number;
+  engagementChange: number;
+  engagementPercentChange: number;
+  __v: number;
 }
