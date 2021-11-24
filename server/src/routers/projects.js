@@ -41,7 +41,7 @@ router.get("/projects", async (req, res) => {
       "monthTrend",
       "allTrend",
     ]);
-    const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", [
+    const allowedFields = [
       "twitterFollowers",
       "trends.followingPercentChange",
       "trends.engagementPercentChange",
@@ -51,7 +51,8 @@ router.get("/projects", async (req, res) => {
       "name",
       "twitterAverageTweetEngagement",
       "twitterFollowers",
-    ]);
+    ];
+    const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
 
     const sortDirection = req.query.sortDirection === "desc" ? -1 : 1;
     const limit = req.query.limit || 100;
@@ -63,15 +64,17 @@ router.get("/projects", async (req, res) => {
     // add in query specified dates (can be in any Date format that JS accepts)
     if (req.query.startDate) {
       const parsedStartDate = new Date(req.query.startDate);
+      parsedStartDate.setDate(parsedStartDate.getDate() - 1); //add one to end date to include that day's drops
       startDate = isValidDate(parsedStartDate) && parsedStartDate;
     }
     if (req.query.endDate) {
       const parsedEndDate = new Date(req.query.endDate);
       endDate = isValidDate(parsedEndDate) && parsedEndDate;
     }
-
+    const filters = req.query.filters ? JSON.parse(req.query.filters) : {};
     const projects0 = await Project.aggregate([
-      { $match: { releaseDate: { $gte: startDate, $lte: endDate } } }, // query within date range
+      { $match: { releaseDate: { $gte: startDate, $lt: endDate } } }, // query within date range
+      { $match: filters },
       {
         // find trend matching this project
         $lookup: {
@@ -87,6 +90,7 @@ router.get("/projects", async (req, res) => {
           name: 1,
           releaseDate: 1,
           avatar: 1,
+          avatarLarge: 1,
           "trends.followingPercentChange": 1,
           "trends.followingChange": 1,
           "trends.engagementPercentChange": 1,

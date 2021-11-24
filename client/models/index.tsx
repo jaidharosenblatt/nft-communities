@@ -1,9 +1,9 @@
 export interface Project {
   _id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  momentLastUpdate?: Date;
-  releaseDate?: Date;
+  createdAt: string;
+  updatedAt: string;
+  momentLastUpdate?: string;
+  releaseDate?: string;
   name: string;
   description?: string;
   twitter: string;
