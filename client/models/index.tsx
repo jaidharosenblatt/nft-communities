@@ -1,31 +1,32 @@
 export interface Project {
-  _id: String;
+  _id: string;
   createdAt: Date;
   updatedAt: Date;
   momentLastUpdate?: Date;
   releaseDate?: Date;
-  name: String;
-  description?: String;
-  twitter: String;
-  discord?: String;
-  website?: String;
-  twitterUrl: String;
-  discordUrl?: String;
-  twitterId: String;
-  avatar: String;
+  name: string;
+  description?: string;
+  twitter: string;
+  discord?: string;
+  website?: string;
+  twitterUrl: string;
+  discordUrl?: string;
+  twitterId: string;
+  avatar: string;
   twitterFollowers: Number;
   twitterAverageMentionEngagement: Number;
   twitterAverageTweetEngagement: Number;
   twitterAverageNTweetEngagement: Number;
   twitterAverageEngagement: Number;
+  trends?: any;
   __v: Number;
 }
 
 export interface Moment {
-  _id: String;
+  _id: string;
   createdAt: Date;
   updatedAt: Date;
-  project: String;
+  project: string;
   twitterFollowers: Number;
   twitterAverageMentionEngagement: Number;
   twitterAverageTweetEngagement: Number;
@@ -42,10 +43,10 @@ enum timeEnum {
 }
 
 export interface Trend {
-  _id: String;
+  _id: string;
   createdAt: Date;
   updatedAt: Date;
-  project: String;
+  project: string;
   timePeriod: timeEnum;
   startFollowers: Number;
   endFollowers: Number;

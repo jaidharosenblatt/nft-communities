@@ -17,8 +17,9 @@ const port = process.env.PORT;
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+
+app.use(express.json());
 app.use(projectsRouter, trendsRouter);
 cron.schedule("*/30 * * * *", everyThirtyMins);
 cron.schedule("0 8 * * *", everyDay);
