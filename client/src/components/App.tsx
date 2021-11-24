@@ -3,6 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Project } from "../../models/index";
 import ProjectCard from "./project-card/ProjectCard";
+import { Space, Row } from "antd";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -26,16 +27,16 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <div className="container">
+      <h1>
+        Move<span style={{ color: "#3CD184" }}>mint</span>
+      </h1>
       <div className="projects-holder">
-        <h1>
-          Move<span style={{ color: "#3CD184" }}>mint</span>
-        </h1>
-        {projects.length} Projects
         {projects.map((p: Project) => (
           <ProjectCard key={p._id} project={p} />
         ))}
       </div>
+      {projects.length} Projects
     </div>
   );
 }
