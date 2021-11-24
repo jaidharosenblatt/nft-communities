@@ -1,6 +1,6 @@
-import { Card } from "antd";
-import React from "react";
+import "./ProjectCard.css";
 import { Project } from "../../models";
+import { IoBrowsers, IoLogoTwitter, IoLogoDiscord } from "react-icons/io5";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
@@ -12,7 +12,7 @@ export default function ProjectCard({ project }: Props) {
   }
 
   function getChangeStyle(change: Number): Object {
-    let color = "black";
+    let color = "#434343";
     if (change > 0) color = "green";
     if (change < 0) color = "red";
 
@@ -35,15 +35,54 @@ export default function ProjectCard({ project }: Props) {
     }
     return "";
   }
-
+  const truncatedN = 28;
+  const truncatedName =
+    project.name.length > truncatedN ? project.name.slice(0, truncatedN - 3) + "..." : project.name;
   return (
-    <Card>
-      <p>{project.name}</p>
-      <img src={covertAvatar(project.avatar)} />
+    <div className="project-card">
+      <div className="header">
+        <img src={covertAvatar(project.avatar)} />
+        <div className="title">
+          <h2>{truncatedName}</h2>
+          <div className="social">
+            <a target="_blank" href={project.twitterUrl}>
+              <IoLogoTwitter color="#434343" size="24px" />
+            </a>
+            {project.website && (
+              <a target="_blank" href={project.website}>
+                <IoBrowsers color="#434343" size="24px" />
+              </a>
+            )}
+            {project.discordUrl && (
+              <a target="_blank" href={project.discordUrl}>
+                <IoLogoDiscord color="#434343" size="24px" />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
       <p>{getDateFromString(project.releaseDate)}</p>
-      <p style={getChangeStyle(project.trends!.followingChange)}>
-        {getChangeString(project.trends!.followingChange, project.trends!.followingPercentChange)}
-      </p>
-    </Card>
+      <div className="stats-row">
+        <div className="stat">
+          <p className="caption"> Followers</p>
+          <p style={getChangeStyle(project.trends!.followingChange)}>
+            {getChangeString(
+              project.trends!.followingChange,
+              project.trends!.followingPercentChange
+            )}
+          </p>
+        </div>
+        <div className="stat">
+          <p className="caption"> Average Likes</p>
+          <p style={getChangeStyle(project.trends!.engagementChange)}>
+            {getChangeString(
+              project.trends!.engagementChange,
+              project.trends!.engagementPercentChange
+            )}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -91,6 +91,8 @@ router.get("/projects", async (req, res) => {
           releaseDate: 1,
           avatar: 1,
           avatarLarge: 1,
+          website: 1,
+          discordUrl: 1,
           "trends.followingPercentChange": 1,
           "trends.followingChange": 1,
           "trends.engagementPercentChange": 1,

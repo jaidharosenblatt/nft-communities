@@ -1,0 +1,34 @@
+.project-card {
+  border: #fafafa solid;
+  border-radius: 10px;
+  min-width: 500px;
+  padding: 24px;
+  margin: 12px;
+}
+
+.project-card .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.project-card .social svg {
+  padding: 0px 4px;
+  cursor: pointer;
+}
+
+.project-card .stats-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.project-card .stats-row .stat {
+  margin: 4px;
+}
+
+.project-card img {
+  border-radius: 100px;
+  padding: 12px;
+  width: 80px;
+  height: 80px;
+}

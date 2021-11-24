@@ -1,4 +1,5 @@
 import axios from "axios";
+import "./App.css";
 import { useEffect, useState } from "react";
 import { Project } from "../../models/index";
 import ProjectCard from "./ProjectCard";
@@ -25,21 +26,16 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div>
       <h1>
-        Move<span style={{ color: "green" }}>mint</span> 🌿
+        Move<span style={{ color: "#3CD184" }}>mint</span>
       </h1>
-      {projects.length}
-      {projects.map((p: Project) => (
-        <ProjectCard key={p._id} project={p} />
-      ))}
+      <div className="projects-holder">
+        {projects.length} Projects
+        {projects.map((p: Project) => (
+          <ProjectCard key={p._id} project={p} />
+        ))}
+      </div>
     </div>
   );
 }
