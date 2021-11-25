@@ -3,7 +3,6 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Project } from "../models/index";
 import ProjectCard from "./project-card/ProjectCard";
-import { Col, Space } from "antd";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -16,7 +15,7 @@ function App(): JSX.Element {
         sortBy,
         sortDirection: sortDirectionIsDesc ? "desc" : "asc",
         filters: { twitterFollowers: { $gte: 10000 } },
-        startDate: new Date().toString(),
+        // startDate: new Date().toString(),
       },
     });
     const p: Project[] = res.data;

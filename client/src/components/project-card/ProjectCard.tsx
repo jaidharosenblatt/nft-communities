@@ -2,17 +2,10 @@ import "./ProjectCard.css";
 import { Project } from "../../models";
 import Stat from "./Stat";
 import Socials from "./Socials";
-import { Info } from "./Info";
+import DateTopper from "./DateTopper";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
-  function getDateFromString(date: string | undefined) {
-    if (!date) {
-      return date;
-    }
-    return new Date(date).toDateString();
-  }
-
   function covertAvatar(avatar: string): string {
     if (avatar.endsWith("png")) {
       return avatar.split("_normal.png")[0] + ".png";
@@ -27,12 +20,17 @@ export default function ProjectCard({ project }: Props) {
     project.name.length > truncatedN ? project.name.slice(0, truncatedN - 3) + "..." : project.name;
   return (
     <div className="project-card">
+      <DateTopper date={project.releaseDate} />
+
       <div className="header">
-        <img src={covertAvatar(project.avatar)} />
+        <img alt={`${project.name} Twitter Avatar`} src={covertAvatar(project.avatar)} />
         <div>
           <h2>{truncatedName}</h2>
           <Socials size={24} color="black" project={project} />
           <p>{project.twitterFollowers.toLocaleString()} followers</p>
+          <p className="caption">
+            {project.twitterAverageTweetEngagement?.toLocaleString()} average likes
+          </p>
         </div>
       </div>
 
