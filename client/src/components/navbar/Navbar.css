@@ -18,6 +18,13 @@
   position: fixed;
 }
 
+.navbar .row .right {
+  right: 0;
+  top: 0;
+  padding: var(--padding-large);
+  position: fixed;
+}
+
 @media only screen and (max-width: 600) {
   .navbar .row {
     width: 100%;
