@@ -1,0 +1,8 @@
+.icon-text {
+  display: flex;
+  align-items: center;
+}
+
+.icon-text p {
+  margin-left: var(--padding-small);
+}
