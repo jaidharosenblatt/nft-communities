@@ -55,7 +55,7 @@ router.get("/projects", async (req, res) => {
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
 
     const sortDirection = req.query.sortDirection === "desc" ? -1 : 1;
-    const limit = req.query.limit || 100;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
     // start in make range
     let startDate = new Date(-8640000000000000);
@@ -72,7 +72,7 @@ router.get("/projects", async (req, res) => {
       endDate = isValidDate(parsedEndDate) && parsedEndDate;
     }
     const filters = req.query.filters ? JSON.parse(req.query.filters) : {};
-    const projects0 = await Project.aggregate([
+    const q = await Project.aggregate([
       { $match: { releaseDate: { $gte: startDate, $lt: endDate } } }, // query within date range
       { $match: filters },
       {
@@ -102,11 +102,16 @@ router.get("/projects", async (req, res) => {
           twitterAverageTweetEngagement: 1,
         },
       },
-    ])
-      .sort({ [sortBy]: sortDirection })
-      .limit(limit);
-
-    res.send(projects0);
+      {
+        $facet: {
+          count: [{ $count: "count" }],
+          projects: [{ $limit: limit }],
+        },
+      },
+    ]).sort({ [sortBy]: sortDirection });
+    const projects = q[0].projects;
+    const { count } = q[0].count[0];
+    res.send({ projects, count });
   } catch (e) {
     sendError(e, res);
   }
