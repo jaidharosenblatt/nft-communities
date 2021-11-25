@@ -1,0 +1,8 @@
+.navbar {
+  width: 100vw;
+  height: 80px;
+  position: fixed;
+  background-color: white;
+  box-shadow: 20px 0px 20px white;
+  text-align: right;
+}

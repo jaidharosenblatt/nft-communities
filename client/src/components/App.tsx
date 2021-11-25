@@ -3,6 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Project } from "../models/index";
 import ProjectCard from "./project-card/ProjectCard";
+import Navbar from "./navbar/Navbar";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -28,7 +29,7 @@ function App(): JSX.Element {
   return (
     <div className="grid">
       <div className="filters" />
-      <div className="navbar" />
+      <Navbar projectsLength={projects.length} />
       <div className="projects-holder">
         {projects.map((p: Project) => (
           <ProjectCard key={p._id} project={p} />
