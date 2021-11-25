@@ -3,7 +3,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Project } from "../../models/index";
 import ProjectCard from "./project-card/ProjectCard";
-import { Space, Row } from "antd";
+import { Col, Space } from "antd";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -27,16 +27,14 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <div className="container">
-      <h1>
-        Move<span style={{ color: "#3CD184" }}>mint</span>
-      </h1>
+    <div className="grid">
+      <div className="filters" />
+      <div className="navbar" />
       <div className="projects-holder">
         {projects.map((p: Project) => (
           <ProjectCard key={p._id} project={p} />
         ))}
       </div>
-      {projects.length} Projects
     </div>
   );
 }
