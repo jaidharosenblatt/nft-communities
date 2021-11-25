@@ -29,7 +29,7 @@ export default function ProjectCard({ project }: Props) {
           <Socials size={24} color="black" project={project} />
           <p>{project.twitterFollowers.toLocaleString()} followers</p>
           <p className="caption">
-            {project.twitterAverageTweetEngagement?.toLocaleString()} average likes
+            {project.twitterAverageTweetEngagement?.toLocaleString()} average tweet likes
           </p>
         </div>
       </div>
@@ -43,7 +43,7 @@ export default function ProjectCard({ project }: Props) {
           percentage={project.trends!.followingPercentChange}
         />
         <Stat
-          caption="Average Likes"
+          caption="Average Tweet Likes"
           change={project.trends!.engagementChange}
           percentage={project.trends!.engagementPercentChange}
         />
