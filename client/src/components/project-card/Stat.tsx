@@ -1,4 +1,4 @@
-import { Trend } from "../../../models";
+import { Trend } from "../../models";
 
 type Props = { caption: string; change: number; percentage: number };
 export default function Stat({ caption, change, percentage }: Props) {

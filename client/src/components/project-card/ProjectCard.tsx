@@ -1,5 +1,5 @@
 import "./ProjectCard.css";
-import { Project } from "../../../models";
+import { Project } from "../../models";
 import Stat from "./Stat";
 import Socials from "./Socials";
 import { Info } from "./Info";

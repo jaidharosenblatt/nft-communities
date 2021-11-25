@@ -1,5 +1,5 @@
 import { IoBrowsers, IoLogoTwitter, IoLogoDiscord } from "react-icons/io5";
-import { Project } from "../../../models";
+import { Project } from "../../models";
 
 type Props = { project: Project; color: string; size: number };
 export default function Socials({ project, color, size }: Props) {
