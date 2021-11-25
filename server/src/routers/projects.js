@@ -53,7 +53,6 @@ router.get("/projects", async (req, res) => {
       "twitterFollowers",
     ];
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
-
     const sortDirection = req.query.sortDirection === "desc" ? -1 : 1;
     const limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
@@ -102,13 +101,14 @@ router.get("/projects", async (req, res) => {
           twitterAverageTweetEngagement: 1,
         },
       },
+      { $sort: { [sortBy]: sortDirection } },
       {
         $facet: {
           count: [{ $count: "count" }],
           projects: [{ $limit: limit }],
         },
       },
-    ]).sort({ [sortBy]: sortDirection });
+    ]);
     const projects = q[0].projects;
     const { count } = q[0].count[0];
     res.send({ projects, count });

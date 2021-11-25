@@ -14,11 +14,11 @@ function App(): JSX.Element {
   async function getData() {
     const res = await axios.get("http://localhost:5000/projects", {
       params: {
-        sortBy,
+        sortBy: "twitterFollowers",
         sortDirection: sortDirectionIsDesc ? "desc" : "asc",
-        filters: { twitterFollowers: { $gte: 0 } },
+        filters: { twitterFollowers: { $gte: 1000 } },
         limit: 10,
-        // startDate: new Date().toString(),
+        startDate: new Date().toString(),
       },
     });
     const p: Project[] = res.data.projects;

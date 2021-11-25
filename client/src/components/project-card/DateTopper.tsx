@@ -13,8 +13,10 @@ export default function DateTopper({ date }: Props) {
     let daysAgo;
     if (days < 0) {
       daysAgo = Math.abs(days).toFixed(0) + " days ago";
+    } else if (days === 1) {
+      daysAgo = "Tomorrow";
     } else if (days > 0) {
-      daysAgo = "In" + days.toFixed(0) + " days";
+      daysAgo = "In " + days.toFixed(0) + " days";
     } else {
       daysAgo = "Today";
     }

@@ -1,6 +1,7 @@
-import { Collapse, DatePicker, Radio, Space } from "antd";
+import { Collapse } from "antd";
 import { IoFilter } from "react-icons/io5";
-import TimePeriodSelector from "../form/TimePeriodSelector";
+import { FaSort } from "react-icons/fa";
+
 import IconText from "../util/IconText";
 import "./Filters.css";
 export default function Filters() {
@@ -9,21 +10,12 @@ export default function Filters() {
   return (
     <div className="filters">
       <div className="wrapper">
-        <Collapse ghost bordered={false}>
-          <p>Time Period</p>
-
-          <IconText
-            color="var(--primary-text)"
-            icon={<IoFilter size={18} />}
-            text={<h2>Filter</h2>}
-          />
-          <Panel header="Release Date" key="0">
-            <DatePicker />
-          </Panel>
-          <Panel header="Trends" key="1">
-            <DatePicker />
-          </Panel>
-        </Collapse>
+        <IconText color="var(--primary-text)" icon={<FaSort size={18} />} text={<h2>Sort</h2>} />
+        <IconText
+          color="var(--primary-text)"
+          icon={<IoFilter size={18} />}
+          text={<h2>Filter</h2>}
+        />
       </div>
     </div>
   );
