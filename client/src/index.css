@@ -1,12 +1,15 @@
 :root {
-  --blue: #1e90ff;
-  --white: #ffffff;
-  --navbar-height: 80px;
+  --primary: #3cd184;
+  --green: #3cd184;
+  --red: #f5222d;
+  --gray-0: #8c8c8c;
+  --navbar-height: 70px;
   --filters-width: 300px;
   --vh-navbar: calc(100vh - var(--navbar-height));
-  --vw-navbar: calc(100vw - var(--navbar-width));
+  --vw-filters: calc(100vw - var(--filters-width));
   --card-width: 400px;
   --padding-large: 24px;
+  --padding-medium: 12px;
 }
 
 body {
@@ -22,7 +25,7 @@ code {
 }
 
 p.caption {
-  color: #8c8c8c;
+  color: var(--gray-0);
 }
 
 h2 {

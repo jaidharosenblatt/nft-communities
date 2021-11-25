@@ -1,24 +1,21 @@
 .navbar {
   width: 100vw;
   height: var(--navbar-height);
+
   position: fixed;
   background-color: white;
   box-shadow: 10px 0px 50px white;
-  text-align: right;
 }
-
-.navbar .wrapper {
-  width: 100%;
-  height: 100%;
+.navbar .row {
   display: flex;
+  padding: var(--padding-medium) var(--padding-large);
   align-items: center;
 }
 
-.navbar .wrapper .body {
-  padding: var(--padding-large);
-  width: var(--vw-navbar);
-  float: right;
-  text-align: left;
+.navbar .row .body {
+  width: calc(var(--vw-filters) - var(--padding-large));
+  right: 0;
+  position: fixed;
 }
 
 @media only screen and (max-width: 600px) {

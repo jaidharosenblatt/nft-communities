@@ -8,9 +8,9 @@ export default function Stat({ caption, change, percentage }: Props) {
   }
 
   function getChangeStyle(change: Number): Object {
-    let color = "#434343";
-    if (change > 0) color = "green";
-    if (change < 0) color = "red";
+    let color = "var(--gray-0)";
+    if (change > 0) color = "var(--green)";
+    if (change < 0) color = "var(--red)";
 
     return { color };
   }
