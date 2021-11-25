@@ -1,13 +1,15 @@
 .filters {
   width: var(--filters-width);
   position: fixed;
-  height: var(--vh-navbar);
+  height: calc(var(--vh-navbar));
   bottom: 0px;
+  z-index: 2;
+  border: var(--card-border);
+  background-color: var(--card-fill);
 }
 
 .filters .wrapper {
   display: flex;
-  align-items: center;
   flex-direction: column;
   padding: var(--padding-large);
 }

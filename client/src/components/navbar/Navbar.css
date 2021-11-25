@@ -1,10 +1,10 @@
 .navbar {
   width: 100vw;
   height: var(--navbar-height);
-
+  border-bottom: var(--card-border);
   position: fixed;
-  background-color: white;
-  box-shadow: 10px 0px 50px white;
+  background-color: var(--card-fill);
+  box-shadow: 10px 0px 50px var(--card-fill);
 }
 .navbar .row {
   display: flex;
@@ -18,8 +18,8 @@
   position: fixed;
 }
 
-@media only screen and (max-width: 600px) {
-  .navbar .wrapper {
+@media only screen and (max-width: 600) {
+  .navbar .row {
     width: 100%;
   }
 }

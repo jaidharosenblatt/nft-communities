@@ -10,7 +10,7 @@ export default function Navbar({ projectsLength }: Params) {
           Move<span style={{ color: "var(--primary)" }}>mint</span>
         </h1>
         <div className="body">
-          <p className="caption">{projectsLength} projects found</p>
+          <p className="caption">{projectsLength} collections found</p>
         </div>
       </div>
     </div>

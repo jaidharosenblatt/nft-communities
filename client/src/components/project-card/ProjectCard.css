@@ -1,7 +1,8 @@
 .project-card {
-  border: #fafafa solid;
-  border-radius: 10px;
-  padding: 24px;
+  background-color: var(--card-fill);
+  border-radius: var(--border-radius);
+  padding: var(--padding-large);
+  border: var(--card-border);
 }
 
 .project-card .header {
@@ -12,7 +13,7 @@
 }
 
 .project-card .social svg {
-  padding: 0px 4px;
+  padding: 0px var(--padding-small);
   cursor: pointer;
 }
 
@@ -22,12 +23,12 @@
 }
 
 .project-card .stats-row .info {
-  margin: 4px;
+  margin: var(--padding-small);
 }
 
 .project-card img {
   border-radius: 100px;
-  padding: 12px;
+  padding: var(--padding-medium);
   width: 100px;
   height: 100px;
 }
