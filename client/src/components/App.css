@@ -1,28 +1,20 @@
 .projects-holder {
   display: grid;
   grid-gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
   grid-column-start: 2;
   grid-row-start: 2;
-  padding: 24px;
+  padding: var(--padding-large);
 }
 
 .container {
-  padding: 24px;
-}
-
-.filters {
-  width: 300px;
-  position: fixed;
-  background-color: red;
-  height: 100vh;
-  z-index: 2;
+  padding: var(--padding-large);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 300px auto;
-  grid-template-rows: 80px auto;
+  grid-template-columns: var(--filters-width) auto;
+  grid-template-rows: var(--navbar-height) auto;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,3 +1,14 @@
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+  --navbar-height: 80px;
+  --filters-width: 300px;
+  --vh-navbar: calc(100vh - var(--navbar-height));
+  --vw-navbar: calc(100vw - var(--navbar-width));
+  --card-width: 400px;
+  --padding-large: 24px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
@@ -22,4 +33,8 @@ h2 {
 p {
   padding: 0;
   margin: 4px;
+}
+
+h1 {
+  margin: 0;
 }

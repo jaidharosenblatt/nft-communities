@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Project } from "../models/index";
 import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
+import Filters from "./filters/Filters";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -30,7 +31,7 @@ function App(): JSX.Element {
 
   return (
     <div className="grid">
-      <div className="filters" />
+      <Filters />
       <Navbar projectsLength={count} />
       <div className="projects-holder">
         {projects.map((p: Project) => (

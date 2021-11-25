@@ -34,7 +34,6 @@ export default function ProjectCard({ project }: Props) {
         </div>
       </div>
 
-      {/* <p>{getDateFromString(project.releaseDate)}</p> */}
       <p>Since Yesterday</p>
       <div className="stats-row">
         <Stat

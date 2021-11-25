@@ -1,0 +1,13 @@
+.filters {
+  width: var(--filters-width);
+  position: fixed;
+  height: var(--vh-navbar);
+  z-index: 2;
+}
+
+.filters .wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: var(--padding-large);
+}
