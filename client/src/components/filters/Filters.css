@@ -11,5 +11,12 @@
 .filters .wrapper {
   display: flex;
   flex-direction: column;
-  padding: var(--padding-large);
+  padding: var(--padding-medium);
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding: 0;
+}
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  margin-right: var(--padding-small);
 }

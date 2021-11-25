@@ -1,3 +1,5 @@
+@import "~antd/dist/antd.css";
+
 :root {
   --primary: #3cd184;
   --primary-text: #262626;
@@ -17,7 +19,6 @@
   --padding-medium: 12px;
   --padding-small: 4px;
   --border-radius: 12px;
-  --mobile: 580px;
 }
 
 body {
@@ -39,13 +40,13 @@ p.caption {
 }
 
 h2 {
-  margin: 4px;
+  margin: 0 var(--padding-small);
   font-size: 20px;
 }
 
 p {
   padding: 0;
-  margin: 4px;
+  margin: 0 var(--padding-small);
 }
 
 h1 {
