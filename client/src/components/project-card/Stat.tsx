@@ -10,7 +10,7 @@ export default function Stat({ caption, current, change, percentage }: Props) {
   }
 
   function getChangeStyle(change: Number): Object {
-    let color = "var(--gray-0)";
+    let color = "var(--gray-1)";
     if (change > 0) color = "var(--green)";
     if (change < 0) color = "var(--red)";
 
@@ -20,7 +20,7 @@ export default function Stat({ caption, current, change, percentage }: Props) {
     <LeftRightRow
       left={
         <p>
-          <span style={{ color: "var(--gray-0)" }}>{caption}:</span> {current?.toLocaleString()}
+          {caption}: <span style={{ color: "var(--gray-0)" }}>{current?.toLocaleString()}</span>
         </p>
       }
       right={<p style={getChangeStyle(change)}>{getChangeString(change, percentage)}</p>}

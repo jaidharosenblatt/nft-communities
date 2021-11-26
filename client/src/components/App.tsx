@@ -5,6 +5,7 @@ import { Project } from "../models/index";
 import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
+import SortSelector from "./form/SortSelector";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
