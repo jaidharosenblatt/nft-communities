@@ -21,7 +21,7 @@
 .navbar .row .right {
   right: 0;
   top: 0;
-  padding: var(--padding-large);
+  padding: var(--padding-medium) var(--padding-large);
   position: fixed;
 }
 

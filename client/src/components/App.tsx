@@ -5,20 +5,19 @@ import { Project } from "../models/index";
 import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
-import SortSelector from "./form/SortSelector";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
   const [sortBy, setSortBy] = useState<string>("twitterFollowers");
-  const [sortDirectionIsDesc, setSortDirectionIsDesc] = useState<boolean>(true);
+  const [sortDirectionIsDesc, setSortDirectionIsDesc] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   async function getData() {
     const res = await axios.get("http://localhost:5000/projects", {
       params: {
-        sortBy: "twitterFollowers",
+        sortBy: "releaseDate",
         sortDirection: sortDirectionIsDesc ? "desc" : "asc",
-        filters: { twitterFollowers: { $gte: 1000 } },
-        limit: 10,
+        filters: { twitterFollowers: { $gte: 5000 } },
+        limit: 100,
         startDate: new Date().toString(),
       },
     });
