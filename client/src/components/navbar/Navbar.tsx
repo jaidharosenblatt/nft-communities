@@ -1,4 +1,3 @@
-import TimePeriodSelector from "../form/TimePeriodSelector";
 import "./Navbar.css";
 import Mint from "../../static/mint.svg";
 import { IoLogoTwitter } from "react-icons/io5";
@@ -6,7 +5,7 @@ import IconText from "../util/IconText";
 import { useAppSelector } from "../../redux/hooks";
 
 export default function Navbar() {
-  const count = useAppSelector((state) => state.collections.count);
+  const count = useAppSelector((state) => state.projects.count);
 
   return (
     <div className="navbar">
@@ -14,7 +13,11 @@ export default function Navbar() {
         <h1>
           Move<span style={{ color: "var(--primary)" }}>mint</span>
         </h1>
-        <img style={{ width: 20, height: 20, marginLeft: "var(--padding-small)" }} src={Mint} />
+        <img
+          alt="logo"
+          style={{ width: 20, height: 20, marginLeft: "var(--padding-small)" }}
+          src={Mint}
+        />
         <div className="body">
           <div className="right">
             Updates and Feedback
