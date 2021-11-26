@@ -1,7 +1,6 @@
 import axios from "axios";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { Project } from "../models/index";
 import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";

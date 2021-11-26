@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Project } from "../../models";
 
 // Define a type for the slice state
 interface ProjectsState {
@@ -28,5 +27,3 @@ export const projectsSlice = createSlice({
 });
 
 export const { setTimePeriod } = projectsSlice.actions;
-
-export default projectsSlice.reducer;

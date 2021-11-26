@@ -1,4 +1,4 @@
-export interface Project {
+interface Project {
   _id: string;
   createdAt?: string;
   updatedAt?: string;
@@ -22,7 +22,7 @@ export interface Project {
   __v?: number;
 }
 
-export interface Moment {
+interface Moment {
   _id: string;
   createdAt: Date;
   updatedAt: Date;
@@ -42,7 +42,7 @@ enum timeEnum {
   all = "all",
 }
 
-export interface Trend {
+interface Trend {
   _id: string;
   createdAt: Date;
   updatedAt: Date;

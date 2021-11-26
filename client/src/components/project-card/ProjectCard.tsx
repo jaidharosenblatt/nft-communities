@@ -1,5 +1,4 @@
 import "./ProjectCard.css";
-import { Project } from "../../models";
 import Stat from "./Stat";
 import Socials from "./Socials";
 import DateTopper from "./DateTopper";
