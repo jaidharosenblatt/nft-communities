@@ -2,4 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { projectsSlice } from "./projects";
 
-export default configureStore({ reducer: projectsSlice.reducer });
+export const store = configureStore({ reducer: { collections: projectsSlice.reducer } });
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;

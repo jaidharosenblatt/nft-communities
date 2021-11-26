@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
+import { useAppDispatch } from "../redux/hooks";
+import { setCount } from "../redux/projects";
 
 function App(): JSX.Element {
   const [projects, setProjects] = useState<Project[]>([]);
   const [sortBy, setSortBy] = useState<string>("twitterFollowers");
   const [sortDirectionIsDesc, setSortDirectionIsDesc] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
+  const dispatch = useAppDispatch();
+
   async function getData() {
     const res = await axios.get("http://localhost:5000/projects", {
       params: {
@@ -20,8 +23,8 @@ function App(): JSX.Element {
         startDate: new Date().toString(),
       },
     });
+    dispatch(setCount(res.data.count));
     const p: Project[] = res.data.projects;
-    setCount(res.data.count);
     setProjects(p);
   }
   useEffect(() => {
@@ -31,7 +34,7 @@ function App(): JSX.Element {
   return (
     <div className="grid">
       <Filters />
-      <Navbar projectsLength={count} />
+      <Navbar />
       <div className="projects-holder">
         {projects.map((p: Project) => (
           <ProjectCard key={p._id} project={p} />

@@ -17,7 +17,7 @@ export const projectsSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setTimePeriod: (state, action: PayloadAction<Project[]>) => {
+    setProjects: (state, action: PayloadAction<Project[]>) => {
       state.projects = action.payload;
     },
     setCount: (state, action: PayloadAction<number>) => {
@@ -26,4 +26,4 @@ export const projectsSlice = createSlice({
   },
 });
 
-export const { setTimePeriod } = projectsSlice.actions;
+export const { setProjects, setCount } = projectsSlice.actions;

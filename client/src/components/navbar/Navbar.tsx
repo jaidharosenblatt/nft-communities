@@ -3,9 +3,11 @@ import "./Navbar.css";
 import Mint from "../../static/mint.svg";
 import { IoLogoTwitter } from "react-icons/io5";
 import IconText from "../util/IconText";
-type Params = { projectsLength: number };
+import { useAppSelector } from "../../redux/hooks";
 
-export default function Navbar({ projectsLength }: Params) {
+export default function Navbar() {
+  const count = useAppSelector((state) => state.collections.count);
+
   return (
     <div className="navbar">
       <div className="row">
@@ -20,7 +22,7 @@ export default function Navbar({ projectsLength }: Params) {
               <IconText color="var(--primary)" icon={<IoLogoTwitter />} text={<p>@jaidharo</p>} />
             </a>
           </div>
-          <p className="caption">{projectsLength} collections found</p>
+          <p className="caption">{count} collections found</p>
         </div>
       </div>
     </div>
