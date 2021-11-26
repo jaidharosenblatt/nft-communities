@@ -19,11 +19,7 @@
 
 .project-card .stats-row {
   display: flex;
-  flex-direction: row;
-}
-
-.project-card .stats-row .info {
-  margin: var(--padding-small);
+  flex-direction: column;
 }
 
 .project-card img {

@@ -110,7 +110,7 @@ function percentIncrease(start, end) {
   } else if (start === 0 || end === 0) {
     percent = undefined;
   } else {
-    percent = ((change / start) * 100).toFixed(2);
+    percent = ((change / start) * 100).toFixed(1);
   }
 
   return { percent, change };

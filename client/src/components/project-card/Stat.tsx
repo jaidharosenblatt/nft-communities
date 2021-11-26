@@ -1,5 +1,7 @@
-type Props = { caption: string; change: number; percentage: number };
-export default function Stat({ caption, change, percentage }: Props) {
+import LeftRightRow from "../util/LeftRightRow";
+
+type Props = { caption: string; current: number; change: number; percentage: number };
+export default function Stat({ caption, current, change, percentage }: Props) {
   function getChangeString(change: Number, percent: Number): String {
     if (change === 0) {
       return "0";
@@ -15,9 +17,13 @@ export default function Stat({ caption, change, percentage }: Props) {
     return { color };
   }
   return (
-    <div className="info">
-      <p className="caption"> {caption}</p>
-      <p style={getChangeStyle(change)}>{getChangeString(change, percentage)}</p>
-    </div>
+    <LeftRightRow
+      left={
+        <p>
+          <span style={{ color: "var(--gray-0)" }}>{caption}:</span> {current?.toLocaleString()}
+        </p>
+      }
+      right={<p style={getChangeStyle(change)}>{getChangeString(change, percentage)}</p>}
+    />
   );
 }

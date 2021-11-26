@@ -6,3 +6,16 @@
 .icon-text p {
   margin-left: var(--padding-small);
 }
+
+.left-right-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-right-row .left {
+  margin-right: auto;
+}
+
+.left-right-row .right {
+  margin-left: auto;
+}

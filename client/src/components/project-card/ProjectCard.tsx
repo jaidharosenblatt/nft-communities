@@ -26,23 +26,20 @@ export default function ProjectCard({ project }: Props) {
         <img alt={`${project.name} Twitter Avatar`} src={covertAvatar(project.avatar)} />
         <div>
           <h2>{truncatedName}</h2>
-          <Socials size={30} color="var(--primary-text)" project={project} />
-          <p>{project.twitterFollowers.toLocaleString()} followers</p>
-          <p className="caption">
-            {project.twitterAverageTweetEngagement?.toLocaleString()} average tweet likes
-          </p>
+          <Socials size={30} project={project} />
         </div>
       </div>
 
-      <p>Since Yesterday</p>
       <div className="stats-row">
         <Stat
           caption="Followers"
+          current={project.twitterFollowers}
           change={project.trends!.followingChange}
           percentage={project.trends!.followingPercentChange}
         />
         <Stat
           caption="Average Tweet Likes"
+          current={project.twitterAverageTweetEngagement!}
           change={project.trends!.engagementChange}
           percentage={project.trends!.engagementPercentChange}
         />

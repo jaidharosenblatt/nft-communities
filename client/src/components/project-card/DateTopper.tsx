@@ -12,13 +12,13 @@ export default function DateTopper({ date }: Props) {
 
     let daysAgo;
     if (days < 0) {
-      daysAgo = Math.abs(days).toFixed(0) + " days ago";
+      daysAgo = "Minted " + Math.abs(days).toFixed(0) + " days ago";
     } else if (days === 1) {
-      daysAgo = "Tomorrow";
+      daysAgo = "Mints tomorrow";
     } else if (days > 0) {
-      daysAgo = "In " + days.toFixed(0) + " days";
+      daysAgo = "Mints in " + days.toFixed(0) + " days";
     } else {
-      daysAgo = "Today";
+      daysAgo = "Minting today";
     }
 
     const formattedDate = d.toLocaleString("default", {
