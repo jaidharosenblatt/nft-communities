@@ -1,6 +1,8 @@
-import { createStore, applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { composeWithDevTools } from "redux-devtools-extension";
-import reducers from "./reducers";
+import { filtersSlice } from "./filters";
+import { projectsSlice } from "./projects";
+
 import ReduxThunk from "redux-thunk";
 import actionCreators from "./actionCreators";
 
@@ -12,6 +14,13 @@ const composeEnhancers = composeWithDevTools({
   traceLimit: 25,
 });
 
-const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+export const store = configureStore({
+  reducer: { projects: projectsSlice.reducer, filters: filtersSlice.reducer },
+  middleware,
+  enhancers: composeEnhancers,
+});
 
-export default store;
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
