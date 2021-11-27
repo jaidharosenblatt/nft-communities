@@ -56,3 +56,5 @@ interface Trend {
   engagementPercentChange: number;
   __v: number;
 }
+
+type MintDateParams = "startDate" | "endDate";

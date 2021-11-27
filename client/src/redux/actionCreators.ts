@@ -4,7 +4,9 @@ import { AppThunk } from "./store";
 
 export const getProjects = (): AppThunk => async (dispatch, getState) => {
   const filters = getState().filters;
-  const res = await api.get("projects", { params: filters });
+  const res = await api.get("projects", {
+    params: filters,
+  });
   dispatch(setCount(res.data.count));
   const projects: Project[] = res.data.projects;
   dispatch(setProjects(projects));

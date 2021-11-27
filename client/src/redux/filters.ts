@@ -5,6 +5,8 @@ interface FiltersState {
   trendType: string;
   sortBy: string;
   sortDirection: number;
+  startDate?: string | null;
+  endDate?: string | undefined;
 }
 
 // Define the initial state using that type
@@ -12,6 +14,7 @@ const initialState: FiltersState = {
   trendType: "allTrend",
   sortBy: "releaseDate",
   sortDirection: 1,
+  startDate: new Date().toUTCString(),
 };
 
 export const filtersSlice = createSlice({
@@ -28,7 +31,14 @@ export const filtersSlice = createSlice({
     setSortDirection: (state, action: PayloadAction<number>) => {
       state.sortDirection = action.payload;
     },
+    setStartDate: (state, action: PayloadAction<string | undefined>) => {
+      state.startDate = action.payload;
+    },
+    setEndDate: (state, action: PayloadAction<string | undefined>) => {
+      state.endDate = action.payload;
+    },
   },
 });
 
-export const { setSortBy, setTrendType, setSortDirection } = filtersSlice.actions;
+export const { setSortBy, setTrendType, setSortDirection, setStartDate, setEndDate } =
+  filtersSlice.actions;
