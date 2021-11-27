@@ -16,8 +16,6 @@ interface Project {
   twitterFollowers: number;
   twitterAverageMentionEngagement?: number;
   twitterAverageTweetEngagement?: number;
-  twitterAverageNTweetEngagement?: number;
-  twitterAverageEngagement: number;
   trends: Trend;
   __v?: number;
 }

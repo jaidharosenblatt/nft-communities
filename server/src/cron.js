@@ -4,7 +4,7 @@ const { updateAllProjectTrends } = require("./trends");
 const { updateAggregate } = require("./trends/aggregation");
 
 async function everyThirtyMins() {
-  await updateTweetEngagement();
+  // await updateTweetEngagement();
 }
 
 async function everyDay() {

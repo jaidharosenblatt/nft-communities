@@ -18,7 +18,7 @@ async function updateAllProjectTrends() {
         project.allTrend = await createTrendAndArchive(project._id, recentMoment, "all");
         await project.save();
       } else {
-        console.log(project);
+        console.log("Skipping ", project.name);
       }
     })
   );
@@ -79,7 +79,7 @@ async function getTrendObject(projectId, recentMoment, time) {
     endTweetEngagement: recentMoment.twitterAverageTweetEngagement,
     startMentionEngagement:
       agoMoment?.twitterAverageMentionEngagement || recentMoment.twitterAverageMentionEngagement,
-    endMentionEngagement: recentMoment.twitterAverageEngagement,
+    endMentionEngagement: recentMoment.twitterAverageMentionEngagement,
     followingChange: 0,
     followingPercentChange: 0,
     tweetEngagementChange: 0,

@@ -47,10 +47,9 @@ async function updateAllFollowers() {
 
   // update followers info for each
   await Promise.all(
-    data.map(async (d) => {
+    data.map(async (d, i) => {
       const followers = d.public_metrics?.followers_count;
       const p = await Project.findOne({ twitter: d.username.toLowerCase() });
-
       if (p) {
         p.twitterFollowers = followers;
         p.twitterId = d.id;
@@ -95,30 +94,21 @@ async function updateTweetEngagement() {
       });
       const tweets = res2.data || [];
       let totalTweetLikes = 0;
-      let topNTweetLikes = 0;
 
       tweets.forEach((tweet, i) => {
         const likes = tweet.public_metrics.like_count;
-        if (i < n) topNTweetLikes += likes;
         totalTweetLikes += likes;
       });
 
       // calc averages
-      const twitterAverageNTweetEngagement = (topNTweetLikes / n).toFixed(1);
       const twitterAverageTweetEngagement =
         tweets.length === 0 ? 0 : (totalTweetLikes / tweets.length).toFixed(1);
       const twitterAverageMentionEngagement =
         mentions.length === 0 ? 0 : (totalMentionLikes / mentions.length).toFixed(1);
-      const twitterAverageEngagement =
-        mentions.length + tweets.length === 0
-          ? 0
-          : ((totalTweetLikes + totalMentionLikes) / (mentions.length + tweets.length)).toFixed(1);
 
       const updates = {
-        twitterAverageNTweetEngagement,
         twitterAverageTweetEngagement,
         twitterAverageMentionEngagement,
-        twitterAverageEngagement,
         twitterFollowers,
       };
 

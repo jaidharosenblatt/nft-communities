@@ -51,12 +51,6 @@ const projectSchema = new mongoose.Schema(
     twitterAverageTweetEngagement: {
       type: Number,
     },
-    twitterAverageNTweetEngagement: {
-      type: Number,
-    },
-    twitterAverageEngagement: {
-      type: Number,
-    },
     dayTrend: {
       type: mongoose.Types.ObjectId,
       ref: Trend,
