@@ -74,12 +74,18 @@ async function getTrendObject(projectId, recentMoment, time) {
     timePeriod: time,
     startFollowers: agoMoment?.twitterFollowers || recentMoment.twitterFollowers,
     endFollowers: recentMoment.twitterFollowers,
-    startEngagement: agoMoment?.twitterAverageEngagement || recentMoment.twitterAverageEngagement,
-    endEngagement: recentMoment.twitterAverageEngagement,
+    startTweetEngagement:
+      agoMoment?.twitterAverageTweetEngagement || recentMoment.twitterAverageTweetEngagement,
+    endTweetEngagement: recentMoment.twitterAverageTweetEngagement,
+    startMentionEngagement:
+      agoMoment?.twitterAverageMentionEngagement || recentMoment.twitterAverageMentionEngagement,
+    endMentionEngagement: recentMoment.twitterAverageEngagement,
     followingChange: 0,
     followingPercentChange: 0,
-    engagementChange: 0,
-    engagementPercentChange: 0,
+    tweetEngagementChange: 0,
+    tweetEngagementPercentChange: 0,
+    tweetMentionChange: 0,
+    tweetMentionPercentChange: 0,
   };
 
   // return default if empty of records are same
@@ -88,17 +94,23 @@ async function getTrendObject(projectId, recentMoment, time) {
   }
 
   const following = percentIncrease(agoMoment.twitterFollowers, recentMoment.twitterFollowers);
-  const engagement = percentIncrease(
-    agoMoment.twitterAverageEngagement,
-    recentMoment.twitterAverageEngagement
+  const mentionEngagement = percentIncrease(
+    agoMoment.twitterAverageMentionEngagement,
+    recentMoment.twitterAverageMentionEngagement
+  );
+  const tweetEngagement = percentIncrease(
+    agoMoment.twitterAverageTweetEngagement,
+    recentMoment.twitterAverageTweetEngagement
   );
 
   return {
     ...trend,
     followingChange: following.change,
     followingPercentChange: following.percent,
-    engagementChange: engagement.change,
-    engagementPercentChange: engagement.percent,
+    tweetEngagementChange: tweetEngagement.change,
+    tweetEngagementPercentChange: tweetEngagement.percent,
+    tweetMentionChange: mentionEngagement.change,
+    tweetMentionPercentChange: mentionEngagement.percent,
   };
 }
 

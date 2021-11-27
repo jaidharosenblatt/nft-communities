@@ -44,16 +44,12 @@ enum timeEnum {
 
 interface Trend {
   _id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  project: string;
-  timePeriod: timeEnum;
-  startFollowers: number;
-  endFollowers: number;
   followingChange: number;
   followingPercentChange: number;
-  engagementChange: number;
-  engagementPercentChange: number;
+  tweetEngagementChange: number;
+  tweetEngagementPercentChange: number;
+  tweetMentionChange: number;
+  tweetMentionPercentChange: number;
   __v: number;
 }
 

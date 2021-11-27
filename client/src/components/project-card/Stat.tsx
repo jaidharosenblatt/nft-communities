@@ -3,10 +3,7 @@ import LeftRightRow from "../util/LeftRightRow";
 type Props = { caption: string; current: number; change: number; percentage: number };
 export default function Stat({ caption, current, change, percentage }: Props) {
   function getChangeString(change: Number, percent: Number): String {
-    if (change === 0) {
-      return "0";
-    }
-    return `${change > 0 ? "+" : ""} ${change} (${percent}%)`;
+    return `${change > 0 ? "+" : ""} ${change || 0} (${percent || 0}%)`;
   }
 
   function getChangeStyle(change: Number): Object {

@@ -27,19 +27,35 @@ const trendSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
-    startEngagement: {
+    startTweetEngagement: {
       type: Number,
       required: true,
     },
-    endEngagement: {
+    endTweetEngagement: {
       type: Number,
       required: true,
     },
-    engagementChange: {
+    tweetEngagementChange: {
       type: Number,
       required: true,
     },
-    engagementPercentChange: {
+    tweetEngagementPercentChange: {
+      type: Number,
+      required: false,
+    },
+    startMentionEngagement: {
+      type: Number,
+      required: true,
+    },
+    endMentionEngagement: {
+      type: Number,
+      required: true,
+    },
+    tweetMentionChange: {
+      type: Number,
+      required: true,
+    },
+    tweetMentionPercentChange: {
       type: Number,
       required: false,
     },

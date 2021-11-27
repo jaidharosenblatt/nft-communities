@@ -22,7 +22,7 @@ export default function ProjectCard({ project }: Props) {
       <DateTopper date={project.releaseDate} />
 
       <div className="header">
-        <img alt={`${project.name} Twitter Avatar`} src={covertAvatar(project.avatar)} />
+        <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
         <div>
           <h2>{truncatedName}</h2>
           <Socials size={30} project={project} />
@@ -39,8 +39,14 @@ export default function ProjectCard({ project }: Props) {
         <Stat
           caption="Average Likes per Tweet"
           current={project.twitterAverageTweetEngagement!}
-          change={project.trends!.engagementChange}
-          percentage={project.trends!.engagementPercentChange}
+          change={project.trends!.tweetEngagementChange}
+          percentage={project.trends!.tweetEngagementPercentChange}
+        />
+        <Stat
+          caption="Average Likes per Mention"
+          current={project.twitterAverageMentionEngagement!}
+          change={project.trends!.tweetMentionChange}
+          percentage={project.trends!.tweetMentionPercentChange}
         />
       </div>
     </div>

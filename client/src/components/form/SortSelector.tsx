@@ -19,7 +19,8 @@ export default function SortSelector() {
       <Select.Option value="1:name">Name (A-Z)</Select.Option>
       <Select.Option value="-1:name">Name (Z-A)</Select.Option>
       <Select.Option value="-1:trends.followingChange">Followers Growth </Select.Option>
-      <Select.Option value="-1:trends.engagementChange">Avg Likes/Tweet Growth</Select.Option>
+      <Select.Option value="-1:trends.tweetEngagementChange">Avg Likes/Tweet Growth</Select.Option>
+      <Select.Option value="-1:trends.tweetMentionChange">Avg Likes/Mention Growth</Select.Option>
     </Select>
   );
 }
