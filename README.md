@@ -1,9 +1,13 @@
 # TODO
 
+- Add sort direction to each filter
+- block time range selection of invalid dates by adding query for oldest trend
+- add other filters
+- credit apps
+- deploy
+
 - Track growing communities and simple graphs over time
 - Discord activity
-- CAPTCHA to prevent public API
-- Credit apps scraped from
 
 ## .env file
 

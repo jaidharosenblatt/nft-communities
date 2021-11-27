@@ -42,18 +42,15 @@ router.get("/projects", async (req, res) => {
       "allTrend",
     ]);
     const allowedFields = [
+      "releaseDate",
       "twitterFollowers",
-      "trends.followingPercentChange",
-      "trends.engagementPercentChange",
+      "twitterAverageTweetEngagement",
+      "name",
       "trends.followingChange",
       "trends.engagementChange",
-      "releaseDate",
-      "name",
-      "twitterAverageTweetEngagement",
-      "twitterFollowers",
     ];
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
-    const sortDirection = req.query.sortDirection === "desc" ? -1 : 1;
+    const sortDirection = req.query.sortDirection ? parseInt(req.query.sortDirection) : -1;
     const limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
     // start in make range
