@@ -78,7 +78,9 @@ async function updateTweetEngagement() {
       const twitterFollowers = res0.data?.public_metrics?.followers_count;
 
       // number of tweets/mentions to draw from
-      const n = 10;
+      // 300 query limit * 2 (mentions and tweets) * 5 tweets * 24 hours a day * 5 every 5th hour * 30 days a month
+      // 300*2*5*24/5*30 = 432k (< 500k limit)
+      const n = 5;
       const res1 = await twitterApi.get(`users/${project.twitterId}/mentions`, {
         params: { "tweet.fields": "public_metrics", max_results: n },
       });

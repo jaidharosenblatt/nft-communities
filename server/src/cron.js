@@ -3,8 +3,8 @@ const { scrapeProjects } = require("./scraping");
 const { updateAllProjectTrends } = require("./trends");
 const { updateAggregate } = require("./trends/aggregation");
 
-async function everyThirtyMins() {
-  // await updateTweetEngagement();
+async function everyFifthHour() {
+  await updateTweetEngagement();
 }
 
 async function everyDay() {
@@ -15,4 +15,4 @@ async function everyDay() {
   await updateAggregate();
 }
 
-module.exports = { everyThirtyMins, everyDay };
+module.exports = { everyFifthHour, everyDay };
