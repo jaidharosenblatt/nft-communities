@@ -1,5 +1,7 @@
 # TODO
 
+- aggregation limits
+- add mention likes
 - add other filters
 - add loading through skeleton
 - add pagination

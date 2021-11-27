@@ -13,9 +13,9 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const getLastUpdated = (): AppThunk => async (dispatch, getState) => {
-  const { data } = await api.get("moment/last");
-
-  dispatch(setFirstUpdated(data));
+  const res = await api.get("aggregate");
+  const aggregation: Aggregation = res.data;
+  dispatch(setFirstUpdated(aggregation.lastMoment));
 };
 
 // params: {

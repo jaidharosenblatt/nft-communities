@@ -57,4 +57,12 @@ interface Trend {
   __v: number;
 }
 
+interface Aggregation {
+  highestFollowersRounded: number;
+  highestTweetLikesRounded: number;
+  highestMentionLikesRounded: number;
+  highestLikesRounded: number;
+  lastMoment: string;
+}
+
 type MintDateParams = "startDate" | "endDate";
