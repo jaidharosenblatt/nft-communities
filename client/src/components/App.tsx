@@ -9,9 +9,11 @@ import { getProjects } from "../redux/actionCreators";
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const projects = useAppSelector((state) => state.projects.projects);
+  const filters = useAppSelector((state) => state.filters);
+
   useEffect(() => {
     dispatch(getProjects());
-  }, [dispatch]);
+  }, [dispatch, filters]);
 
   return (
     <div className="grid">
