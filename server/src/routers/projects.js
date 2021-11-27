@@ -3,6 +3,7 @@ const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
 const { getParamVariable, sendError, isValidDate } = require("./util");
+const Moment = require("../models/moment");
 
 const router = new express.Router();
 
@@ -29,6 +30,16 @@ router.post("/updateTweets", async (req, res) => {
     await updateTweetEngagement();
     res.send("updates");
   } catch (e) {
+    sendError(e, res);
+  }
+});
+
+router.get("/moment/last", async (req, res) => {
+  try {
+    const moments = await Moment.find().sort("createdAt").limit(1);
+    const lastMoment = moments[0];
+    res.send(lastMoment.createdAt);
+  } catch (error) {
     sendError(e, res);
   }
 });

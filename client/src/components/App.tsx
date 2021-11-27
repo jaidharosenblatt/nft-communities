@@ -4,7 +4,7 @@ import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { getProjects } from "../redux/actionCreators";
+import { getLastUpdated, getProjects } from "../redux/actionCreators";
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -13,6 +13,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     dispatch(getProjects());
+    dispatch(getLastUpdated());
   }, [dispatch, filters]);
 
   return (

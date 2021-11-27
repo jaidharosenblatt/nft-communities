@@ -1,8 +1,7 @@
 # TODO
 
-- Add sort direction to each filter
-- block time range selection of invalid dates by adding query for oldest trend
 - add other filters
+- add loading through skeleton
 - credit apps
 - deploy
 
