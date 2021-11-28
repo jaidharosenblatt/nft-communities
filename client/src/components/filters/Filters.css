@@ -22,8 +22,20 @@
   color: var(--primary);
 }
 
-.filters .icon-text {
+.filters .wrapper .icon-text {
   margin-top: var(--padding-small);
+}
+
+.filters .footer {
+  position: fixed;
+  bottom: 0;
+  margin: var(--padding-large);
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.filters .footer svg {
+  margin-left: var(--padding-small);
 }
 
 .ant-collapse > .ant-collapse-item > .ant-collapse-header {

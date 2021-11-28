@@ -9,7 +9,7 @@ interface ProjectsState {
 // Define the initial state using that type
 const initialState: ProjectsState = {
   loading: true,
-  darkMode: localStorage.getItem("mode") === "dark",
+  darkMode: localStorage.getItem("theme") === "dark",
 };
 
 export const statusSlice = createSlice({
@@ -20,7 +20,10 @@ export const statusSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    setDarkMode: (state, action: PayloadAction<boolean>) => {
+      state.darkMode = action.payload;
+    },
   },
 });
 
-export const { setLoading } = statusSlice.actions;
+export const { setLoading, setDarkMode } = statusSlice.actions;

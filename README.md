@@ -4,6 +4,7 @@
 - add pagination
 - add error messages
 - credit apps
+- mobile view
 - deploy
 - Google analytics
 

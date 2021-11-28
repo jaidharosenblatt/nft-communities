@@ -1,8 +1,7 @@
 import "./Navbar.css";
 import Mint from "../../static/mint.svg";
-import { IoLogoTwitter } from "react-icons/io5";
-import IconText from "../util/IconText";
 import { useAppSelector } from "../../redux/hooks";
+import DarkModeSwitch from "../form/DarkModeSwitch";
 
 export default function Navbar() {
   const count = useAppSelector((state) => state.projects.count);
@@ -21,10 +20,7 @@ export default function Navbar() {
         />
         <div className="body">
           <div className="right">
-            Updates and Feedback
-            <a target="_blank" rel="noreferrer" href="https://twitter.com/jaidharo">
-              <IconText color="var(--primary)" icon={<IoLogoTwitter />} text={<p>@jaidharo</p>} />
-            </a>
+            <DarkModeSwitch />
           </div>
           <p className="caption">
             {loading ? "Loading collections..." : `${count} collections found`}

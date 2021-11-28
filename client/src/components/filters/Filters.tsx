@@ -1,4 +1,4 @@
-import { IoFilter } from "react-icons/io5";
+import { IoFilter, IoLogoTwitter } from "react-icons/io5";
 import { BiSortAlt2 } from "react-icons/bi";
 import { AiOutlineClockCircle, AiOutlineStock } from "react-icons/ai";
 
@@ -6,12 +6,9 @@ import IconText from "../util/IconText";
 import "./Filters.css";
 import SortSelector from "../form/SortSelector";
 import TimePeriodSelector from "../form/TimePeriodSelector";
-import { useAppSelector } from "../../redux/hooks";
 import MintDatePicker from "../form/MintDatePicker";
 import { Divider } from "antd";
 export default function Filters() {
-  const filters = useAppSelector((state) => state.filters);
-
   return (
     <div className="filters">
       <div className="wrapper">
@@ -32,6 +29,12 @@ export default function Filters() {
           text={<p>Mint Date</p>}
         />
         <MintDatePicker />
+      </div>
+      <div className="footer">
+        Updates and Feedback:
+        <a target="_blank" rel="noreferrer" href="https://twitter.com/jaidharo">
+          <IconText color="var(--primary)" icon={<IoLogoTwitter />} text={<p>@jaidharo</p>} />
+        </a>
       </div>
     </div>
   );
