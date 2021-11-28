@@ -1,7 +1,8 @@
 .filters {
   width: var(--filters-width);
   position: fixed;
-  height: calc(var(--vh-navbar));
+  height: calc(var(--vh-navbar) - var(--padding-large) + var(--padding-small));
+  border-radius: 0 var(--border-radius) 0 0;
   bottom: 0px;
   z-index: 2;
   border: var(--card-border);
