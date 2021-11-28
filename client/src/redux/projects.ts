@@ -4,14 +4,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface ProjectsState {
   projects: Project[];
   count: number;
-  firstUpdated: string;
+  aggregation: Aggregation;
 }
 
 // Define the initial state using that type
 const initialState: ProjectsState = {
   projects: [],
   count: 0,
-  firstUpdated: new Date().toString(),
+  aggregation: {
+    lastMoment: new Date().toString(),
+    highestFollowersRounded: 100000,
+    highestTweetLikesRounded: 1000,
+    highestMentionLikesRounded: 100,
+  },
 };
 
 export const projectsSlice = createSlice({
@@ -25,10 +30,10 @@ export const projectsSlice = createSlice({
     setCount: (state, action: PayloadAction<number>) => {
       state.count = action.payload;
     },
-    setFirstUpdated: (state, action: PayloadAction<string>) => {
-      state.firstUpdated = action.payload;
+    setAggregation: (state, action: PayloadAction<Aggregation>) => {
+      state.aggregation = action.payload;
     },
   },
 });
 
-export const { setProjects, setCount, setFirstUpdated } = projectsSlice.actions;
+export const { setProjects, setCount, setAggregation } = projectsSlice.actions;

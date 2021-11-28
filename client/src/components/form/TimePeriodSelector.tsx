@@ -4,11 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 export default function TimePeriodSelector() {
   const trendType = useAppSelector((state) => state.filters.trendType);
-  const firstUpdated = useAppSelector((state) => state.projects.firstUpdated);
+  const lastMoment = useAppSelector((state) => state.projects.aggregation.lastMoment);
 
   // get dates for comparison to disable field
   const today = new Date();
-  const d = new Date(firstUpdated);
+  const d = new Date(lastMoment);
   const dayAgo = new Date();
   const weekAgo = new Date();
   const monthAgo = new Date();

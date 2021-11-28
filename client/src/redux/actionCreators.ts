@@ -1,5 +1,5 @@
 import { api } from "../api";
-import { setProjects, setCount, setFirstUpdated } from "./projects";
+import { setProjects, setCount, setAggregation } from "./projects";
 import { setDarkMode } from "./status";
 import { setLoading } from "./status";
 import { AppThunk } from "./store";
@@ -19,7 +19,7 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
 export const getLastUpdated = (): AppThunk => async (dispatch) => {
   const res = await api.get("aggregate");
   const aggregation: Aggregation = res.data;
-  dispatch(setFirstUpdated(aggregation.lastMoment));
+  dispatch(setAggregation(aggregation));
 };
 
 export const setButtonDarkMode =

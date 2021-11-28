@@ -32,7 +32,6 @@ router.get("/aggregate", async (req, res) => {
         highestFollowersRounded: 1,
         highestTweetLikesRounded: 1,
         highestMentionLikesRounded: 1,
-        highestLikesRounded: 1,
         lastMoment: 1,
       }
     );

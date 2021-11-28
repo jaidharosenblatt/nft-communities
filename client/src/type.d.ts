@@ -55,7 +55,6 @@ interface Aggregation {
   highestFollowersRounded: number;
   highestTweetLikesRounded: number;
   highestMentionLikesRounded: number;
-  highestLikesRounded: number;
   lastMoment: string;
 }
 
