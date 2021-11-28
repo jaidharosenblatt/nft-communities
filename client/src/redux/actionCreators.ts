@@ -1,8 +1,10 @@
 import { api } from "../api";
 import { setProjects, setCount, setFirstUpdated } from "./projects";
+import { setLoading } from "./status";
 import { AppThunk } from "./store";
 
 export const getProjects = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setLoading(true));
   const filters = getState().filters;
   const res = await api.get("projects", {
     params: filters,
@@ -10,6 +12,7 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
   dispatch(setCount(res.data.count));
   const projects: Project[] = res.data.projects;
   dispatch(setProjects(projects));
+  dispatch(setLoading(false));
 };
 
 export const getLastUpdated = (): AppThunk => async (dispatch, getState) => {

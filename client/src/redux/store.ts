@@ -3,9 +3,14 @@ import { ThunkAction } from "redux-thunk";
 import { projectsSlice } from "./projects";
 import { AnyAction } from "redux";
 import { filtersSlice } from "./filters";
+import { statusSlice } from "./status";
 
 export const store = configureStore({
-  reducer: { projects: projectsSlice.reducer, filters: filtersSlice.reducer },
+  reducer: {
+    projects: projectsSlice.reducer,
+    filters: filtersSlice.reducer,
+    status: statusSlice.reducer,
+  },
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

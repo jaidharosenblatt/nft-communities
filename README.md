@@ -1,7 +1,6 @@
 # TODO
 
 - add other filters
-- add loading through skeleton
 - add pagination
 - add error messages
 - credit apps

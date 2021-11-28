@@ -2,9 +2,16 @@ import "./ProjectCard.css";
 import Stat from "./Stat";
 import Socials from "./Socials";
 import DateTopper from "./DateTopper";
+import { useAppSelector } from "../../redux/hooks";
+import { Skeleton } from "antd";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
+  const loading = useAppSelector((state) => state.status.loading);
+  if (loading) {
+    return <Skeleton />;
+  }
+
   function covertAvatar(avatar: string): string {
     if (avatar.endsWith("png")) {
       return avatar.split("_normal.png")[0] + ".png";

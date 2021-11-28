@@ -6,6 +6,7 @@ import { useAppSelector } from "../../redux/hooks";
 
 export default function Navbar() {
   const count = useAppSelector((state) => state.projects.count);
+  const loading = useAppSelector((state) => state.status.loading);
 
   return (
     <div className="navbar">
@@ -25,7 +26,9 @@ export default function Navbar() {
               <IconText color="var(--primary)" icon={<IoLogoTwitter />} text={<p>@jaidharo</p>} />
             </a>
           </div>
-          <p className="caption">{count} collections found</p>
+          <p className="caption">
+            {loading ? "Loading collections..." : `${count} collections found`}
+          </p>
         </div>
       </div>
     </div>
