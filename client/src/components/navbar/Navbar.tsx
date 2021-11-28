@@ -11,7 +11,7 @@ export default function Navbar() {
     <div className="navbar">
       <div className="row">
         <h1>
-          Move<span style={{ color: "var(--primary)" }}>mint</span>
+          Move<span style={{ color: "var(--primary)" }}>mints</span>
         </h1>
         <img
           alt="logo"

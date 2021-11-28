@@ -1,3 +1,8 @@
 import axios from "axios";
 
-export const api = axios.create({ baseURL: "http://localhost:5000/" });
+export const api = axios.create({
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000/"
+      : "https://movemints.herokuapp.com/",
+});

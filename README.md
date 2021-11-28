@@ -1,9 +1,7 @@
 # TODO
 
-- add pagination
 - credit apps
 - mobile view
-- deploy
 - Google analytics
 
 - Track growing communities and simple graphs over time
@@ -14,6 +12,10 @@
 PORT=5000
 DEBUG=FALSE
 MONGO_URL=mongodb://localhost:27017/nftindex
+
+## Deploy
+
+git subtree push --prefix server heroku master
 
 ## Install Mongo
 
