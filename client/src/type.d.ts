@@ -58,4 +58,9 @@ interface Aggregation {
   lastMoment: string;
 }
 
+interface FilterRange {
+  $gte?: number;
+  $lte?: number;
+}
+
 type MintDateParams = "startDate" | "endDate";

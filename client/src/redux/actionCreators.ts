@@ -6,9 +6,15 @@ import { AppThunk } from "./store";
 
 export const getProjects = (): AppThunk => async (dispatch, getState) => {
   dispatch(setLoading(true));
-  const filters = getState().filters;
+  const params = getState().filters;
+  const { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement } =
+    params;
+
   const res = await api.get("projects", {
-    params: filters,
+    params: {
+      ...params,
+      filters: { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement },
+    },
   });
   dispatch(setCount(res.data.count));
   const projects: Project[] = res.data.projects;
@@ -30,11 +36,3 @@ export const setButtonDarkMode =
     dispatch(setDarkMode(darkMode));
     window.location.reload();
   };
-
-// params: {
-//           sortBy: "releaseDate",
-//           sortDirection: sortDirectionIsDesc ? "desc" : "asc",
-//           filters: { twitterFollowers: { $gte: 5000 } },
-//           limit: 100,
-//           startDate: new Date().toString(),
-//         },

@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Define a type for the slice state
-interface FiltersState {
+export interface FiltersState {
   trendType: string;
   sortBy: string;
   sortDirection: number;
   startDate?: string | null;
   endDate?: string | undefined;
+  twitterFollowers?: FilterRange;
+  twitterAverageMentionEngagement?: FilterRange;
+  twitterAverageTweetEngagement?: FilterRange;
 }
 
 // Define the initial state using that type
@@ -37,8 +40,25 @@ export const filtersSlice = createSlice({
     setEndDate: (state, action: PayloadAction<string | undefined>) => {
       state.endDate = action.payload;
     },
+    setFollowersFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
+      state.twitterFollowers = action.payload;
+    },
+    setTweetLikesFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
+      state.twitterAverageTweetEngagement = action.payload;
+    },
+    setMentionLikesFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
+      state.twitterAverageMentionEngagement = action.payload;
+    },
   },
 });
 
-export const { setSortBy, setTrendType, setSortDirection, setStartDate, setEndDate } =
-  filtersSlice.actions;
+export const {
+  setSortBy,
+  setTrendType,
+  setSortDirection,
+  setStartDate,
+  setEndDate,
+  setFollowersFilter,
+  setTweetLikesFilter,
+  setMentionLikesFilter,
+} = filtersSlice.actions;

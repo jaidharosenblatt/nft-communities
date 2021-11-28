@@ -3,6 +3,7 @@
   border-radius: var(--border-radius);
   padding: var(--padding-large);
   border: var(--card-border);
+  max-width: var(--card-max-width);
 }
 
 .project-card .header {
