@@ -1,7 +1,7 @@
 import { Select } from "antd";
 import { setSortBy, setSortDirection } from "../../redux/filters";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-
+import "./form.css";
 export default function SortSelector() {
   const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filters);
@@ -12,7 +12,13 @@ export default function SortSelector() {
     dispatch(setSortDirection(parseInt(sortDirection)));
   }
   return (
-    <Select onChange={onChange} bordered={false} value={value}>
+    <Select
+      // style because sort has a 11px padding that is hard to remove
+      style={{ margin: "calc(var(--padding-medium) - 11px)" }}
+      onChange={onChange}
+      bordered={false}
+      value={value}
+    >
       <Select.Option value="1:releaseDate">Mint Date </Select.Option>
       <Select.Option value="-1:twitterFollowers">Most Twitter Followers </Select.Option>
       <Select.Option value="-1:twitterAverageTweetEngagement">Most Avg Likes/Tweet</Select.Option>
@@ -20,7 +26,7 @@ export default function SortSelector() {
       <Select.Option value="-1:name">Name (Z-A)</Select.Option>
       <Select.Option value="-1:trends.followingChange">Followers Growth </Select.Option>
       <Select.Option value="-1:trends.tweetEngagementChange">Avg Likes/Tweet Growth</Select.Option>
-      <Select.Option value="-1:trends.tweetMentionChange">Avg Likes/Mention Growth</Select.Option>
+      <Select.Option value="-1:trends.tweetMentionChange">Avg Likes/Tweet Growth</Select.Option>
     </Select>
   );
 }

@@ -17,14 +17,14 @@ export default function TimePeriodSelector() {
   monthAgo.setDate(today.getDate() - 30);
 
   const dispatch = useAppDispatch();
-  const fillWidth = { width: "calc(25% - var(--padding-small))" };
+  const fillWidth = { width: "calc(25%" };
 
   function onChange(change: RadioChangeEvent) {
     dispatch(setTrendType(change.target.value));
   }
   return (
     <Radio.Group
-      style={{ textAlign: "center", margin: "var(--padding-small)" }}
+      style={{ textAlign: "center", margin: "var(--padding-filters)" }}
       onChange={onChange}
       value={trendType}
       buttonStyle="solid"

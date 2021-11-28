@@ -10,6 +10,7 @@
 .left-right-row {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .left-right-row .left {

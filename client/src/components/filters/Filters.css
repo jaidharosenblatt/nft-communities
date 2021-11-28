@@ -7,6 +7,11 @@
   z-index: 2;
   border: var(--card-border);
   background-color: var(--card-fill);
+  /* Allows footer pin */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  overflow: scroll;
 }
 
 .filters .wrapper {
@@ -28,8 +33,8 @@
 }
 
 .filters .footer {
-  position: fixed;
-  bottom: 0;
+  align-self: flex-end;
+  justify-content: normal;
   margin: var(--padding-large);
   text-align: center;
   display: flex;

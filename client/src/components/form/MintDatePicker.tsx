@@ -44,7 +44,8 @@ export default function MintDatePicker() {
   return (
     <DatePicker.RangePicker
       allowEmpty={[true, true]}
-      bordered={false}
+      style={{ margin: "var(--padding-filters)" }}
+      bordered={true}
       format="MM/DD/YYYY"
       value={[startMomentVal, endMomentVal]}
       onChange={onChange}
