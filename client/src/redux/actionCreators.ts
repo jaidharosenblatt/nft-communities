@@ -1,25 +1,40 @@
+import axios from "axios";
 import { api } from "../api";
 import { setProjects, setCount, setAggregation } from "./projects";
-import { setDarkMode } from "./status";
+import { setDarkMode, setError } from "./status";
 import { setLoading } from "./status";
 import { AppThunk } from "./store";
 
 export const getProjects = (): AppThunk => async (dispatch, getState) => {
-  dispatch(setLoading(true));
-  const params = getState().filters;
-  const { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement } =
-    params;
+  try {
+    dispatch(setLoading(true));
+    dispatch(setError(undefined));
 
-  const res = await api.get("projects", {
-    params: {
-      ...params,
-      filters: { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement },
-    },
-  });
-  dispatch(setCount(res.data.count));
-  const projects: Project[] = res.data.projects;
-  dispatch(setProjects(projects));
-  dispatch(setLoading(false));
+    const params = getState().filters;
+    const { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement } =
+      params;
+
+    const res = await api.get("projects", {
+      params: {
+        ...params,
+        filters: {
+          twitterFollowers,
+          twitterAverageMentionEngagement,
+          twitterAverageTweetEngagement,
+        },
+      },
+    });
+    dispatch(setCount(res.data.count));
+    const projects: Project[] = res.data.projects;
+    dispatch(setProjects(projects));
+    dispatch(setLoading(false));
+  } catch (error) {
+    if (axios.isAxiosError(error) && !error.response) {
+      dispatch(setError("Server is currently down. Please come back later"));
+    } else {
+      dispatch(setError("Please refresh the page"));
+    }
+  }
 };
 
 export const getLastUpdated = (): AppThunk => async (dispatch) => {

@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface ProjectsState {
   loading: boolean;
   darkMode: boolean;
+  error?: string;
 }
 
 // Define the initial state using that type
@@ -23,7 +24,10 @@ export const statusSlice = createSlice({
     setDarkMode: (state, action: PayloadAction<boolean>) => {
       state.darkMode = action.payload;
     },
+    setError: (state, action: PayloadAction<string | undefined>) => {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setLoading, setDarkMode } = statusSlice.actions;
+export const { setLoading, setDarkMode, setError } = statusSlice.actions;

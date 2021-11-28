@@ -1,8 +1,6 @@
 # TODO
 
-- add other filters
 - add pagination
-- add error messages
 - credit apps
 - mobile view
 - deploy
