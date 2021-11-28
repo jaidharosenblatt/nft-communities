@@ -1,6 +1,7 @@
 import "./App.css";
 import { useEffect } from "react";
 import ProjectCard from "./project-card/ProjectCard";
+import { LoadingOutlined } from "@ant-design/icons";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -8,10 +9,11 @@ import { getLastUpdated, getProjects } from "../redux/actionCreators";
 import ThemeSelector from "../themes/ThemeSelector";
 import { notification, Skeleton } from "antd";
 import { setError } from "../redux/status";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const projects = useAppSelector((state) => state.projects.projects);
+  const projects = useAppSelector((state) => state.projects);
   const filters = useAppSelector((state) => state.filters);
   const { darkMode, loading, error } = useAppSelector((state) => state.status);
 
@@ -46,7 +48,18 @@ function App(): JSX.Element {
           {loading ? (
             <Skeleton />
           ) : (
-            projects.map((p: Project) => <ProjectCard key={p._id} project={p} />)
+            <InfiniteScroll
+              loader={<LoadingOutlined />}
+              className="projects-holder"
+              style={{ padding: 0 }}
+              hasMore={true}
+              next={() => console.log("")}
+              dataLength={projects.count}
+            >
+              {projects.projects.map((p: Project) => (
+                <ProjectCard key={p._id} project={p} />
+              ))}
+            </InfiniteScroll>
           )}
         </div>
       </div>
