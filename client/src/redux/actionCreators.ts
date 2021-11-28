@@ -11,6 +11,8 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
     dispatch(setError(undefined));
 
     const params = getState().filters;
+    const { skip, limit } = getState().projects;
+
     const { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement } =
       params;
 
@@ -22,6 +24,8 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
           twitterAverageMentionEngagement,
           twitterAverageTweetEngagement,
         },
+        limit,
+        skip,
       },
     });
     dispatch(setCount(res.data.count));

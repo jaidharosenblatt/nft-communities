@@ -3,8 +3,24 @@
   grid-gap: 12px;
   grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
   grid-column-start: 2;
+  grid-row-start: 4;
+  padding: var(--padding-large);
+}
+
+.pagination-card-top {
+  grid-template-columns: 1;
+  grid-column-start: 2;
   grid-row-start: 2;
   padding: var(--padding-large);
+  padding-bottom: 0;
+}
+
+.pagination-card-bottom {
+  grid-template-columns: 1;
+  grid-column-start: 2;
+  grid-row-start: 100;
+  padding: var(--padding-large);
+  padding-top: 0;
 }
 
 .container {

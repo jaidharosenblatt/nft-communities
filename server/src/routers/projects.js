@@ -59,6 +59,7 @@ router.get("/projects", async (req, res) => {
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
     const sortDirection = req.query.sortDirection ? parseInt(req.query.sortDirection) : -1;
     const limit = req.query.limit ? parseInt(req.query.limit) : 100;
+    const skip = req.query.skip ? parseInt(req.query.skip) : 0;
 
     // start in make range
     let startDate = new Date(-8640000000000000);
@@ -112,12 +113,16 @@ router.get("/projects", async (req, res) => {
       {
         $facet: {
           count: [{ $count: "count" }],
-          projects: [{ $limit: limit }],
+          projects: [{ $skip: skip * limit }, { $limit: limit }],
         },
       },
     ]);
     const projects = q[0].projects;
-    const { count } = q[0].count[0];
+    let count = 0;
+    if (q[0]?.count[0]) {
+      count = q[0].count[0].count;
+    }
+
     res.send({ projects, count });
   } catch (e) {
     sendError(e, res);

@@ -5,6 +5,8 @@ interface ProjectsState {
   projects: Project[];
   count: number;
   aggregation: Aggregation;
+  skip: number;
+  limit: number;
 }
 
 // Define the initial state using that type
@@ -13,10 +15,12 @@ const initialState: ProjectsState = {
   count: 0,
   aggregation: {
     lastMoment: new Date().toString(),
-    highestFollowersRounded: 100000,
-    highestTweetLikesRounded: 1000,
-    highestMentionLikesRounded: 100,
+    highestFollowersRounded: 0,
+    highestTweetLikesRounded: 0,
+    highestMentionLikesRounded: 0,
   },
+  skip: 0,
+  limit: 15,
 };
 
 export const projectsSlice = createSlice({
@@ -33,7 +37,13 @@ export const projectsSlice = createSlice({
     setAggregation: (state, action: PayloadAction<Aggregation>) => {
       state.aggregation = action.payload;
     },
+    setSkip: (state, action: PayloadAction<number>) => {
+      state.skip = action.payload;
+    },
+    setLimit: (state, action: PayloadAction<number>) => {
+      state.limit = action.payload;
+    },
   },
 });
 
-export const { setProjects, setCount, setAggregation } = projectsSlice.actions;
+export const { setProjects, setCount, setAggregation, setSkip, setLimit } = projectsSlice.actions;

@@ -1,7 +1,6 @@
 import "./App.css";
 import { useEffect } from "react";
 import ProjectCard from "./project-card/ProjectCard";
-import { LoadingOutlined } from "@ant-design/icons";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -9,7 +8,7 @@ import { getLastUpdated, getProjects } from "../redux/actionCreators";
 import ThemeSelector from "../themes/ThemeSelector";
 import { notification, Skeleton } from "antd";
 import { setError } from "../redux/status";
-import InfiniteScroll from "react-infinite-scroll-component";
+import PaginationCard from "./form/PaginationCard";
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,7 +34,7 @@ function App(): JSX.Element {
         }
       };
     },
-    [dispatch, filters, error]
+    [error, dispatch, projects.skip, projects.limit, filters]
   );
 
   return (
@@ -44,23 +43,18 @@ function App(): JSX.Element {
         <Filters />
         <Navbar />
 
+        <div className="pagination-card-top">
+          <PaginationCard />
+        </div>
         <div className="projects-holder">
-          {loading ? (
+          {loading && projects.count === 0 ? (
             <Skeleton />
           ) : (
-            <InfiniteScroll
-              loader={<LoadingOutlined />}
-              className="projects-holder"
-              style={{ padding: 0 }}
-              hasMore={true}
-              next={() => console.log("")}
-              dataLength={projects.count}
-            >
-              {projects.projects.map((p: Project) => (
-                <ProjectCard key={p._id} project={p} />
-              ))}
-            </InfiniteScroll>
+            projects.projects.map((p: Project, i) => <ProjectCard key={i} project={p} />)
           )}
+        </div>
+        <div className="pagination-card-bottom">
+          <PaginationCard />
         </div>
       </div>
     </ThemeSelector>
