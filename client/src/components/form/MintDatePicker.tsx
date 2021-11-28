@@ -1,63 +1,54 @@
 import { DatePicker } from "antd";
 import moment from "moment";
 import { Moment } from "moment";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { setStartDate, setEndDate } from "../../redux/filters";
 
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-type Props = { filterParam: MintDateParams; label: string };
-export default function MintDatePicker({ filterParam, label }: Props) {
+export default function MintDatePicker() {
   const { startDate, endDate } = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
 
   // Check the type of this date picker
-  const isStartDate: Boolean = filterParam === "startDate";
   const startMomentVal = convertToMoment(startDate);
   const endMomentVal = convertToMoment(endDate);
   // to Moment provide to date picker
-  const momentVal = isStartDate ? startMomentVal : endMomentVal;
 
-  function convertToMoment(val: string | undefined | null): Moment | undefined {
+  function convertToMoment(val: string | undefined | null): Moment | null {
     if (val) {
       const d = new Date(val);
       return moment(d);
     }
+    return null;
+  }
+
+  function convertMomentToDateString(m: Moment | null) {
+    if (m) {
+      return new Date(m.format()).toUTCString();
+    }
     return undefined;
   }
 
-  function onChange(m: Moment | null) {
-    let d = undefined;
-    if (m) {
-      // convert to date then to UTC
-      d = new Date(m.format()).toUTCString();
-    }
-    // might be undefined (allows clear)
-    if (isStartDate) {
-      dispatch(setStartDate(d));
+  function onChange(m: [Moment | null, Moment | null] | null) {
+    if (!m) {
+      dispatch(setStartDate(undefined));
+      dispatch(setEndDate(undefined));
     } else {
-      dispatch(setEndDate(d));
+      const [startDate, endDate] = m;
+      dispatch(setStartDate(convertMomentToDateString(startDate)));
+      dispatch(setEndDate(convertMomentToDateString(endDate)));
     }
-  }
-
-  function disabledDate(current: Moment) {
-    // do not allow endDate < startDate
-    if (!isStartDate && startMomentVal) return current && current < startMomentVal;
-    // do not allow startDate > startDate
-    if (isStartDate && endMomentVal) return current && current > endMomentVal;
-
-    return false;
   }
 
   return (
-    <>
-      {label}
-      <DatePicker
-        disabledDate={disabledDate}
-        onChange={onChange}
-        value={momentVal}
-        bordered={false}
-        format="MM/DD/YYYY"
-      />
-    </>
+    <DatePicker.RangePicker
+      allowEmpty={[true, true]}
+      bordered={false}
+      format="MM/DD/YYYY"
+      value={[startMomentVal, endMomentVal]}
+      onChange={onChange}
+      separator={<AiOutlineArrowRight color="#BFBFBF" />}
+    />
   );
 }

@@ -1,13 +1,12 @@
 # TODO
 
-- aggregation limits
-- add mention likes
 - add other filters
 - add loading through skeleton
 - add pagination
 - add error messages
 - credit apps
 - deploy
+- Google analytics
 
 - Track growing communities and simple graphs over time
 - Discord activity

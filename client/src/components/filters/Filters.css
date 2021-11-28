@@ -14,9 +14,16 @@
   padding: var(--padding-medium);
 }
 
+.filters .ant-divider-horizontal {
+  margin: var(--padding-small) 0;
+}
+
+.filters h3 {
+  color: var(--primary);
+}
+
 .filters .icon-text {
-  margin-top: var(--padding-medium);
-  margin-bottom: var(--padding-small);
+  margin-top: var(--padding-small);
 }
 
 .ant-collapse > .ant-collapse-item > .ant-collapse-header {
