@@ -3,7 +3,7 @@ import moment from "moment";
 import { Moment } from "moment";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { setStartDate, setEndDate } from "../../redux/filters";
-
+import "./RangePicker.less";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 export default function MintDatePicker() {
@@ -40,9 +40,13 @@ export default function MintDatePicker() {
       dispatch(setEndDate(convertMomentToDateString(endDate)));
     }
   }
+  function panelRender(panelNode: any) {
+    return <div className="custom-range-picker">{panelNode}</div>;
+  }
 
   return (
     <DatePicker.RangePicker
+      panelRender={panelRender}
       allowEmpty={[true, true]}
       style={{ margin: "var(--padding-filters)" }}
       bordered={true}
