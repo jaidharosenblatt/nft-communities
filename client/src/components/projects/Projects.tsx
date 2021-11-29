@@ -35,6 +35,9 @@ export default function Projects() {
   return (
     <>
       <div className="pagination-card-top">
+        <p className="caption" style={{ marginBottom: "var(--padding-medium)" }}>
+          {loading ? "Loading collections..." : `${projects.count} collections found`}
+        </p>
         <PaginationCard />
       </div>
       <div className="projects-holder">

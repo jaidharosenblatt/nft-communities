@@ -33,13 +33,11 @@
   grid-template-rows: var(--navbar-height) auto;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .grid {
     grid-template-columns: 0px auto;
   }
-  .filters {
-    width: 0px;
-  }
+
   .projects-holder {
     grid-column-start: 0;
   }

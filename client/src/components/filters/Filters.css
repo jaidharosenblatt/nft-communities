@@ -12,6 +12,7 @@
   justify-content: space-between;
   flex-direction: column;
   overflow: hidden;
+  transition: width 0.7s;
 }
 
 .filters .wrapper {
@@ -51,8 +52,23 @@
   margin-right: var(--padding-small);
 }
 
+/* small height desktop */
 @media only screen and (max-height: 680px) {
   .filters {
     overflow: scroll;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 800px) {
+  .filters {
+    --filters-width: 0px;
+    border: none;
+  }
+  .filters .wrapper {
+    display: none;
+  }
+  .filters .footer {
+    display: none;
   }
 }

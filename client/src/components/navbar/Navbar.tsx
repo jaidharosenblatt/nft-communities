@@ -1,12 +1,7 @@
 import "./Navbar.css";
-import { useAppSelector } from "../../redux/hooks";
 import DarkModeSwitch from "../form/DarkModeSwitch";
 
-type Props = { showCount?: boolean };
-export default function Navbar({ showCount }: Props) {
-  const count = useAppSelector((state) => state.projects.count);
-  const loading = useAppSelector((state) => state.status.loading);
-
+export default function Navbar() {
   return (
     <div className="navbar">
       <div className="row">
@@ -18,11 +13,6 @@ export default function Navbar({ showCount }: Props) {
           <div className="right">
             <DarkModeSwitch />
           </div>
-          {showCount && (
-            <p className="caption">
-              {loading ? "Loading collections..." : `${count} collections found`}
-            </p>
-          )}
         </div>
       </div>
     </div>
