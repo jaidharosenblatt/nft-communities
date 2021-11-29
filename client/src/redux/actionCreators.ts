@@ -12,14 +12,21 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
 
     const params = getState().filters;
     const { skip, limit } = getState().projects;
+    const {
+      name,
+      twitterFollowers,
+      twitterAverageMentionEngagement,
+      twitterAverageTweetEngagement,
+    } = params;
 
-    const { twitterFollowers, twitterAverageMentionEngagement, twitterAverageTweetEngagement } =
-      params;
+    // use regex for name query
+    const nameQuery = !name || name === "" ? undefined : { $regex: name, $options: "i" };
 
     const res = await api.get("projects", {
       params: {
         ...params,
         filters: {
+          name: nameQuery,
           twitterFollowers,
           twitterAverageMentionEngagement,
           twitterAverageTweetEngagement,

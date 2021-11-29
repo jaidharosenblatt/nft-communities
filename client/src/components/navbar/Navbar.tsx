@@ -1,5 +1,4 @@
 import "./Navbar.css";
-import Mint from "../../static/mint.svg";
 import { useAppSelector } from "../../redux/hooks";
 import DarkModeSwitch from "../form/DarkModeSwitch";
 
