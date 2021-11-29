@@ -1,4 +1,3 @@
-import { AiOutlineMenu } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { IoCloseOutline } from "react-icons/io5";
 import "./Footer.css";
