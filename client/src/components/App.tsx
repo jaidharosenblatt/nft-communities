@@ -1,62 +1,27 @@
 import "./App.css";
-import { useEffect } from "react";
-import ProjectCard from "./project-card/ProjectCard";
 import Navbar from "./navbar/Navbar";
 import Filters from "./filters/Filters";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { getLastUpdated, getProjects } from "../redux/actionCreators";
+import { useAppSelector } from "../redux/hooks";
 import ThemeSelector from "../themes/ThemeSelector";
-import { notification, Skeleton } from "antd";
-import { setError } from "../redux/status";
-import PaginationCard from "./form/PaginationCard";
+import Projects from "./projects/Projects";
+import useWindowDimensions from "../hooks/useWindowDimensions";
+import { useState } from "react";
+import Footer from "./footer/Footer";
 
 function App(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const projects = useAppSelector((state) => state.projects);
-  const filters = useAppSelector((state) => state.filters);
-  const { darkMode, loading, error } = useAppSelector((state) => state.status);
-
-  useEffect(
-    function (): () => void {
-      if (error) {
-        notification.error({
-          message: "Something went wrong...",
-          description: error,
-        });
-      } else {
-        dispatch(getProjects());
-        dispatch(getLastUpdated());
-      }
-
-      return () => {
-        if (error) {
-          dispatch(setError(undefined));
-        }
-      };
-    },
-    [error, dispatch, projects.skip, projects.limit, filters]
-  );
+  const { darkMode } = useAppSelector((state) => state.status);
+  const [showFilters, setShowFilters] = useState<boolean>(false);
 
   return (
     <ThemeSelector isDark={darkMode}>
       <div className="grid">
-        <Navbar showCount />
-
-        <Filters />
-
-        <div className="pagination-card-top">
-          <PaginationCard />
+        <Navbar />
+        {showFilters && <Filters />}
+        <div className="hide-mobile">
+          <Filters />
         </div>
-        <div className="projects-holder">
-          {loading && projects.count === 0 ? (
-            <Skeleton />
-          ) : (
-            projects.projects.map((p: Project, i) => <ProjectCard key={i} project={p} />)
-          )}
-        </div>
-        <div className="pagination-card-bottom">
-          <PaginationCard />
-        </div>
+        <Projects />
+        <Footer showFilter={showFilters} onClick={() => setShowFilters(!showFilters)} />
       </div>
     </ThemeSelector>
   );

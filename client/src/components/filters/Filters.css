@@ -51,8 +51,17 @@
   margin-right: var(--padding-small);
 }
 
+/* small height desktop */
 @media only screen and (max-height: 680px) {
   .filters {
     overflow: scroll;
+  }
+}
+
+/* mobile */
+@media only screen and (max-width: 750px) {
+  .filters {
+    width: 100vw;
+    height: calc(var(--vh-navbar) + var(--padding-medium));
   }
 }
