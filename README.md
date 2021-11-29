@@ -5,6 +5,7 @@
 - Google analytics
 - Create project
 - add api key to backend
+- sort likes/followers
 - track prices pre mint => floor
 - Track growing communities and simple graphs over time
 - Discord activity

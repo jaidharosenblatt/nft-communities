@@ -22,11 +22,14 @@ export default function SortSelector() {
       <Select.Option value="1:releaseDate">Mint Date </Select.Option>
       <Select.Option value="-1:twitterFollowers">Most Twitter Followers </Select.Option>
       <Select.Option value="-1:twitterAverageTweetEngagement">Most Avg Likes/Tweet</Select.Option>
+      <Select.Option value="-1:twitterAverageMentionEngagement">
+        Most Avg Likes/Mention
+      </Select.Option>
       <Select.Option value="1:name">Name (A-Z)</Select.Option>
       <Select.Option value="-1:name">Name (Z-A)</Select.Option>
       <Select.Option value="-1:trends.followingChange">Followers Growth </Select.Option>
       <Select.Option value="-1:trends.tweetEngagementChange">Avg Likes/Tweet Growth</Select.Option>
-      <Select.Option value="-1:trends.tweetMentionChange">Avg Likes/Tweet Growth</Select.Option>
+      <Select.Option value="-1:trends.tweetMentionChange">Avg Likes/Mention Growth</Select.Option>
     </Select>
   );
 }
