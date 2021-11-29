@@ -8,6 +8,7 @@ import TimePeriodSelector from "../form/TimePeriodSelector";
 import MintDatePicker from "../form/MintDatePicker";
 import { Divider } from "antd";
 import FilterSliders from "./FilterSliders";
+import NameInput from "../form/NameInput";
 
 export default function Filters() {
   return (
@@ -32,6 +33,7 @@ export default function Filters() {
         <MintDatePicker />
 
         <FilterSliders />
+        <NameInput />
       </div>
       <div className="footer">
         Updates and Feedback:

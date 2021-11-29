@@ -11,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .filters .wrapper {
@@ -49,4 +49,10 @@
 }
 .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
   margin-right: var(--padding-small);
+}
+
+@media only screen and (max-height: 680px) {
+  .filters {
+    overflow: scroll;
+  }
 }

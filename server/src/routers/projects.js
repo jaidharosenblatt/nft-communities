@@ -3,8 +3,6 @@ const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
 const { getParamVariable, sendError, isValidDate } = require("./util");
-const Moment = require("../models/moment");
-const { updateAggregate } = require("../trends/aggregation");
 
 const router = new express.Router();
 
@@ -117,6 +115,7 @@ router.get("/projects", async (req, res) => {
         },
       },
     ]);
+
     const projects = q[0].projects;
     let count = 0;
     if (q[0]?.count[0]) {

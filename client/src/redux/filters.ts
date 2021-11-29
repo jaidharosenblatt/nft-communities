@@ -10,6 +10,7 @@ export interface FiltersState {
   twitterFollowers?: FilterRange;
   twitterAverageMentionEngagement?: FilterRange;
   twitterAverageTweetEngagement?: FilterRange;
+  name?: string;
 }
 
 // Define the initial state using that type
@@ -49,6 +50,9 @@ export const filtersSlice = createSlice({
     setMentionLikesFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
       state.twitterAverageMentionEngagement = action.payload;
     },
+    setNameFilter: (state, action: PayloadAction<string>) => {
+      state.name = action.payload;
+    },
   },
 });
 
@@ -61,4 +65,5 @@ export const {
   setFollowersFilter,
   setTweetLikesFilter,
   setMentionLikesFilter,
+  setNameFilter,
 } = filtersSlice.actions;

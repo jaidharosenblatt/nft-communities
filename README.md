@@ -5,6 +5,7 @@
 - mobile view
 - toggle filters panel
 - Google analytics
+- Create project
 
 - Track growing communities and simple graphs over time
 - Discord activity

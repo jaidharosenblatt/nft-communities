@@ -44,13 +44,13 @@ export default function ProjectCard({ project }: Props) {
           percentage={project.trends!.followingPercentChange}
         />
         <Stat
-          caption="Average Likes per Tweet"
+          caption="Average Likes/Tweet"
           current={project.twitterAverageTweetEngagement!}
           change={project.trends!.tweetEngagementChange}
           percentage={project.trends!.tweetEngagementPercentChange}
         />
         <Stat
-          caption="Average Likes per Mention"
+          caption="Average Likes/Mention"
           current={project.twitterAverageMentionEngagement!}
           change={project.trends!.tweetMentionChange}
           percentage={project.trends!.tweetMentionPercentChange}

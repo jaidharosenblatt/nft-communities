@@ -20,7 +20,7 @@ export default function FilterSliders() {
       <IconText
         color="var(--primary-text)"
         icon={<IoHeartOutline size={14} />}
-        text={<p>Average Likes per Tweet</p>}
+        text={<p>Average Likes/Tweet</p>}
       />
       <FilterRange
         filters={filters}
@@ -30,7 +30,7 @@ export default function FilterSliders() {
       <IconText
         color="var(--primary-text)"
         icon={<GoMention size={14} />}
-        text={<p>Average Likes per Mention</p>}
+        text={<p>Average Likes/Mention</p>}
       />
       <FilterRange
         filters={filters}
