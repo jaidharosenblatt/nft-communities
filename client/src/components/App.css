@@ -33,12 +33,20 @@
   grid-template-rows: var(--navbar-height) auto;
 }
 
-@media only screen and (max-width: 800px) {
+.hide-mobile {
+  display: inline;
+}
+
+@media only screen and (max-width: 750px) {
   .grid {
     grid-template-columns: 0px auto;
   }
 
   .projects-holder {
     grid-column-start: 0;
+  }
+  .hide-mobile {
+    display: none;
+    border: none;
   }
 }

@@ -12,7 +12,6 @@
   justify-content: space-between;
   flex-direction: column;
   overflow: hidden;
-  transition: width 0.7s;
 }
 
 .filters .wrapper {
@@ -59,16 +58,10 @@
   }
 }
 
-/* Mobile */
-@media only screen and (max-width: 800px) {
+/* mobile */
+@media only screen and (max-width: 750px) {
   .filters {
-    --filters-width: 0px;
-    border: none;
-  }
-  .filters .wrapper {
-    display: none;
-  }
-  .filters .footer {
-    display: none;
+    width: 100vw;
+    height: calc(var(--vh-navbar) + var(--padding-medium));
   }
 }
