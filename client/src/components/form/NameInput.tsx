@@ -16,9 +16,10 @@ export default function NameInput() {
       <IconText
         color="var(--primary-text)"
         icon={<HiOutlineIdentification size={14} />}
-        text={<p> Name</p>}
+        text={<p> Collection Name</p>}
       />
       <Input
+        placeholder="ex. Degenerate Ape"
         style={{
           margin: "var(--padding-filters)",
           width: "calc(100% - var(--padding-filters) - var(--padding-filters))",

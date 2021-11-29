@@ -1,12 +1,13 @@
 .filters {
   width: var(--filters-width);
   position: fixed;
-  height: calc(var(--vh-navbar) - var(--padding-large) + var(--padding-small));
-  border-radius: 0 var(--border-radius) 0 0;
+  height: calc(var(--vh-navbar) + var(--padding-small));
   bottom: 0px;
   z-index: 2;
   border: var(--card-border);
+  border-top: none;
   background-color: var(--card-fill);
+
   /* Allows footer pin */
   display: flex;
   justify-content: space-between;
@@ -62,6 +63,5 @@
 @media only screen and (max-width: 750px) {
   .filters {
     width: 100vw;
-    height: calc(var(--vh-navbar) + var(--padding-medium));
   }
 }
