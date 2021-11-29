@@ -40,8 +40,9 @@ function App(): JSX.Element {
   return (
     <ThemeSelector isDark={darkMode}>
       <div className="grid">
+        <Navbar showCount />
+
         <Filters />
-        <Navbar />
 
         <div className="pagination-card-top">
           <PaginationCard />
