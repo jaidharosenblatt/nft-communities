@@ -1,7 +1,9 @@
 # TODO
 
+- search by name
 - credit apps
 - mobile view
+- toggle filters panel
 - Google analytics
 
 - Track growing communities and simple graphs over time
