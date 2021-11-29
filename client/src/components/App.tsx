@@ -4,7 +4,6 @@ import Filters from "./filters/Filters";
 import { useAppSelector } from "../redux/hooks";
 import ThemeSelector from "../themes/ThemeSelector";
 import Projects from "./projects/Projects";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useState } from "react";
 import Footer from "./footer/Footer";
 
