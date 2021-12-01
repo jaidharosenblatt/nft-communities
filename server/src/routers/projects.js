@@ -113,6 +113,7 @@ router.get("/projects", async (req, res) => {
           "trends.tweetEngagementPercentChange": 1,
           "trends.tweetMentionChange": 1,
           "trends.tweetMentionPercentChange": 1,
+          description: 1,
           quantity: 1,
           price: 1,
           twitterFollowers: 1,

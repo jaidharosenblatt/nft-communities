@@ -27,16 +27,24 @@ export default function ProjectCard({ project }: Props) {
   return (
     <div className="project-card">
       <DateTopper date={project.releaseDate} />
-      {project.price && `${project.price} SOL`}
-      {project.quantity && `${project.quantity}`}
 
       <div className="header">
         <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
         <div>
           <h2>{truncatedName}</h2>
+          <p>
+            {" "}
+            {project.price && `${project.price} SOL mint | `}
+            {project.quantity && `${project.quantity} supply`}
+          </p>
+
           <Socials size={30} project={project} />
         </div>
       </div>
+      <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}>
+        {project.description}
+      </p>
+      <div className="push-stat-box" />
       <div className="stats-row">
         <Stat
           caption="Followers"

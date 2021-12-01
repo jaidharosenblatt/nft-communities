@@ -22,7 +22,7 @@ const initialState: ProjectsState = {
     highestQuantity: 0,
   },
   skip: 0,
-  limit: 15,
+  limit: 20,
 };
 
 export const projectsSlice = createSlice({
