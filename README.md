@@ -3,7 +3,6 @@
 Yes
 
 - Create project
-- add api key to backend
 
 No
 

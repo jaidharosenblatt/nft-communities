@@ -67,4 +67,9 @@ interface FilterRange {
   $lte?: number;
 }
 
+interface ApiHeader {
+  hash: string;
+  iv: string;
+}
+
 type MintDateParams = "startDate" | "endDate";
