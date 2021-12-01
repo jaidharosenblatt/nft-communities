@@ -1,4 +1,5 @@
 import "./ProjectCard.css";
+import { useState, useLayoutEffect, useRef } from "react";
 import Stat from "./Stat";
 import Socials from "./Socials";
 import DateTopper from "./DateTopper";
@@ -8,9 +9,18 @@ import { Skeleton } from "antd";
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
   const loading = useAppSelector((state) => state.status.loading);
-  if (loading) {
-    return <Skeleton />;
-  }
+
+  //Next 8 lines are all just to adjust the height of a div :(
+  // to prevent overlap when stats wrap
+  // get width of card and add more padding if long stats have to wrap
+  const [width, setWidth] = useState<string>("300px");
+  const ref = useRef(null);
+  useLayoutEffect(() => {
+    if (ref.current) {
+      setWidth(window.getComputedStyle(ref.current).width);
+    }
+  }, []);
+  const offsetHeight = 60 + (parseInt(width) < 355 ? 30 : 0);
 
   function covertAvatar(avatar: string): string {
     if (avatar.endsWith("png")) {
@@ -24,8 +34,12 @@ export default function ProjectCard({ project }: Props) {
   const truncatedN = 28;
   const truncatedName =
     project.name.length > truncatedN ? project.name.slice(0, truncatedN - 3) + "..." : project.name;
+
+  if (loading) {
+    return <Skeleton />;
+  }
   return (
-    <div className="project-card">
+    <div ref={ref} className="project-card">
       <DateTopper date={project.releaseDate} />
 
       <div className="header">
@@ -44,7 +58,7 @@ export default function ProjectCard({ project }: Props) {
       <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}>
         {project.description}
       </p>
-      <div className="push-stat-box" />
+      <div style={{ height: offsetHeight }} />
       <div className="stats-row">
         <Stat
           caption="Followers"
