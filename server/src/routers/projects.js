@@ -63,6 +63,8 @@ router.get("/projects", async (req, res) => {
       "trends.tweetMentionPercentChange",
       "twitterAverageTweetEngagement",
       "twitterAverageMentionEngagement",
+      "quantity",
+      "price",
     ];
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
     const sortDirection = req.query.sortDirection ? parseInt(req.query.sortDirection) : -1;
@@ -111,6 +113,8 @@ router.get("/projects", async (req, res) => {
           "trends.tweetEngagementPercentChange": 1,
           "trends.tweetMentionChange": 1,
           "trends.tweetMentionPercentChange": 1,
+          quantity: 1,
+          price: 1,
           twitterFollowers: 1,
           twitterUrl: 1,
           twitterAverageTweetEngagement: 1,

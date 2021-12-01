@@ -60,15 +60,18 @@ function getDiscordIdFromUrl(url) {
 function convertSolString(price) {
   if (!price || price === "TBA") return undefined;
   const pre = price.split(" SOL")[0];
+  let num = 0;
   if (pre.includes("-")) {
-    return parseFloat(pre.split("-")[0]);
+    num = parseFloat(pre.split("-")[0]);
   }
-  return parseFloat(pre);
+  num = parseFloat(pre);
+  return isNaN(num) ? undefined : num;
 }
 
 function convertQuantity(quantity) {
   if (!quantity) return undefined;
-  return parseInt(quantity);
+
+  return parseInt(quantity.toString().replace(/,/g, ""));
 }
 
 module.exports = {

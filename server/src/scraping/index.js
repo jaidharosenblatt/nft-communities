@@ -8,7 +8,7 @@ async function scrapeProjects() {
     const howRareProjects = await getHowRareProjects();
     const solanartProjects = await getSolanartProjects();
     const solanalysisProjects = await getSolanalysisProjects();
-    const projects = howRareProjects.concat(solanalysisProjects, solanartProjects);
+    const projects = solanartProjects.concat(howRareProjects, solanalysisProjects);
 
     // add new fields
     const updated = await Project.bulkWrite(
@@ -29,7 +29,7 @@ async function scrapeProjects() {
       ordered: false,
     });
 
-    return `${created.length} projects created, ${updated.length} projects updated`;
+    return updated;
   } catch (e) {
     if (process.env.DEBUG === "TRUE") {
       console.error(e);

@@ -27,6 +27,8 @@ export default function ProjectCard({ project }: Props) {
   return (
     <div className="project-card">
       <DateTopper date={project.releaseDate} />
+      {project.price && `${project.price} SOL`}
+      {project.quantity && `${project.quantity}`}
 
       <div className="header">
         <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
@@ -35,7 +37,6 @@ export default function ProjectCard({ project }: Props) {
           <Socials size={30} project={project} />
         </div>
       </div>
-
       <div className="stats-row">
         <Stat
           caption="Followers"

@@ -21,17 +21,19 @@ async function getHowRareProjects() {
       $(e)
         .find("tr")
         .each((j, e2) => {
+          const children = $(e2).find("td").children().length;
           // add all text elements (not <a>)
           const name = $(e2).find("td:nth-child(1)").text().trim();
-          const quantity = $(e2).find("td:nth-child(4)").text().trim();
-          const price = $(e2).find("td:nth-child(5)").text().trim();
-          const description = $(e2).find("td:nth-child(6)").text().trim();
+          const quantity = $(e2).find("td:nth-last-child(3)").text().trim();
+          const price = $(e2).find("td:nth-last-child(2)").text().trim();
+          const description = $(e2).find("td:last-child").text().trim();
           const priceNumber = convertSolString(price);
           const quantityNumber = convertQuantity(quantity);
 
           const twitterUrl = $(e2).find("i.fab.fa-twitter").parent().attr("href");
           const discordUrl = $(e2).find("i.fab.fa-discord").parent().attr("href");
           const website = $(e2).find("i.fab.fab.fa-firefox").parent().attr("href");
+
           const twitter = getTwitterUsernameFromUrl(twitterUrl);
           const project = {
             name,
