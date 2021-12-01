@@ -3,6 +3,7 @@ import { MdDarkMode } from "react-icons/md";
 import { BsSunFill } from "react-icons/bs";
 import { setButtonDarkMode } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import "./form.css";
 
 export default function DarkModeSwitch() {
   const darkMode = useAppSelector((state) => state.status.darkMode);
@@ -12,6 +13,7 @@ export default function DarkModeSwitch() {
   }
   return (
     <Switch
+      className="dark-mode"
       checkedChildren={<MdDarkMode />}
       unCheckedChildren={<BsSunFill />}
       checked={darkMode}

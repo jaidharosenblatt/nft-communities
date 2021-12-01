@@ -58,6 +58,8 @@ interface Aggregation {
   highestTweetLikesRounded: number;
   highestMentionLikesRounded: number;
   lastMoment: string;
+  highestPrice: number;
+  highestQuantity: number;
 }
 
 interface FilterRange {

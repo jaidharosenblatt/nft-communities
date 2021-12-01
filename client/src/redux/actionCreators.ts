@@ -17,6 +17,8 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
       twitterFollowers,
       twitterAverageMentionEngagement,
       twitterAverageTweetEngagement,
+      price,
+      quantity,
     } = params;
 
     // use regex for name query
@@ -30,6 +32,8 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
           twitterFollowers,
           twitterAverageMentionEngagement,
           twitterAverageTweetEngagement,
+          price,
+          quantity,
         },
         limit,
         skip,

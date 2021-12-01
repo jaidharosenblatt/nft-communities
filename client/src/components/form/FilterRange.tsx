@@ -3,6 +3,8 @@ import {
   FiltersState,
   setFollowersFilter,
   setMentionLikesFilter,
+  setPriceFilter,
+  setQuantityFilter,
   setTweetLikesFilter,
 } from "../../redux/filters";
 import { useAppDispatch } from "../../redux/hooks";
@@ -10,7 +12,12 @@ import LeftRightRow from "../util/LeftRightRow";
 
 type Props = {
   filters: FiltersState;
-  value: "twitterAverageTweetEngagement" | "twitterFollowers" | "twitterAverageMentionEngagement";
+  value:
+    | "twitterAverageTweetEngagement"
+    | "twitterFollowers"
+    | "twitterAverageMentionEngagement"
+    | "price"
+    | "quantity";
   max: number;
 };
 export default function FilterSlider({ filters, value, max }: Props) {
@@ -48,6 +55,12 @@ export default function FilterSlider({ filters, value, max }: Props) {
         break;
       case "twitterAverageTweetEngagement":
         dispatch(setTweetLikesFilter(noUndefinedFilter));
+        break;
+      case "price":
+        dispatch(setPriceFilter(noUndefinedFilter));
+        break;
+      case "quantity":
+        dispatch(setQuantityFilter(noUndefinedFilter));
         break;
       default:
         dispatch(setMentionLikesFilter(noUndefinedFilter));

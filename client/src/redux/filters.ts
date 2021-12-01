@@ -10,6 +10,8 @@ export interface FiltersState {
   twitterFollowers?: FilterRange;
   twitterAverageMentionEngagement?: FilterRange;
   twitterAverageTweetEngagement?: FilterRange;
+  price?: FilterRange;
+  quantity?: FilterRange;
   name?: string;
 }
 
@@ -50,6 +52,13 @@ export const filtersSlice = createSlice({
     setMentionLikesFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
       state.twitterAverageMentionEngagement = action.payload;
     },
+
+    setPriceFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
+      state.price = action.payload;
+    },
+    setQuantityFilter: (state, action: PayloadAction<FilterRange | undefined>) => {
+      state.quantity = action.payload;
+    },
     setNameFilter: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
     },
@@ -66,4 +75,6 @@ export const {
   setTweetLikesFilter,
   setMentionLikesFilter,
   setNameFilter,
+  setPriceFilter,
+  setQuantityFilter,
 } = filtersSlice.actions;

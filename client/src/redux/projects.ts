@@ -18,6 +18,8 @@ const initialState: ProjectsState = {
     highestFollowersRounded: 0,
     highestTweetLikesRounded: 0,
     highestMentionLikesRounded: 0,
+    highestPrice: 0,
+    highestQuantity: 0,
   },
   skip: 0,
   limit: 15,

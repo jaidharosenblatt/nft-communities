@@ -1,5 +1,6 @@
 const Aggregation = require("../models/aggregation");
 const Moment = require("../models/moment");
+const Project = require("../models/project");
 
 async function updateAggregate() {
   // delete all past aggregations
@@ -16,6 +17,12 @@ async function updateAggregate() {
   const projects2 = await Moment.find().sort("-twitterAverageMentionEngagement").limit(1);
   const highestMentionLikes = projects2[0].twitterAverageMentionEngagement || 0;
 
+  const projects3 = await Project.find().sort("-quantity").limit(1);
+  const highestQuantity = projects3[0].quantity || 0;
+
+  const projects4 = await Project.find().sort("-price").limit(1);
+  const highestPrice = projects4[0].price || 0;
+
   function roundTo(number, round) {
     if (number === 0) {
       return 0;
@@ -31,6 +38,8 @@ async function updateAggregate() {
     highestFollowersRounded: roundTo(highestFollowers, 10000),
     highestTweetLikesRounded: roundTo(highestTweetLikes, 1000),
     highestMentionLikesRounded: roundTo(highestMentionLikes, 100),
+    highestPrice: roundTo(highestPrice, 10),
+    highestQuantity: roundTo(highestQuantity, 10000),
   });
   return await aggregation.save();
 }
