@@ -4,6 +4,7 @@
   padding: var(--padding-large);
   border: var(--card-border);
   max-width: var(--card-max-width);
+  position: relative;
 }
 
 .project-card .header {
@@ -21,13 +22,22 @@
 .project-card .stats-row {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  width: calc(100% - 2 * var(--padding-large));
+  bottom: var(--padding-medium);
+}
+
+.project-card .push-stat-box {
+  height: calc(2.5 * var(--padding-large));
 }
 
 .project-card img {
   border-radius: 100px;
-  padding: var(--padding-medium);
-  width: 100px;
-  height: 100px;
+  margin-top: var(--padding-small);
+  margin-bottom: var(--padding-medium);
+  margin-right: var(--padding-medium);
+  width: 80px;
+  height: 80px;
 }
 
 .project-card .date-topper {

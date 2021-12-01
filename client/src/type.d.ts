@@ -8,6 +8,8 @@ interface Project {
   description?: string;
   twitter: string;
   discord?: string;
+  quantity?: string;
+  price?: string;
   website?: string;
   twitterUrl: string;
   discordUrl?: string;
@@ -56,6 +58,8 @@ interface Aggregation {
   highestTweetLikesRounded: number;
   highestMentionLikesRounded: number;
   lastMoment: string;
+  highestPrice: number;
+  highestQuantity: number;
 }
 
 interface FilterRange {

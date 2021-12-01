@@ -1,4 +1,4 @@
-import { IoHeartOutline } from "react-icons/io5";
+import { IoBagOutline, IoHeartOutline, IoPricetagOutline } from "react-icons/io5";
 import FilterRange from "../form/FilterRange";
 import IconText from "../util/IconText";
 import { GoMention } from "react-icons/go";
@@ -37,6 +37,18 @@ export default function FilterSliders() {
         value="twitterAverageMentionEngagement"
         max={aggregation.highestMentionLikesRounded}
       />
+      <IconText
+        color="var(--primary-text)"
+        icon={<IoPricetagOutline size={14} />}
+        text={<p>Price (SOL)</p>}
+      />
+      <FilterRange filters={filters} value="price" max={aggregation.highestPrice} />
+      <IconText
+        color="var(--primary-text)"
+        icon={<IoBagOutline size={14} />}
+        text={<p>Supply</p>}
+      />
+      <FilterRange filters={filters} value="quantity" max={aggregation.highestQuantity} />
     </>
   );
 }

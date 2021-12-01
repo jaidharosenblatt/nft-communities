@@ -5,15 +5,31 @@ const { getSolanartProjects } = require("./solanart");
 
 async function scrapeProjects() {
   try {
+    const howRareProjects = await getHowRareProjects();
     const solanartProjects = await getSolanartProjects();
     const solanalysisProjects = await getSolanalysisProjects();
-    const howRareProjects = await getHowRareProjects();
-    const projects = solanartProjects.concat(solanalysisProjects, howRareProjects);
+    const projects = solanartProjects.concat(howRareProjects, solanalysisProjects);
 
+    // add new fields
+    const updated = await Project.bulkWrite(
+      projects.map((project) => ({
+        updateOne: {
+          filter: { twitter: project.twitter },
+          update: {
+            $set: {
+              quantity: project.quantity,
+              price: project.price,
+              description: project.description,
+            },
+          },
+        },
+      }))
+    );
     const created = await Project.insertMany(projects, {
       ordered: false,
     });
-    return `${created.length} projects created`;
+
+    return updated;
   } catch (e) {
     if (process.env.DEBUG === "TRUE") {
       console.error(e);

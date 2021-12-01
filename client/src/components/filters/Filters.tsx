@@ -31,9 +31,9 @@ export default function Filters() {
           text={<p>Mint Date</p>}
         />
         <MintDatePicker />
+        <NameInput />
 
         <FilterSliders />
-        <NameInput />
       </div>
       <div className="footer">
         Updates and Feedback:

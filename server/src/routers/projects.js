@@ -33,6 +33,16 @@ router.post("/updateTweets", async (req, res) => {
   }
 });
 
+router.post("/projects", async (req, res) => {
+  try {
+    const project = Project(req.data);
+    const p = await project.save();
+    res.send(p);
+  } catch (e) {
+    sendError(e, res);
+  }
+});
+
 router.get("/projects", async (req, res) => {
   try {
     const trendType = getParamVariable(req, "trendType", "allTrend", [
@@ -53,6 +63,8 @@ router.get("/projects", async (req, res) => {
       "trends.tweetMentionPercentChange",
       "twitterAverageTweetEngagement",
       "twitterAverageMentionEngagement",
+      "quantity",
+      "price",
     ];
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
     const sortDirection = req.query.sortDirection ? parseInt(req.query.sortDirection) : -1;
@@ -101,6 +113,9 @@ router.get("/projects", async (req, res) => {
           "trends.tweetEngagementPercentChange": 1,
           "trends.tweetMentionChange": 1,
           "trends.tweetMentionPercentChange": 1,
+          description: 1,
+          quantity: 1,
+          price: 1,
           twitterFollowers: 1,
           twitterUrl: 1,
           twitterAverageTweetEngagement: 1,

@@ -8,6 +8,8 @@ const aggregationSchema = new mongoose.Schema({
   highestFollowersRounded: { type: Number, required: true },
   highestTweetLikesRounded: { type: Number, required: true },
   highestMentionLikesRounded: { type: Number, required: true },
+  highestPrice: { type: Number, required: true },
+  highestQuantity: { type: Number, required: true },
 });
 
 const Aggregation = mongoose.model("Aggregation", aggregationSchema);

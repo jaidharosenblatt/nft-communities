@@ -2,3 +2,15 @@
   margin: 0px;
   padding: 0px;
 }
+
+.dark-mode .ant-switch-inner {
+  display: flex;
+  align-items: center;
+}
+
+.tag {
+  background-color: var(--primary);
+  color: white;
+  padding: var(--padding-small) var(--padding-medium);
+  border-radius: var(--border-radius);
+}

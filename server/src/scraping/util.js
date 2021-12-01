@@ -57,7 +57,26 @@ function getDiscordIdFromUrl(url) {
   return id.endsWith("/") ? id.slice(0, id.length - 1) : id;
 }
 
+function convertSolString(price) {
+  if (!price || price === "TBA") return undefined;
+  const pre = price.split(" SOL")[0];
+  let num = 0;
+  if (pre.includes("-")) {
+    num = parseFloat(pre.split("-")[0]);
+  }
+  num = parseFloat(pre);
+  return isNaN(num) ? undefined : num;
+}
+
+function convertQuantity(quantity) {
+  if (!quantity) return undefined;
+
+  return parseInt(quantity.toString().replace(/,/g, ""));
+}
+
 module.exports = {
   getTwitterUsernameFromUrl,
   getDiscordIdFromUrl,
+  convertSolString,
+  convertQuantity,
 };

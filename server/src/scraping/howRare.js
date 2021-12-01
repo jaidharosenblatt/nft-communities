@@ -1,6 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { getTwitterUsernameFromUrl, getDiscordIdFromUrl } = require("./util");
+const { getTwitterUsernameFromUrl, convertQuantity, convertSolString } = require("./util");
 
 async function getHowRareProjects() {
   const { data } = await axios.get("https://howrare.is/drops");
@@ -21,25 +21,30 @@ async function getHowRareProjects() {
       $(e)
         .find("tr")
         .each((j, e2) => {
-          let p = [];
+          const children = $(e2).find("td").children().length;
           // add all text elements (not <a>)
-          $(e2)
-            .find("td")
-            .each((j, e3) => {
-              p.push($(e3).text().trim());
-            });
+          const name = $(e2).find("td:nth-child(1)").text().trim();
+          const quantity = $(e2).find("td:nth-last-child(3)").text().trim();
+          const price = $(e2).find("td:nth-last-child(2)").text().trim();
+          const description = $(e2).find("td:last-child").text().trim();
+          const priceNumber = convertSolString(price);
+          const quantityNumber = convertQuantity(quantity);
+
           const twitterUrl = $(e2).find("i.fab.fa-twitter").parent().attr("href");
           const discordUrl = $(e2).find("i.fab.fa-discord").parent().attr("href");
           const website = $(e2).find("i.fab.fab.fa-firefox").parent().attr("href");
+
           const twitter = getTwitterUsernameFromUrl(twitterUrl);
           const project = {
-            name: p[0],
-            website,
+            name,
+            website: undefinedIfEmpty(website),
+            quantity: quantityNumber,
+            price: priceNumber,
             twitter,
-            discordUrl,
+            discordUrl: undefinedIfEmpty(discordUrl),
             twitterUrl,
             releaseDate,
-            description: p[5] === "" ? undefined : p[5],
+            description: undefinedIfEmpty(description),
           };
           if (project.name && project.twitter) {
             projects.push(project);
@@ -47,6 +52,10 @@ async function getHowRareProjects() {
         });
     });
   return projects;
+}
+
+function undefinedIfEmpty(str) {
+  return str === "" ? undefined : str;
 }
 
 function convertDateString(date) {

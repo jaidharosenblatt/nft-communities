@@ -33,6 +33,8 @@ router.get("/aggregate", async (req, res) => {
         highestTweetLikesRounded: 1,
         highestMentionLikesRounded: 1,
         lastMoment: 1,
+        highestQuantity: 1,
+        highestPrice: 1,
       }
     );
     res.send(aggregation);
