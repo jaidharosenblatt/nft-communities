@@ -20,7 +20,7 @@ export default function ProjectCard({ project }: Props) {
       setWidth(window.getComputedStyle(ref.current).width);
     }
   }, []);
-  const offsetHeight = 60 + (parseInt(width) < 355 ? 30 : 0);
+  const offsetHeight = 60 + (parseInt(width) < 325 ? 30 : 0);
 
   function covertAvatar(avatar: string): string {
     if (avatar.endsWith("png")) {
