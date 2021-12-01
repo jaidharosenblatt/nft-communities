@@ -4,6 +4,7 @@
   grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
   grid-column-start: 2;
   grid-row-start: 4;
+  width: calc(100% - 2 * var(--padding-large));
   padding: var(--padding-large);
 }
 
@@ -11,8 +12,9 @@
   grid-template-columns: 1;
   grid-column-start: 2;
   grid-row-start: 2;
-  padding: var(--padding-large);
-  padding-bottom: 0;
+  margin-left: var(--padding-large);
+  margin-top: var(--padding-large);
+  width: calc(100% - 2 * var(--padding-large));
 }
 
 .pagination-card-bottom {

@@ -4,7 +4,14 @@
   padding: var(--padding-large);
   border: var(--card-border);
   max-width: var(--card-max-width);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-card .not-bottom {
+  justify-content: normal;
+  margin-bottom: var(--padding-medium);
 }
 
 .project-card .header {
@@ -22,13 +29,6 @@
 .project-card .stats-row {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  width: calc(100% - 2 * var(--padding-large));
-  bottom: var(--padding-medium);
-}
-
-.project-card .push-stat-box {
-  height: calc(2.5 * var(--padding-large));
 }
 
 .project-card img {

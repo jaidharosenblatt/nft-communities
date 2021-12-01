@@ -1,5 +1,4 @@
 import "./ProjectCard.css";
-import { useState, useLayoutEffect, useRef } from "react";
 import Stat from "./Stat";
 import Socials from "./Socials";
 import DateTopper from "./DateTopper";
@@ -9,18 +8,6 @@ import { Skeleton } from "antd";
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
   const loading = useAppSelector((state) => state.status.loading);
-
-  //Next 8 lines are all just to adjust the height of a div :(
-  // to prevent overlap when stats wrap
-  // get width of card and add more padding if long stats have to wrap
-  const [width, setWidth] = useState<string>("300px");
-  const ref = useRef(null);
-  useLayoutEffect(() => {
-    if (ref.current) {
-      setWidth(window.getComputedStyle(ref.current).width);
-    }
-  }, []);
-  const offsetHeight = 60 + (parseInt(width) < 325 ? 30 : 0);
 
   function covertAvatar(avatar: string): string {
     if (avatar.endsWith("png")) {
@@ -39,26 +26,26 @@ export default function ProjectCard({ project }: Props) {
     return <Skeleton />;
   }
   return (
-    <div ref={ref} className="project-card">
-      <DateTopper date={project.releaseDate} />
+    <div className="project-card">
+      <div className="not-bottom">
+        <DateTopper date={project.releaseDate} />
 
-      <div className="header">
-        <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
-        <div>
-          <h2>{truncatedName}</h2>
-          <p>
-            {" "}
-            {project.price && `${project.price} SOL mint | `}
-            {project.quantity && `${project.quantity} supply`}
-          </p>
+        <div className="header">
+          <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
+          <div>
+            <h2>{truncatedName}</h2>
+            <p>
+              {project.price !== undefined && `${project.price} SOL mint | `}
+              {project.quantity && `${project.quantity} supply`}
+            </p>
 
-          <Socials size={30} project={project} />
+            <Socials size={30} project={project} />
+          </div>
         </div>
+        <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}>
+          {project.description}
+        </p>
       </div>
-      <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}>
-        {project.description}
-      </p>
-      <div style={{ height: offsetHeight }} />
       <div className="stats-row">
         <Stat
           caption="Followers"
