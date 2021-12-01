@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const cron = require("node-cron");
+const { verifyKey } = require("./api/auth");
+
 const { everyFifthHour, everyDay } = require("./cron");
 
 if (process.env.MONGO_URL) {
@@ -18,6 +20,7 @@ const port = process.env.PORT;
 const app = express();
 
 app.use(cors());
+app.all("*", verifyKey);
 
 app.use(express.json());
 app.use(projectsRouter, trendsRouter);
