@@ -1,8 +1,14 @@
 # TODO
 
+Yes
+
 - Create project
 - add api key to backend
+
+No
+
 - sort likes/followers
+- filter by growth
 - track prices pre mint => floor
 - Track growing communities and simple graphs over time
 - Discord activity

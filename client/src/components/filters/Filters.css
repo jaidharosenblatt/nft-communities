@@ -53,7 +53,7 @@
 }
 
 /* small height desktop */
-@media only screen and (max-height: 680px) {
+@media only screen and (max-height: 800px) {
   .filters {
     overflow: scroll;
   }
