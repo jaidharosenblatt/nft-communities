@@ -1,5 +1,5 @@
 import axios from "axios";
-import { api } from "../api";
+import { api, updateHeaders } from "../api";
 import { setProjects, setCount, setAggregation } from "./projects";
 import { setDarkMode, setError } from "./status";
 import { setLoading } from "./status";
@@ -9,6 +9,7 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
   try {
     dispatch(setLoading(true));
     dispatch(setError(undefined));
+    const header: ApiHeader = updateHeaders();
 
     const params = getState().filters;
     const { skip, limit } = getState().projects;
@@ -25,6 +26,7 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
     const nameQuery = !name || name === "" ? undefined : { $regex: name, $options: "i" };
 
     const res = await api.get("projects", {
+      headers: { ...header },
       params: {
         ...params,
         filters: {
@@ -53,7 +55,9 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
 };
 
 export const getLastUpdated = (): AppThunk => async (dispatch) => {
-  const res = await api.get("aggregate");
+  const header: ApiHeader = updateHeaders();
+
+  const res = await api.get("aggregate", { headers: { ...header } });
   const aggregation: Aggregation = res.data;
   dispatch(setAggregation(aggregation));
 };
