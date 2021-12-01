@@ -16,9 +16,14 @@ const projectSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    price: {
+      type: Number,
+    },
+    quantity: {
+      type: Number,
+    },
     website: {
       type: String,
-      unique: true,
     },
     discordUrl: {
       type: String,

@@ -1,14 +1,12 @@
 # TODO
 
-- mobile view
-- toggle filters panel
-- Google analytics
 - Create project
 - add api key to backend
 - sort likes/followers
 - track prices pre mint => floor
 - Track growing communities and simple graphs over time
 - Discord activity
+- toggle filters panel
 
 ## .env file
 

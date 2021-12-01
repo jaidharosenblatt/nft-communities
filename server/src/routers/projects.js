@@ -33,6 +33,16 @@ router.post("/updateTweets", async (req, res) => {
   }
 });
 
+router.post("/projects", async (req, res) => {
+  try {
+    const project = Project(req.data);
+    const p = await project.save();
+    res.send(p);
+  } catch (e) {
+    sendError(e, res);
+  }
+});
+
 router.get("/projects", async (req, res) => {
   try {
     const trendType = getParamVariable(req, "trendType", "allTrend", [

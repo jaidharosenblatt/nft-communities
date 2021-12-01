@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { getTwitterUsernameFromUrl, getDiscordIdFromUrl } = require("./util");
+const { getTwitterUsernameFromUrl, convertSolString, convertQuantity } = require("./util");
 const bodyParams = require("./solanalysisParams");
 
 async function getSolanalysisProjects() {
@@ -11,6 +11,7 @@ async function getSolanalysisProjects() {
   if (!projects) return [];
   return projects.map((p) => {
     if (p.twitter && p.display_name) {
+      console.log(p.price, convertSolString(p.price));
       const d = p.launch_date ? new Date(p.launch_date) : undefined;
       return {
         name: p.display_name,
@@ -18,6 +19,8 @@ async function getSolanalysisProjects() {
         twitterUrl: p.twitter,
         discordUrl: p.discord,
         website: p.website,
+        // price: convertSolString(p.price),
+        quantity: convertQuantity(p.supply),
         releaseDate: d,
         description: p.description,
       };

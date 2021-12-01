@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { getTwitterUsernameFromUrl } = require("./util");
+const { getTwitterUsernameFromUrl, convertQuantity } = require("./util");
 
 async function getSolanartProjects() {
   const res = await axios.get("https://qzlsklfacc.medianetwork.cloud/get_collections");
@@ -16,6 +16,7 @@ async function getSolanartProjects() {
         discordUrl: p.discord,
         website: p.website,
         releaseDate: d,
+        quantity: convertQuantity(p.supply),
         description: p.description,
       };
     }
