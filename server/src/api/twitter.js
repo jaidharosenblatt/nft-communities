@@ -62,7 +62,13 @@ async function updateAllFollowers() {
 }
 
 async function updateTweetEngagement() {
-  const projects = await Project.find({}).sort("momentLastUpdate").limit(300);
+  const d = new Date();
+  d.setMonth(d.getMonth() - 1);
+
+  // only gather trends for projects that minted this month
+  const projects = await Project.find({ releaseDate: { $gte: d } })
+    .sort("releaseDate")
+    .limit(38);
 
   await Promise.all(
     projects.map(async (project) => {
@@ -78,8 +84,8 @@ async function updateTweetEngagement() {
       const twitterFollowers = res0.data?.public_metrics?.followers_count;
 
       // number of tweets/mentions to draw from
-      // 300 query limit * 2 (mentions and tweets) * 5 tweets * 24 hours a day * 5 every 5th hour * 30 days a month
-      // 300*2*5*24/5*30 = 432k (< 500k limit)
+      // 38 queries * 2 (mentions and tweets) * 5 tweets * 24 hours a day * 30 days a month
+      // 38*2*5*24*30 = 456k (< 500k limit)
       const n = 5;
       const res1 = await twitterApi.get(`users/${project.twitterId}/mentions`, {
         params: { "tweet.fields": "public_metrics", max_results: n },
@@ -122,7 +128,7 @@ async function updateTweetEngagement() {
       });
       project.momentLastUpdate = new Date();
 
-      await project.save();
+      // await project.save();
 
       const moment = new Moment({ project: project._id, ...updates });
 
