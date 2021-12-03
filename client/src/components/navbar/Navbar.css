@@ -13,6 +13,15 @@
   align-items: center;
 }
 
+.navbar .logo-row {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo-row h1 {
+  margin-left: var(--padding-medium);
+}
+
 .navbar .row .body {
   width: calc(var(--vw-filters) - var(--padding-large));
   right: 0;
