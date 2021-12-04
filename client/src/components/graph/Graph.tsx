@@ -1,32 +1,32 @@
 import "./Graph.css";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import { useAppSelector } from "../../redux/hooks";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 export default function Graph() {
-  const isVisible = useAppSelector((state) => state.graph.isVisible);
-
-  if (!isVisible) return null;
   return (
-    <div className="graph-container">
-      <LineChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-      </LineChart>
-    </div>
+    <AreaChart
+      width={730}
+      height={250}
+      data={data}
+      margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+    >
+      <defs>
+        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <XAxis dataKey="name" />
+      <YAxis />
+      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+      <Tooltip />
+      <Area
+        type="monotone"
+        dataKey="pv"
+        stroke="var(--primary)"
+        fillOpacity={1}
+        fill="url(#colorPv)"
+      />
+    </AreaChart>
   );
 }
 

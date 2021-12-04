@@ -1,7 +1,8 @@
 import axios from "axios";
 import { api, updateHeaders } from "../api";
+import { setGraphProject } from "./graph";
 import { setProjects, setCount, setAggregation } from "./projects";
-import { setDarkMode, setError } from "./status";
+import { setDarkMode, setError, setManualRefresh } from "./status";
 import { setLoading } from "./status";
 import { AppThunk } from "./store";
 
@@ -70,3 +71,17 @@ export const setButtonDarkMode =
     dispatch(setDarkMode(darkMode));
     window.location.reload();
   };
+
+export const setHighlightedProject =
+  (project: Project): AppThunk =>
+  async (dispatch, getState) => {
+    const projects = getState().projects.projects;
+    const withoutProject = projects.filter((p) => p._id !== project._id);
+    dispatch(setProjects(withoutProject));
+    dispatch(setGraphProject(project));
+  };
+
+export const closeHighlightedProject = (): AppThunk => async (dispatch) => {
+  dispatch(setGraphProject(undefined));
+  dispatch(getProjects());
+};

@@ -66,7 +66,7 @@ export default function ProjectCard({ project }: Props) {
           change={project.trends!.tweetMentionChange}
           percentage={project.trends!.tweetMentionPercentChange}
         />
-        <ShowGraphButton />
+        <ShowGraphButton project={project} />
       </div>
     </div>
   );

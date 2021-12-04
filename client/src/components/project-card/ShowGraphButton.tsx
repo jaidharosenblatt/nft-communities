@@ -1,14 +1,19 @@
 import { Button } from "antd";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-import { setIsVisible } from "../../redux/graph";
-export default function ShowGraphButton() {
+import { setHighlightedProject } from "../../redux/actionCreators";
+
+type Props = { project: Project };
+export default function ShowGraphButton({ project }: Props) {
   const dispatch = useAppDispatch();
-  const isVisible = useAppSelector((state) => state.graph.isVisible);
   const loading = useAppSelector((state) => state.status.loading);
 
   return (
-    <Button loading={loading} onClick={() => dispatch(setIsVisible(!isVisible))} type="primary">
+    <Button
+      loading={loading}
+      onClick={() => dispatch(setHighlightedProject(project))}
+      type="primary"
+    >
       View Trends
     </Button>
   );
