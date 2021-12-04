@@ -6,6 +6,7 @@ import ThemeSelector from "../themes/ThemeSelector";
 import Projects from "./projects/Projects";
 import { useState } from "react";
 import Footer from "./footer/Footer";
+import Graph from "./graph/Graph";
 
 function App(): JSX.Element {
   const { darkMode } = useAppSelector((state) => state.status);
@@ -21,6 +22,7 @@ function App(): JSX.Element {
         </div>
         <Projects />
         <Footer showFilter={showFilters} onClick={() => setShowFilters(!showFilters)} />
+        <Graph />
       </div>
     </ThemeSelector>
   );

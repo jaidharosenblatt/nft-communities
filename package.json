@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/react": "^17.0.37",
+    "recharts": "^2.1.6"
+  }
+}

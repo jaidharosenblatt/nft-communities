@@ -4,6 +4,7 @@ import Socials from "./Socials";
 import DateTopper from "./DateTopper";
 import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";
+import ShowGraphButton from "./ShowGraphButton";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
@@ -65,6 +66,7 @@ export default function ProjectCard({ project }: Props) {
           change={project.trends!.tweetMentionChange}
           percentage={project.trends!.tweetMentionPercentChange}
         />
+        <ShowGraphButton />
       </div>
     </div>
   );
