@@ -15,6 +15,15 @@ export default function Graph() {
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   }
 
+  function formatTooltipDate(date: any) {
+    const d = new Date(date);
+    return d.toLocaleDateString("en-US");
+  }
+
+  function formatTooltip(value: number, name: string, props: any) {
+    return ["followers", value.toLocaleString()];
+  }
+
   return (
     <AreaChart width={450} height={250} data={data}>
       <defs>
@@ -26,7 +35,7 @@ export default function Graph() {
       <XAxis tickFormatter={formatDate} dataKey="date" />
       <YAxis domain={[(dataMin: number) => (dataMin < 200 ? 0 : dataMin - 200), "auto"]} />
       <CartesianGrid vertical={false} />
-      <Tooltip />
+      <Tooltip labelFormatter={formatTooltipDate} formatter={formatTooltip} />
       <Area
         type="monotone"
         dataKey="value"
