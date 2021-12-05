@@ -2,6 +2,7 @@ import { Button, Modal } from "antd";
 import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import ProjectCard from "../project-card/ProjectCard";
+import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";
 
 export default function GraphCard() {
@@ -15,8 +16,9 @@ export default function GraphCard() {
   return (
     <Modal onCancel={close} footer={null} visible={showModal}>
       {project && <ProjectCard project={project} />}
-      <Graph />
+      <FieldSelector />
 
+      <Graph />
       <Button type="primary" style={{ width: "100%" }} onClick={close}>
         Close Trends
       </Button>

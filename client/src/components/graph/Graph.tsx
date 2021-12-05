@@ -4,7 +4,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";
 
 export default function Graph() {
-  const data = useAppSelector((state) => state.graph.data);
+  const { data, field } = useAppSelector((state) => state.graph);
 
   if (!data) {
     return <Skeleton />;
@@ -21,7 +21,13 @@ export default function Graph() {
   }
 
   function formatTooltip(value: number, name: string, props: any) {
-    return ["followers", value.toLocaleString()];
+    const fieldMap = {
+      twitterFollowers: "Followers",
+      twitterAverageMentionEngagement: "Mention Likes",
+      twitterAverageTweetEngagement: "Tweet Likes",
+    };
+    const label = fieldMap[field];
+    return [label, value.toLocaleString()];
   }
 
   return (
@@ -33,7 +39,7 @@ export default function Graph() {
         </linearGradient>
       </defs>
       <XAxis tickFormatter={formatDate} dataKey="date" />
-      <YAxis domain={[(dataMin: number) => (dataMin < 200 ? 0 : dataMin - 200), "auto"]} />
+      <YAxis domain={[(dataMin: number) => dataMin, "auto"]} />
       <CartesianGrid vertical={false} />
       <Tooltip labelFormatter={formatTooltipDate} formatter={formatTooltip} />
       <Area

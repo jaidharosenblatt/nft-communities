@@ -11,14 +11,9 @@ export default function ProjectCard({ project }: Props) {
   const loading = useAppSelector((state) => state.status.loading);
 
   function covertAvatar(avatar: string): string {
-    if (avatar.endsWith("png")) {
-      return avatar.split("_normal.png")[0] + ".png";
-    }
-    if (avatar.endsWith("jpg")) {
-      return avatar.split("_normal.jpg")[0] + ".jpg";
-    }
-    return "";
+    return avatar.replace("_normal", "");
   }
+
   const truncatedN = 28;
   const truncatedName =
     project.name.length > truncatedN ? project.name.slice(0, truncatedN - 3) + "..." : project.name;

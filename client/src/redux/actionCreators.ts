@@ -1,6 +1,6 @@
 import axios from "axios";
 import { api, updateHeaders } from "../api";
-import { setGraphData, setGraphProject } from "./graph";
+import { setField, setGraphData, setGraphProject } from "./graph";
 import { setProjects, setCount, setAggregation } from "./projects";
 import { setDarkMode, setError } from "./status";
 import { setLoading } from "./status";
@@ -74,13 +74,25 @@ export const setButtonDarkMode =
 
 export const setHighlightedProject =
   (project: Project): AppThunk =>
-  async (dispatch, getState) => {
+  async (dispatch) => {
     dispatch(setGraphProject(project));
-    const { field, limit } = getState().graph;
-    const res = await api.get(`/graph/${project._id}`, { params: { limit, field } });
-    dispatch(setGraphData(res.data));
+    dispatch(updateGraph());
   };
 
 export const closeHighlightedProject = (): AppThunk => async (dispatch) => {
   dispatch(setGraphProject(undefined));
+};
+
+export const updateField =
+  (value: GraphField): AppThunk =>
+  async (dispatch) => {
+    dispatch(setField(value));
+    dispatch(updateGraph());
+  };
+
+export const updateGraph = (): AppThunk => async (dispatch, getState) => {
+  const { field, limit, project } = getState().graph;
+  if (!project) return;
+  const res = await api.get(`/graph/${project._id}`, { params: { limit, field } });
+  dispatch(setGraphData(res.data));
 };
