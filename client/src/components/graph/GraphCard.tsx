@@ -21,6 +21,7 @@ export default function GraphCard() {
 
   return (
     <Modal
+      centered
       width={isMobile ? GRAPH_MODAL_WIDTH_MOBILE : GRAPH_MODAL_WIDTH}
       onCancel={close}
       footer={null}

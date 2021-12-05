@@ -2,11 +2,13 @@ import LeftRightRow from "../util/LeftRightRow";
 
 type Props = { caption: string; current: number; change: number; percentage: number };
 export default function Stat({ caption, current, change, percentage }: Props) {
-  function getChangeString(change: Number, percent: Number): String {
-    return `${change > 0 ? "+" : ""} ${change || 0} (${percent || 0}%)`;
+  function getChangeString(change: number, percent: number): String {
+    return `${change > 0 ? "+" : ""} ${change?.toLocaleString() || 0} (${
+      percent?.toLocaleString() || 0
+    }%)`;
   }
 
-  function getChangeStyle(change: Number): Object {
+  function getChangeStyle(change: number): Object {
     let color = "var(--gray-1)";
     if (change > 0) color = "var(--green)";
     if (change < 0) color = "var(--red)";

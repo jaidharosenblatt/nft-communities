@@ -7,9 +7,11 @@ export default function ProjectCardHeader({ project }: Props) {
   const truncatedName =
     project.name.length > truncatedN ? project.name.slice(0, truncatedN - 3) + "..." : project.name;
 
+  const quantity = project.quantity && parseInt(project.quantity).toLocaleString();
   function covertAvatar(avatar: string): string {
     return avatar.replace("_normal", "");
   }
+
   return (
     <div className="header">
       <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
@@ -17,7 +19,7 @@ export default function ProjectCardHeader({ project }: Props) {
         <h2>{truncatedName}</h2>
         <p>
           {project.price !== undefined && `${project.price} SOL mint | `}
-          {project.quantity && `${project.quantity} supply`}
+          {`${quantity} supply`}
         </p>
 
         <Socials size={30} project={project} />
