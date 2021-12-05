@@ -1,3 +1,9 @@
+// Time ago
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
+TimeAgo.addDefaultLocale(en);
+export const timeAgo = new TimeAgo("en-US");
+
 export const GRAPH_WIDTH = 500;
 export const GRAPH_WIDTH_MOBILE = 300;
 

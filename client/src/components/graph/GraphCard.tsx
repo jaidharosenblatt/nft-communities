@@ -8,6 +8,7 @@ import ProjectCardHeader from "../project-card/ProjectCardHeader";
 import StatsRow from "../project-card/StatsRow";
 import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";
+import TwitterCreatedAt from "./TwitterCreatedAt";
 
 export default function GraphCard() {
   const { project } = useAppSelector((state) => state.graph);
@@ -31,8 +32,10 @@ export default function GraphCard() {
       {project && (
         <div className="project-card">
           <DateTopper date={project.releaseDate} />
+
           <ProjectCardHeader project={project} />
           <StatsRow project={project} />
+          <TwitterCreatedAt twitterCreatedAt={project.twitterCreatedAt} />
         </div>
       )}
       <FieldSelector />

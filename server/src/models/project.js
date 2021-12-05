@@ -16,6 +16,7 @@ const projectSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+
     price: {
       type: Number,
     },
@@ -36,6 +37,10 @@ const projectSchema = new mongoose.Schema(
       sparse: true,
     },
     twitter: {
+      type: String,
+      unique: true,
+    },
+    twitterCreatedAt: {
       type: String,
       unique: true,
     },
