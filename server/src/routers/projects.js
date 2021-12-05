@@ -72,8 +72,8 @@ router.get("/projects", async (req, res) => {
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
 
     // start in make range
-    let startDate = new Date(-8640000000000000);
-    let endDate = new Date(8640000000000000);
+    let startDate;
+    let endDate;
 
     // add in query specified dates (can be in any Date format that JS accepts)
     if (req.query.startDate) {
@@ -86,8 +86,7 @@ router.get("/projects", async (req, res) => {
       endDate = isValidDate(parsedEndDate) && parsedEndDate;
     }
     const filters = req.query.filters ? JSON.parse(req.query.filters) : {};
-    const q = await Project.aggregate([
-      { $match: { releaseDate: { $gte: startDate, $lt: endDate } } }, // query within date range
+    const aggregate = [
       { $match: filters },
       {
         // find trend matching this project
@@ -130,7 +129,15 @@ router.get("/projects", async (req, res) => {
           projects: [{ $skip: skip * limit }, { $limit: limit }],
         },
       },
-    ]);
+    ];
+
+    // push date filters only if queries were passed in
+    const startDateFilter = { $match: { releaseDate: { $gte: startDate } } };
+    const endDateFilter = { $match: { releaseDate: { $lt: endDate } } };
+    startDate && aggregate.unshift(startDateFilter);
+    endDate && aggregate.unshift(endDateFilter);
+
+    const q = await Project.aggregate(aggregate);
 
     const projects = q[0].projects;
     let count = 0;

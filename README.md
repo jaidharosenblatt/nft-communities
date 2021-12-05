@@ -2,9 +2,8 @@
 
 Yes
 
-- Fix search bug with "rude golems" not showing as an ex
-- feature request form
 - Create project
+- feature request form
 - ratios
   - sort likes/followers
   - followers/supply
