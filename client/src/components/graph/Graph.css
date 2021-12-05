@@ -8,3 +8,8 @@
   border: var(--card-border);
   height: var(--graph-height);
 }
+
+.graph-container .graph {
+  display: flex;
+  align-items: center;
+}
