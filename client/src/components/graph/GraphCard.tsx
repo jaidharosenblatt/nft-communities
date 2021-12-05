@@ -1,6 +1,7 @@
 import { Button, Modal } from "antd";
 import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import TimePeriodSelector from "../form/TimePeriodSelector";
 import ProjectCard from "../project-card/ProjectCard";
 import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";

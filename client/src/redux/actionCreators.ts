@@ -91,8 +91,8 @@ export const updateField =
   };
 
 export const updateGraph = (): AppThunk => async (dispatch, getState) => {
-  const { field, limit, project } = getState().graph;
+  const { field, project } = getState().graph;
   if (!project) return;
-  const res = await api.get(`/graph/${project._id}`, { params: { limit, field } });
+  const res = await api.get(`/graph/${project._id}`, { params: { field } });
   dispatch(setGraphData(res.data));
 };

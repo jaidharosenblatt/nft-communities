@@ -51,7 +51,6 @@ router.get("/graph/:id", async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
       throw new ServerError(400, "Invalid objectId");
     }
-    const limit = req.query.limit && parseInt(req.query.limit);
     const projectId = mongoose.Types.ObjectId(req.params.id);
     const allowedFields = [
       "twitterFollowers",
@@ -79,9 +78,7 @@ router.get("/graph/:id", async (req, res) => {
       (e, i) => withOutTime.findIndex((a) => a.date === e.date) === i
     );
 
-    // limit number of dates to show
-    const limitedDates = uniqueDates.slice(0, limit);
-    res.send(limitedDates.reverse());
+    res.send(uniqueDates.reverse());
   } catch (e) {
     sendError(e, res);
   }
