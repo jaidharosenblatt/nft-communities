@@ -4,7 +4,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "r
 export default function Graph() {
   return (
     <AreaChart
-      width={730}
+      width={300}
       height={250}
       data={data}
       margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -17,7 +17,7 @@ export default function Graph() {
       </defs>
       <XAxis dataKey="name" />
       <YAxis />
-      <CartesianGrid vertical={false} strokeDasharray="3 3" />
+      <CartesianGrid vertical={false} />
       <Tooltip />
       <Area
         type="monotone"

@@ -4,7 +4,7 @@ import Socials from "./Socials";
 import DateTopper from "./DateTopper";
 import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";
-import ShowGraphButton from "./ShowGraphButton";
+import ShowGraphButton from "../graph/ShowGraphButton";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
