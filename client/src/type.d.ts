@@ -72,4 +72,14 @@ interface ApiHeader {
   iv: string;
 }
 
+interface GraphResponse {
+  value: number;
+  date: string;
+}
+
+type GraphField =
+  | "twitterFollowers"
+  | "twitterAverageMentionEngagement"
+  | "twitterAverageTweetEngagement";
+
 type MintDateParams = "startDate" | "endDate";

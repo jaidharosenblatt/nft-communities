@@ -81,7 +81,7 @@ router.get("/graph/:id", async (req, res) => {
 
     // limit number of dates to show
     const limitedDates = uniqueDates.slice(0, limit);
-    res.send(limitedDates);
+    res.send(limitedDates.reverse());
   } catch (e) {
     sendError(e, res);
   }
