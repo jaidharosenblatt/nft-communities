@@ -13,6 +13,7 @@ interface Project {
   website?: string;
   twitterUrl: string;
   discordUrl?: string;
+  twitterCreatedAt: string;
   twitterId: string;
   avatar: string;
   twitterFollowers: number;

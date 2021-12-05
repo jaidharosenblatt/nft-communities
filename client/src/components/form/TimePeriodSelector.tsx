@@ -17,6 +17,7 @@ export default function TimePeriodSelector() {
   monthAgo.setDate(today.getDate() - 30);
 
   const dispatch = useAppDispatch();
+  const fillWidth = { width: "calc(25%" };
 
   function onChange(change: RadioChangeEvent) {
     dispatch(setTrendType(change.target.value));
@@ -28,23 +29,25 @@ export default function TimePeriodSelector() {
       value={trendType}
       buttonStyle="solid"
     >
-      <Radio.Button disabled={d > dayAgo} value="dayTrend">
+      <Radio.Button style={fillWidth} disabled={d > dayAgo} value="dayTrend">
         <Tooltip color="var(--primary)" title={d > dayAgo ? "No data available yet" : ""}>
           1D
         </Tooltip>
       </Radio.Button>
-      <Radio.Button disabled={d > weekAgo} value="weekTrend">
+      <Radio.Button style={fillWidth} disabled={d > weekAgo} value="weekTrend">
         <Tooltip color="var(--primary)" title={d > weekAgo ? "No data available yet" : ""}>
           1W
         </Tooltip>
       </Radio.Button>
-      <Radio.Button disabled={d > monthAgo} value="monthTrend">
+      <Radio.Button style={fillWidth} disabled={d > monthAgo} value="monthTrend">
         <Tooltip color="var(--primary)" title={d > monthAgo ? "No data available yet" : ""}>
           1M
         </Tooltip>
       </Radio.Button>
 
-      <Radio.Button value="allTrend">Max</Radio.Button>
+      <Radio.Button style={fillWidth} value="allTrend">
+        Max
+      </Radio.Button>
     </Radio.Group>
   );
 }

@@ -9,7 +9,6 @@ Yes
 - ratios
   - sort likes/followers
   - followers/supply
-- track when twitter was created
 - upvotes and downvotes backed by signatures
 
 No

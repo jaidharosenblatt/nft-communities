@@ -24,7 +24,7 @@ async function updateAllFollowers() {
     const usernameQuery = usernamesSlice.join(",");
     const res = await twitterApi.get("/users/by", {
       params: {
-        "user.fields": ["public_metrics", "profile_image_url"].join(","),
+        "user.fields": ["public_metrics", "profile_image_url", "created_at"].join(","),
         usernames: usernameQuery,
       },
     });
@@ -54,6 +54,7 @@ async function updateAllFollowers() {
         p.twitterFollowers = followers;
         p.twitterId = d.id;
         p.avatar = d.profile_image_url;
+        p.twitterCreatedAt = d.created_at;
 
         await p.save();
       }

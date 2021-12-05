@@ -120,6 +120,7 @@ router.get("/projects", async (req, res) => {
           twitterUrl: 1,
           twitterAverageTweetEngagement: 1,
           twitterAverageMentionEngagement: 1,
+          twitterCreatedAt: 1,
         },
       },
       { $sort: { [sortBy]: sortDirection } },
