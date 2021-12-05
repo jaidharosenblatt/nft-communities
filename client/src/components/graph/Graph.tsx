@@ -56,7 +56,6 @@ export default function Graph() {
         <CartesianGrid vertical={false} />
         <Tooltip labelFormatter={formatTooltipDate} formatter={formatTooltip} />
         <Area
-          animationDuration={500}
           type="monotone"
           dataKey="value"
           stroke="var(--primary)"

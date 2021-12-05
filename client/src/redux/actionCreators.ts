@@ -1,6 +1,6 @@
 import axios from "axios";
 import { api, updateHeaders } from "../api";
-import { setField, setGraphData, setGraphProject } from "./graph";
+import { setField, setGraphData, setGraphLoading, setGraphProject } from "./graph";
 import { setProjects, setCount, setAggregation } from "./projects";
 import { setDarkMode, setError } from "./status";
 import { setLoading } from "./status";
@@ -92,8 +92,10 @@ export const updateField =
   };
 
 export const updateGraph = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setGraphLoading(true));
   const { field, project } = getState().graph;
   if (!project) return;
   const res = await api.get(`/graph/${project._id}`, { params: { field } });
   dispatch(setGraphData(res.data));
+  dispatch(setGraphLoading(false));
 };
