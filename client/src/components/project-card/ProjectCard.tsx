@@ -1,22 +1,15 @@
 import "./ProjectCard.css";
 import Stat from "./Stat";
-import Socials from "./Socials";
 import DateTopper from "./DateTopper";
 import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";
 import ShowGraphButton from "../graph/ShowGraphButton";
+import ProjectCardHeader from "./ProjectCardHeader";
+import StatsRow from "./StatsRow";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
   const loading = useAppSelector((state) => state.status.loading);
-
-  function covertAvatar(avatar: string): string {
-    return avatar.replace("_normal", "");
-  }
-
-  const truncatedN = 28;
-  const truncatedName =
-    project.name.length > truncatedN ? project.name.slice(0, truncatedN - 3) + "..." : project.name;
 
   if (loading) {
     return <Skeleton />;
@@ -25,42 +18,14 @@ export default function ProjectCard({ project }: Props) {
     <div className="project-card">
       <div className="not-bottom">
         <DateTopper date={project.releaseDate} />
+        <ProjectCardHeader project={project} />
 
-        <div className="header">
-          <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
-          <div>
-            <h2>{truncatedName}</h2>
-            <p>
-              {project.price !== undefined && `${project.price} SOL mint | `}
-              {project.quantity && `${project.quantity} supply`}
-            </p>
-
-            <Socials size={30} project={project} />
-          </div>
-        </div>
         <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}>
           {project.description}
         </p>
       </div>
       <div className="stats-row">
-        <Stat
-          caption="Followers"
-          current={project.twitterFollowers}
-          change={project.trends!.followingChange}
-          percentage={project.trends!.followingPercentChange}
-        />
-        <Stat
-          caption="Average Likes/Tweet"
-          current={project.twitterAverageTweetEngagement!}
-          change={project.trends!.tweetEngagementChange}
-          percentage={project.trends!.tweetEngagementPercentChange}
-        />
-        <Stat
-          caption="Average Likes/Mention"
-          current={project.twitterAverageMentionEngagement!}
-          change={project.trends!.tweetMentionChange}
-          percentage={project.trends!.tweetMentionPercentChange}
-        />
+        <StatsRow project={project} />
         <ShowGraphButton project={project} />
       </div>
     </div>

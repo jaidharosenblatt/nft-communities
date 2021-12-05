@@ -7,6 +7,8 @@ async function everHour() {
   console.log("RUNNING CRON");
   console.log("----------------");
   await updateTweetEngagement();
+  await updateAllProjectTrends();
+
   console.log("----------------");
   console.log("FINISHING CRON");
 }
