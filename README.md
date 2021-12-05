@@ -2,7 +2,6 @@
 
 Yes
 
-- Track growing communities and simple graphs over time
 - Fix search bug with "rude golems" not showing as an ex
 - feature request form
 - Create project
