@@ -1,8 +1,11 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const Aggregation = require("../models/aggregation");
+const Moment = require("../models/moment");
+const Trend = require("../models/trend");
 const { updateAllProjectTrends } = require("../trends");
 const { updateAggregate } = require("../trends/aggregation");
-const { sendError } = require("./util");
+const { sendError, getParamVariable, ServerError } = require("./util");
 
 const router = new express.Router();
 
@@ -38,6 +41,44 @@ router.get("/aggregate", async (req, res) => {
       }
     );
     res.send(aggregation);
+  } catch (e) {
+    sendError(e, res);
+  }
+});
+
+router.get("/graph/:id", async (req, res) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      throw new ServerError(400, "Invalid objectId");
+    }
+    const projectId = mongoose.Types.ObjectId(req.params.id);
+    const allowedFields = [
+      "twitterFollowers",
+      "twitterAverageMentionEngagement",
+      "twitterAverageTweetEngagement",
+    ];
+    const field = getParamVariable(req, "field", "twitterFollowers", allowedFields);
+    const trends = await Moment.find({ project: projectId }, { createdAt: -1 }).select({
+      [field]: 1,
+      createdAt: 1,
+    });
+
+    // make date simple date (ignore time)
+    const withOutTime = trends.map((trend) => {
+      const d = new Date(trend.createdAt);
+      const newDate = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+      return {
+        value: trend[field],
+        date: newDate.toUTCString(),
+      };
+    });
+
+    // remove duplicate dates
+    const uniqueDates = withOutTime.filter(
+      (e, i) => withOutTime.findIndex((a) => a.date === e.date) === i
+    );
+
+    res.send(uniqueDates.reverse());
   } catch (e) {
     sendError(e, res);
   }

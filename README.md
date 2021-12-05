@@ -2,14 +2,20 @@
 
 Yes
 
+- Fix search bug with "rude golems" not showing as an ex
+- feature request form
 - Create project
+- fix mobile overflow
+- ratios
+  - sort likes/followers
+  - followers/supply
+- track when twitter was created
+- upvotes and downvotes backed by signatures
 
 No
 
-- sort likes/followers
 - filter by growth
 - track prices pre mint => floor
-- Track growing communities and simple graphs over time
 - Discord activity
 - toggle filters panel
 

@@ -14,10 +14,18 @@ export default function Filters() {
   return (
     <div className="filters">
       <div className="wrapper">
-        <IconText color="var(--primary)" icon={<BiSortAlt2 size={16} />} text={<h3>Sort</h3>} />
+        <IconText
+          color="var(--secondary)"
+          icon={<BiSortAlt2 size={16} />}
+          text={<h3 style={{ color: "var(--secondary)" }}>Sort</h3>}
+        />
         <Divider />
         <SortSelector />
-        <IconText color="var(--primary)" icon={<IoFilter size={16} />} text={<h3>Filter</h3>} />
+        <IconText
+          color="var(--secondary)"
+          icon={<IoFilter size={16} />}
+          text={<h3 style={{ color: "var(--secondary)" }}>Filter</h3>}
+        />
         <Divider />
         <IconText
           color="var(--primary-text)"

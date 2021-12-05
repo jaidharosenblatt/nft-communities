@@ -3,7 +3,7 @@ const cors = require("cors");
 const cron = require("node-cron");
 const { verifyKey } = require("./api/auth");
 
-const { everyFifthHour, everyDay } = require("./cron");
+const { everHour, everyDay } = require("./cron");
 
 if (process.env.MONGO_URL) {
   require("./db/mongoose");
@@ -24,7 +24,7 @@ app.all("*", verifyKey);
 
 app.use(express.json());
 app.use(projectsRouter, trendsRouter);
-cron.schedule("0 */4 * * *", everyFifthHour);
+cron.schedule("0 * * * *", everHour);
 cron.schedule("0 8 * * *", everyDay);
 
 app.listen(port, () => {

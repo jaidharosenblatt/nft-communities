@@ -1,0 +1,11 @@
+.graph .project-card {
+  border-radius: 0px;
+  padding: 0px;
+  border: none;
+  display: flex;
+  margin: var(--padding-medium) 0;
+}
+
+.graph .ant-select {
+  margin: var(--padding-medium) 0;
+}

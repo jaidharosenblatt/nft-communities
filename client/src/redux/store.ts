@@ -4,12 +4,14 @@ import { projectsSlice } from "./projects";
 import { AnyAction } from "redux";
 import { filtersSlice } from "./filters";
 import { statusSlice } from "./status";
+import { graphSlice } from "./graph";
 
 export const store = configureStore({
   reducer: {
     projects: projectsSlice.reducer,
     filters: filtersSlice.reducer,
     status: statusSlice.reducer,
+    graph: graphSlice.reducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

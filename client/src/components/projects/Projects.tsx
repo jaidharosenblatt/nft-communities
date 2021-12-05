@@ -5,6 +5,7 @@ import { getLastUpdated, getProjects } from "../../redux/actionCreators";
 import { notification, Skeleton } from "antd";
 import { setError } from "../../redux/status";
 import PaginationCard from "../form/PaginationCard";
+import GraphCard from "../graph/GraphCard";
 
 export default function Projects() {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ export default function Projects() {
           {loading ? "Loading collections..." : `${projects.count} collections found`}
         </p>
         <PaginationCard />
+        <GraphCard />
       </div>
       <div className="projects-holder">
         {loading && projects.count === 0 ? (
