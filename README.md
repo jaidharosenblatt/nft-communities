@@ -5,7 +5,6 @@ Yes
 - Fix search bug with "rude golems" not showing as an ex
 - feature request form
 - Create project
-- fix mobile overflow
 - ratios
   - sort likes/followers
   - followers/supply

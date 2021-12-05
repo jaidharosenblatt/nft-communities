@@ -94,8 +94,10 @@ export const updateField =
 export const updateGraph = (): AppThunk => async (dispatch, getState) => {
   dispatch(setGraphLoading(true));
   const { field, project } = getState().graph;
+  const header: ApiHeader = updateHeaders();
+
   if (!project) return;
-  const res = await api.get(`/graph/${project._id}`, { params: { field } });
+  const res = await api.get(`/graph/${project._id}`, { headers: { ...header }, params: { field } });
   dispatch(setGraphData(res.data));
   dispatch(setGraphLoading(false));
 };
