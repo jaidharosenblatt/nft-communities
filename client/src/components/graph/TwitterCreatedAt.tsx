@@ -4,6 +4,9 @@ import { timeAgo } from "../../constants";
 type Props = { twitterCreatedAt: string };
 export default function TwitterCreatedAt({ twitterCreatedAt }: Props) {
   const d = new Date(twitterCreatedAt);
+  if (!twitterCreatedAt || isNaN(d.getTime())) {
+    return null;
+  }
   const time = timeAgo.format(d);
   const date = d.toLocaleDateString();
   return (
