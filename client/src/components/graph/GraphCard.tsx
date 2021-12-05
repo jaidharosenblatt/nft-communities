@@ -3,7 +3,9 @@ import { GRAPH_MODAL_WIDTH, GRAPH_MODAL_WIDTH_MOBILE } from "../../constants";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import ProjectCard from "../project-card/ProjectCard";
+import DateTopper from "../project-card/DateTopper";
+import ProjectCardHeader from "../project-card/ProjectCardHeader";
+import StatsRow from "../project-card/StatsRow";
 import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";
 
@@ -22,9 +24,16 @@ export default function GraphCard() {
       width={isMobile ? GRAPH_MODAL_WIDTH_MOBILE : GRAPH_MODAL_WIDTH}
       onCancel={close}
       footer={null}
+      className="graph"
       visible={showModal}
     >
-      {project && <ProjectCard project={project} />}
+      {project && (
+        <div className="project-card">
+          <DateTopper date={project.releaseDate} />
+          <ProjectCardHeader project={project} />
+          <StatsRow project={project} />
+        </div>
+      )}
       <FieldSelector />
       <Graph />
 

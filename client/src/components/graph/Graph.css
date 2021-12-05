@@ -1,15 +1,11 @@
-.graph-container {
-  position: fixed;
-  bottom: 0;
-  width: var(--vw-filters);
-  left: var(--filters-width);
-  z-index: 3;
-  background-color: var(--card-fill);
-  border: var(--card-border);
-  height: var(--graph-height);
+.graph .project-card {
+  border-radius: 0px;
+  padding: 0px;
+  border: none;
+  display: flex;
+  margin: var(--padding-medium) 0;
 }
 
-.graph-container .graph {
-  display: flex;
-  align-items: center;
+.graph .ant-select {
+  margin: var(--padding-medium) 0;
 }

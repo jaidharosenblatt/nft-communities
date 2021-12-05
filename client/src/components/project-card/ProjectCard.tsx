@@ -1,5 +1,4 @@
 import "./ProjectCard.css";
-import Stat from "./Stat";
 import DateTopper from "./DateTopper";
 import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";

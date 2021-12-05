@@ -17,6 +17,10 @@ export default function Graph() {
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   }
 
+  function formatYAxis(value: number) {
+    return value.toLocaleString();
+  }
+
   function formatTooltipDate(date: any) {
     const d = new Date(date);
     return d.toLocaleDateString("en-US");
@@ -48,10 +52,11 @@ export default function Graph() {
           </linearGradient>
         </defs>
         <XAxis tickFormatter={formatDate} dataKey="date" />
-        <YAxis domain={[(dataMin: number) => dataMin, "auto"]} />
+        <YAxis tickFormatter={formatYAxis} domain={[(dataMin: number) => dataMin, "auto"]} />
         <CartesianGrid vertical={false} />
         <Tooltip labelFormatter={formatTooltipDate} formatter={formatTooltip} />
         <Area
+          animationDuration={500}
           type="monotone"
           dataKey="value"
           stroke="var(--primary)"

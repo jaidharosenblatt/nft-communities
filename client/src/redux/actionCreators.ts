@@ -76,6 +76,7 @@ export const setHighlightedProject =
   (project: Project): AppThunk =>
   async (dispatch) => {
     dispatch(setGraphProject(project));
+    dispatch(setField("twitterFollowers"));
     dispatch(updateGraph());
   };
 
