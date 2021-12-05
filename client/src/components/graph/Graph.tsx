@@ -1,5 +1,5 @@
 import "./Graph.css";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 export default function Graph() {
   return (

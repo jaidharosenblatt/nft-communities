@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import ProjectCard from "../project-card/ProjectCard";
@@ -13,9 +13,13 @@ export default function GraphCard() {
   };
 
   return (
-    <Modal title="Basic Modal" onCancel={close} onOk={close} visible={showModal}>
-      <Graph />
+    <Modal onCancel={close} footer={null} visible={showModal}>
       {project && <ProjectCard project={project} />}
+      <Graph />
+
+      <Button type="primary" style={{ width: "100%" }} onClick={close}>
+        Close Trends
+      </Button>
     </Modal>
   );
 }
