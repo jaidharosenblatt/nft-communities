@@ -15,17 +15,15 @@ export default function ProjectCard({ project }: Props) {
   }
   return (
     <div className="project-card">
-      <div className="card">
-        <div className="not-bottom">
-          <DateTopper date={project.releaseDate} />
-          <ProjectCardHeader project={project} />
+      <div className="not-bottom">
+        <DateTopper date={project.releaseDate} />
+        <ProjectCardHeader project={project} />
 
-          <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}></p>
-        </div>
-        <div className="stats-row">
-          <StatsRow project={project} />
-          <ShowGraphButton project={project} />
-        </div>
+        <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}></p>
+      </div>
+      <div className="stats-row">
+        <StatsRow project={project} />
+        <ShowGraphButton project={project} />
       </div>
     </div>
   );

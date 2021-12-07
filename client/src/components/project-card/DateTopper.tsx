@@ -24,7 +24,6 @@ export default function DateTopper({ date }: Props) {
     const formattedDate = d.toLocaleString("default", {
       month: "long",
       day: "numeric",
-      year: "numeric",
     });
     return `${daysAgo} (${formattedDate})`;
   }

@@ -1,12 +1,17 @@
-.card .project-card {
+.project-card {
+  background-color: var(--card-fill);
+  border-radius: var(--border-radius);
+  padding: var(--padding-large);
+  border: var(--card-border);
+  max-width: var(--card-max-width);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
 
 .project-card .not-bottom {
   justify-content: normal;
-  margin-bottom: var(--padding-medium);
 }
 
 .project-card .social svg {
