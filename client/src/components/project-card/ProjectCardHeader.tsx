@@ -15,7 +15,7 @@ export default function ProjectCardHeader({ project }: Props) {
 
   return (
     <div className="header">
-      <ImageWithFallback fallback={NftPlaceholder} src={covertAvatar(project.avatar)} />
+      <img src={covertAvatar(project.avatar)} />
 
       <div>
         <h2>{truncatedName}</h2>

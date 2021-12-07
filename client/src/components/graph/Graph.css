@@ -4,6 +4,7 @@
   background: none;
   border: none;
   display: flex;
+  flex-direction: column;
   margin: var(--padding-medium) 0;
 }
 
@@ -19,9 +20,8 @@
 }
 
 .graph .project-card img {
-  border-radius: var(--card-border);
+  border-radius: 100px;
   margin-top: var(--padding-small);
   margin-bottom: var(--padding-medium);
-  margin-right: var(--padding-medium);
-  width: 80x;
+  width: 80px;
 }
