@@ -46,7 +46,7 @@ export default function SubmitProjectForm() {
       <Form.Item name="description" required label="Description">
         <Input.TextArea />
       </Form.Item>
-      <Button htmlType="submit" style={fullWidthStyle} type="primary">
+      <Button disabled htmlType="submit" style={fullWidthStyle} type="primary">
         Submit for Review
       </Button>
     </Form>

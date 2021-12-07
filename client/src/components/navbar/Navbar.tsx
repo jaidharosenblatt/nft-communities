@@ -41,7 +41,7 @@ export default function Navbar() {
             {!isMobile && (
               <>
                 <Link to="/"> All Collections</Link>
-                {/* <Link to="/submit-collection"> Submit Collection</Link> */}
+                <Link to="/submit-collection"> Submit Collection</Link>
               </>
             )}
 
