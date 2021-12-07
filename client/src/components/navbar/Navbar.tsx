@@ -12,7 +12,7 @@ export default function Navbar() {
       <div className="row">
         <div className="logo-row">
           <h1>
-            Move<span style={{ color: "var(--primary)" }}>mints</span>
+            Move<span style={{ color: "var(--secondary)" }}>mints</span>
           </h1>
           <div className="by-bs">
             <a
@@ -23,7 +23,7 @@ export default function Navbar() {
             >
               |
               <img
-                style={{ marginLeft: "var(--padding-small)" }}
+                style={{ marginLeft: "var(--padding-medium)" }}
                 alt="bs-logo"
                 className="bs-logo"
                 src={darkMode ? BSWhite : BSBlack}

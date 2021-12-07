@@ -5,7 +5,6 @@ import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import DateTopper from "../project-card/DateTopper";
 import ProjectCardHeader from "../project-card/ProjectCardHeader";
-import StatsRow from "../project-card/StatsRow";
 import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";
 import TwitterCreatedAt from "./TwitterCreatedAt";
