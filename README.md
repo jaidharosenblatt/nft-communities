@@ -1,13 +1,16 @@
 # TODO
 
 Yes
-
+- remove description from main page
 - Create project
 - feature request form
 - ratios
   - sort likes/followers
   - followers/supply
 - upvotes and downvotes backed by signatures
+- spinner for page initially loading
+- save queries in local storage or to wallet
+- scrape https://nextdrop.is/upcoming
 
 No
 

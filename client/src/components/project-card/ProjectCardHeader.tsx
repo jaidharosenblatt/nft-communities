@@ -19,7 +19,7 @@ export default function ProjectCardHeader({ project }: Props) {
         <h2>{truncatedName}</h2>
         <p>
           {project.price !== undefined && `${project.price} SOL mint | `}
-          {`${quantity} supply`}
+          {quantity !== undefined && `${quantity} supply`}
         </p>
 
         <Socials size={30} project={project} />

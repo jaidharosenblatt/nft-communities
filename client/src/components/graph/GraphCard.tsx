@@ -34,15 +34,16 @@ export default function GraphCard() {
           <DateTopper date={project.releaseDate} />
 
           <ProjectCardHeader project={project} />
-          <StatsRow project={project} />
+          <p> {project.description}</p>
+          {/* <StatsRow project={project} /> */}
           <TwitterCreatedAt twitterCreatedAt={project.twitterCreatedAt} />
         </div>
       )}
       <FieldSelector />
       <Graph />
 
-      <Button type="primary" style={{ width: "100%" }} onClick={close}>
-        Close Trends
+      <Button style={{ width: "100%" }} onClick={close}>
+        Close
       </Button>
     </Modal>
   );

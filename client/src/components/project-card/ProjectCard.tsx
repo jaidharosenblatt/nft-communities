@@ -20,7 +20,6 @@ export default function ProjectCard({ project }: Props) {
         <ProjectCardHeader project={project} />
 
         <p style={{ color: "var(--gray-0)", marginBottom: "var(--padding-small)" }}>
-          {project.description}
         </p>
       </div>
       <div className="stats-row">
