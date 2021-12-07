@@ -5,11 +5,9 @@ import SubmitProjectModal from "../../components/submit-project/SubmitProjectMod
 export default function SubmitCollection() {
   return (
     <div className="navbar-full-page">
-      <div className="submit-collection">
-        <div className="body">
-          <SubmitProjectForm />
-          <SubmitProjectModal />
-        </div>
+      <div className="card">
+        <SubmitProjectForm />
+        <SubmitProjectModal />
       </div>
     </div>
   );

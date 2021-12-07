@@ -22,6 +22,7 @@
   top: var(--navbar-height);
   width: 100vw;
   padding: var(--padding-large);
+  overflow: auto;
 }
 
 @media only screen and (max-width: 750px) {

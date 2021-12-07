@@ -1,19 +1,5 @@
-.submit-collection {
-  overflow: scroll;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: calc(var(--vh-navbar));
-  top: var(--navbar-height);
-}
-
-.submit-collection .body {
-  width: 100%;
-  max-width: 500px;
-  height: calc(var(--vh-navbar) - 2 * var(--padding-large));
-  padding: var(--padding-large);
+.navbar-full-page .card {
+  margin: auto;
 }
 
 .submit-collection .submit-form {
