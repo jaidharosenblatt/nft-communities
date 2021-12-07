@@ -35,7 +35,7 @@ router.post("/updateTweets", async (req, res) => {
 
 router.post("/projects", async (req, res) => {
   try {
-    const project = Project(req.data);
+    const project = Project(req.body);
     const p = await project.save();
     res.send(p);
   } catch (e) {

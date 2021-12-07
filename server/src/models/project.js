@@ -42,7 +42,6 @@ const projectSchema = new mongoose.Schema(
     },
     twitterCreatedAt: {
       type: String,
-      unique: true,
     },
     twitterId: {
       type: String,
