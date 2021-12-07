@@ -1,0 +1,32 @@
+.submit-collection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.submit-collection .submit-form {
+  margin-top: var(--padding-large);
+}
+
+.submit-collection .card p {
+  margin: 0;
+}
+.submit-collection .card h2 {
+  margin: 0;
+}
+
+.submit-collection .body {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-large);
+}
+
+/* small height desktop */
+@media only screen and (max-height: 800px) {
+  .submit-collection {
+    overflow: scroll;
+  }
+}

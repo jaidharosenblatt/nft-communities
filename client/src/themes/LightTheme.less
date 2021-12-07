@@ -2,6 +2,7 @@
 :root {
   --primary: #0048ff;
   --secondary: #0048ff;
+  --tertiary: #8ba9ff;
   --primary-text: #262626;
   --green: #3cd184;
   --red: #ff4d4f;
@@ -17,4 +18,14 @@
 body {
   color: var(--primary-text);
   background-color: var(--background);
+}
+
+.ant-btn-dashed {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.ant-btn-dashed:hover {
+  background: var(--primary);
+  color: white;
 }

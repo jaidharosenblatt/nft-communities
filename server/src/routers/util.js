@@ -15,7 +15,11 @@ function sendError(e, res) {
   if (process.env.DEBUG === "TRUE") {
     console.error(e.code, e.data);
   }
-  const code = e.code || 500;
+  let code = 500;
+  if (code > 400 && code <= 511) {
+    code = e.code;
+  }
+
   res.status(code);
   res.send(e.data);
 }

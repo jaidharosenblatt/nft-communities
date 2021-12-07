@@ -15,9 +15,8 @@ export default function ShowGraphButton({ project }: Props) {
       disabled={otherProjectShowcased}
       loading={loading}
       onClick={() => dispatch(setHighlightedProject(project))}
-      type="primary"
     >
-      View Trends
+      View Details
     </Button>
   );
 }

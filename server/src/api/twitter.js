@@ -65,17 +65,21 @@ async function updateAllFollowers() {
 async function updateTweetEngagement() {
   const d = new Date();
   d.setMonth(d.getMonth() - 1);
-
+  const limit = parseInt(process.env.TWEET_LIMIT) || 50;
   // only gather trends for projects that minted this month
   const projects = await Project.find({ releaseDate: { $gte: d } })
-    .sort("releaseDate")
-    .limit(38);
+    .sort("momentLastUpdate")
+    .limit(limit);
 
   await Promise.all(
     projects.map(async (project) => {
       if (!project.twitterId) {
         console.log(`Skipping project, ${project.name}`);
         return;
+      }
+
+      if (project.name === "Stock Tylers") {
+        console.log(project);
       }
 
       // Get updated followers
@@ -129,7 +133,7 @@ async function updateTweetEngagement() {
       });
       project.momentLastUpdate = new Date();
 
-      // await project.save();
+      await project.save();
 
       const moment = new Moment({ project: project._id, ...updates });
 

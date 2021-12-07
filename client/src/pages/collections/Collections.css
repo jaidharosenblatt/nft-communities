@@ -7,6 +7,10 @@
   padding: var(--padding-large);
 }
 
+.hide-mobile {
+  display: inline;
+}
+
 .pagination-card-top {
   grid-template-columns: 1;
   grid-column-start: 2;
@@ -22,20 +26,6 @@
   grid-row-start: 100;
   padding: var(--padding-large);
   padding-top: 0;
-}
-
-.container {
-  padding: var(--padding-large);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: var(--filters-width) auto;
-  grid-template-rows: var(--navbar-height) auto;
-}
-
-.hide-mobile {
-  display: inline;
 }
 
 @media only screen and (max-width: 750px) {

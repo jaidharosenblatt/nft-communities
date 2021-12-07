@@ -4,9 +4,24 @@
   background: none;
   border: none;
   display: flex;
+  flex-direction: column;
   margin: var(--padding-medium) 0;
 }
 
 .graph .ant-select {
   margin: var(--padding-medium) 0;
+}
+
+.graph .project-card .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  word-wrap: break-word;
+}
+
+.graph .project-card img {
+  border-radius: 100px;
+  margin-top: var(--padding-small);
+  margin-bottom: var(--padding-medium);
+  width: 80px;
 }

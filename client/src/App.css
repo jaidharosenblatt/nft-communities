@@ -1,0 +1,31 @@
+.container {
+  padding: var(--padding-large);
+}
+
+.card {
+  background-color: var(--card-fill);
+  border-radius: var(--border-radius);
+  padding: var(--padding-large);
+  border: var(--card-border);
+  max-width: var(--card-max-width);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: var(--filters-width) auto;
+  grid-template-rows: var(--navbar-height) auto;
+}
+
+.navbar-full-page {
+  height: calc(100vh - var(--navbar-height));
+  position: fixed;
+  top: var(--navbar-height);
+  width: 100vw;
+  padding: var(--padding-large);
+}
+
+@media only screen and (max-width: 750px) {
+  .grid {
+    grid-template-columns: 0px auto;
+  }
+}

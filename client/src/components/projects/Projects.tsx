@@ -39,7 +39,8 @@ export default function Projects() {
         <p className="caption" style={{ marginBottom: "var(--padding-medium)" }}>
           {loading ? "Loading collections..." : `${projects.count} collections found`}
         </p>
-        <PaginationCard />
+        {projects.count > 0 && <PaginationCard />}
+
         <GraphCard />
       </div>
       <div className="projects-holder">
@@ -49,9 +50,7 @@ export default function Projects() {
           projects.projects.map((p: Project, i) => <ProjectCard key={i} project={p} />)
         )}
       </div>
-      <div className="pagination-card-bottom">
-        <PaginationCard />
-      </div>
+      <div className="pagination-card-bottom">{projects.count > 0 && <PaginationCard />}</div>
     </>
   );
 }

@@ -5,7 +5,6 @@ import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import DateTopper from "../project-card/DateTopper";
 import ProjectCardHeader from "../project-card/ProjectCardHeader";
-import StatsRow from "../project-card/StatsRow";
 import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";
 import TwitterCreatedAt from "./TwitterCreatedAt";
@@ -34,15 +33,16 @@ export default function GraphCard() {
           <DateTopper date={project.releaseDate} />
 
           <ProjectCardHeader project={project} />
-          <StatsRow project={project} />
+          <p> {project.description}</p>
+          {/* <StatsRow project={project} /> */}
           <TwitterCreatedAt twitterCreatedAt={project.twitterCreatedAt} />
         </div>
       )}
       <FieldSelector />
       <Graph />
 
-      <Button type="primary" style={{ width: "100%" }} onClick={close}>
-        Close Trends
+      <Button style={{ width: "100%" }} onClick={close}>
+        Close
       </Button>
     </Modal>
   );

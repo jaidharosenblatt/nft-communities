@@ -1,4 +1,8 @@
 import Socials from "./Socials";
+import NftPlaceholder from "../../static/NftPlaceholder.png";
+import { useImage } from "react-image";
+import { Suspense } from "react";
+import { Skeleton } from "antd";
 
 type Props = { project: Project };
 export default function ProjectCardHeader({ project }: Props) {
@@ -12,14 +16,24 @@ export default function ProjectCardHeader({ project }: Props) {
     return avatar.replace("_normal", "");
   }
 
+  function MyImageComponent() {
+    const { src } = useImage({
+      srcList: [covertAvatar(project.avatar), NftPlaceholder],
+    });
+
+    return <img alt={`${project.name} avatar`} src={src} />;
+  }
+
   return (
     <div className="header">
-      <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
-      <div>
+      <Suspense fallback={<Skeleton />}>
+        <MyImageComponent />
+      </Suspense>
+      <div className="text">
         <h2>{truncatedName}</h2>
         <p>
           {project.price !== undefined && `${project.price} SOL mint | `}
-          {`${quantity} supply`}
+          {quantity !== undefined && `${quantity} supply`}
         </p>
 
         <Socials size={30} project={project} />

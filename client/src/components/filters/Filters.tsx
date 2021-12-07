@@ -30,7 +30,7 @@ export default function Filters() {
         <IconText
           color="var(--primary-text)"
           icon={<AiOutlineStock size={14} />}
-          text={<p>Time Frame</p>}
+          text={<p>Trend Time Frame</p>}
         />
         <TimePeriodSelector />
         <IconText

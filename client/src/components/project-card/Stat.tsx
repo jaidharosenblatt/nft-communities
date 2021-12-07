@@ -16,13 +16,16 @@ export default function Stat({ caption, current, change, percentage }: Props) {
     return { color };
   }
   return (
-    <LeftRightRow
-      left={
-        <p>
-          {caption}: <span style={{ color: "var(--gray-0)" }}>{current?.toLocaleString()}</span>
-        </p>
-      }
-      right={<p style={getChangeStyle(change)}>{getChangeString(change, percentage)}</p>}
-    />
+    <div>
+      <p> {caption}</p>
+      <LeftRightRow
+        left={
+          <p>
+            <span style={{ color: "var(--gray-0)" }}>{current?.toLocaleString()}</span>
+          </p>
+        }
+        right={<p style={getChangeStyle(change)}>{getChangeString(change, percentage)}</p>}
+      />
+    </div>
   );
 }
