@@ -1,11 +1,11 @@
 import "./App.css";
-import Navbar from "./navbar/Navbar";
-import Filters from "./filters/Filters";
-import { useAppSelector } from "../redux/hooks";
-import ThemeSelector from "../themes/ThemeSelector";
-import Projects from "./projects/Projects";
+import Navbar from "./components/navbar/Navbar";
+import Filters from "./components/filters/Filters";
+import { useAppSelector } from "./redux/hooks";
+import ThemeSelector from "./themes/ThemeSelector";
+import Projects from "./components/projects/Projects";
 import { useState } from "react";
-import Footer from "./footer/Footer";
+import Footer from "./components/footer/Footer";
 
 function App(): JSX.Element {
   const { darkMode } = useAppSelector((state) => state.status);

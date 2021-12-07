@@ -47,6 +47,10 @@
   position: fixed;
 }
 
+.navbar .row .right > *{
+  margin-left: var(--padding-medium);
+}
+
 @media only screen and (max-width: 600) {
   .navbar .row {
     width: 100%;

@@ -34,6 +34,7 @@ export default function Navbar() {
 
         <div className="body">
           <div className="right">
+            Submit Collection
             <DarkModeSwitch />
           </div>
         </div>
