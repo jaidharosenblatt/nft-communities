@@ -4,9 +4,31 @@
   justify-content: center;
   height: 100%;
 }
-.submit-collection .content {
-  background-color: red;
+
+.submit-collection .card {
+  padding: 0;
+}
+
+.submit-collection .submit-form {
+  margin-top: var(--padding-large);
+}
+
+.submit-collection .card p {
+  margin: 0;
+}
+.submit-collection .card h2 {
+  margin: 0;
+}
+
+.submit-collection .body {
   width: 100%;
   max-width: 500px;
-  height: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-large);
+}
+
+.submit-collection .bird {
+  position: absolute;
+  transform: rotate(90deg);
 }

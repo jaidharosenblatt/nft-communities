@@ -21,7 +21,7 @@ export default function ProjectCardHeader({ project }: Props) {
       srcList: [covertAvatar(project.avatar), NftPlaceholder],
     });
 
-    return <img src={src} />;
+    return <img alt={`${project.name} avatar`} src={src} />;
   }
 
   return (
