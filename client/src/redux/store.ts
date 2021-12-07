@@ -5,6 +5,7 @@ import { AnyAction } from "redux";
 import { filtersSlice } from "./filters";
 import { statusSlice } from "./status";
 import { graphSlice } from "./graph";
+import { submitCollectionSlice } from "./submitCollection";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     filters: filtersSlice.reducer,
     status: statusSlice.reducer,
     graph: graphSlice.reducer,
+    submitCollection: submitCollectionSlice.reducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

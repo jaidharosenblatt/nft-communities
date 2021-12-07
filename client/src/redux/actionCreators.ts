@@ -5,6 +5,7 @@ import { setProjects, setCount, setAggregation } from "./projects";
 import { setDarkMode, setError } from "./status";
 import { setLoading } from "./status";
 import { AppThunk } from "./store";
+import { setSubmittedProject } from "./submitCollection";
 
 export const getProjects = (): AppThunk => async (dispatch, getState) => {
   try {
@@ -53,6 +54,34 @@ export const getProjects = (): AppThunk => async (dispatch, getState) => {
       dispatch(setError("Please refresh the page"));
     }
   }
+};
+
+export const submitProject =
+  (values: object): AppThunk =>
+  async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      dispatch(setError(undefined));
+      const header: ApiHeader = updateHeaders();
+
+      const res = await api.post("projects", values, {
+        headers: { ...header },
+      });
+      dispatch(setSubmittedProject(res.data));
+      dispatch(setLoading(false));
+    } catch (error) {
+      if (axios.isAxiosError(error) && !error.response) {
+        dispatch(setError("Server is currently down. Please come back later"));
+      } else {
+        dispatch(
+          setError("Error creating collection. Make sure you are inputting a valid project.")
+        );
+      }
+    }
+  };
+
+export const clearSubmitProject = (): AppThunk => async (dispatch, getState) => {
+  dispatch(setSubmittedProject(undefined));
 };
 
 export const getLastUpdated = (): AppThunk => async (dispatch) => {

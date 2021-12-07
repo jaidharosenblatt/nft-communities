@@ -16,7 +16,9 @@ const projectSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-
+    needsReview: {
+      type: Boolean,
+    },
     price: {
       type: Number,
     },

@@ -1,8 +1,19 @@
 .submit-collection {
+  overflow: scroll;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  width: 100%;
+  height: calc(var(--vh-navbar));
+  top: var(--navbar-height);
+}
+
+.submit-collection .body {
+  width: 100%;
+  max-width: 500px;
+  height: calc(var(--vh-navbar) - 2 * var(--padding-large));
+  padding: var(--padding-large);
 }
 
 .submit-collection .submit-form {
@@ -14,19 +25,4 @@
 }
 .submit-collection .card h2 {
   margin: 0;
-}
-
-.submit-collection .body {
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  padding: var(--padding-large);
-}
-
-/* small height desktop */
-@media only screen and (max-height: 800px) {
-  .submit-collection {
-    overflow: scroll;
-  }
 }

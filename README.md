@@ -1,8 +1,9 @@
 # TODO
 
 Yes
-- remove description from main page
+
 - Create project
+- fix timeout for trends update
 - feature request form
 - ratios
   - sort likes/followers
@@ -11,11 +12,12 @@ Yes
 - spinner for page initially loading
 - save queries in local storage or to wallet
 - scrape https://nextdrop.is/upcoming
+- track prices pre mint => floor
+- reset pagination after search/filter change
 
 No
 
 - filter by growth
-- track prices pre mint => floor
 - Discord activity
 - toggle filters panel
 

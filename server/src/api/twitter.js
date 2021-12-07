@@ -62,6 +62,24 @@ async function updateAllFollowers() {
   );
 }
 
+async function checkTwitterHandle(handle) {
+  const res = await twitterApi.get(`/users/by/username/${handle}`, {
+    params: { "user.fields": ["public_metrics", "profile_image_url", "created_at"].join(",") },
+  });
+  const data = res?.data;
+  if (!data || data.errors) {
+    return null;
+  }
+  const followers = res?.data.public_metrics?.followers_count;
+
+  return {
+    twitterId: data.id,
+    twitterFollowers: followers,
+    twitterCreatedAt: data.created_at,
+    avatar: data.profile_image_url,
+  };
+}
+
 async function updateTweetEngagement() {
   const d = new Date();
   d.setMonth(d.getMonth() - 1);
@@ -142,4 +160,4 @@ async function updateTweetEngagement() {
   );
 }
 
-module.exports = { updateAllFollowers, updateTweetEngagement };
+module.exports = { checkTwitterHandle, updateAllFollowers, updateTweetEngagement };

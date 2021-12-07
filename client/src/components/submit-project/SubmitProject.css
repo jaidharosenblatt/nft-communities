@@ -1,0 +1,15 @@
+.submit-project-modal {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.submit-project-modal img {
+  width: 80px;
+  border-radius: 100px;
+  margin: var(--padding-medium);
+}
+
+.submit-project-modal .header {
+  display: flex;
+}

@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import ProjectCard from "../project-card/ProjectCard";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getLastUpdated, getProjects } from "../../redux/actionCreators";
-import { notification, Skeleton } from "antd";
-import { setError } from "../../redux/status";
+import { Skeleton } from "antd";
 import PaginationCard from "../form/PaginationCard";
 import GraphCard from "../graph/GraphCard";
 
@@ -13,26 +12,12 @@ export default function Projects() {
   const filters = useAppSelector((state) => state.filters);
   const { loading, error } = useAppSelector((state) => state.status);
 
-  useEffect(
-    function (): () => void {
-      if (error) {
-        notification.error({
-          message: "Something went wrong...",
-          description: error,
-        });
-      } else {
-        dispatch(getProjects());
-        dispatch(getLastUpdated());
-      }
-
-      return () => {
-        if (error) {
-          dispatch(setError(undefined));
-        }
-      };
-    },
-    [error, dispatch, projects.skip, projects.limit, filters]
-  );
+  useEffect(() => {
+    if (!error) {
+      dispatch(getProjects());
+      dispatch(getLastUpdated());
+    }
+  }, [error, dispatch, projects.skip, projects.limit, filters]);
   return (
     <>
       <div className="pagination-card-top">
