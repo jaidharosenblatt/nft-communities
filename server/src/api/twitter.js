@@ -65,11 +65,11 @@ async function updateAllFollowers() {
 async function updateTweetEngagement() {
   const d = new Date();
   d.setMonth(d.getMonth() - 1);
-
+  const limit = parseInt(process.env.TWEET_LIMIT) || 50;
   // only gather trends for projects that minted this month
   const projects = await Project.find({ releaseDate: { $gte: d } })
     .sort("momentLastUpdate")
-    .limit(process.env.TWEET_LIMIT || 50);
+    .limit(limit);
 
   await Promise.all(
     projects.map(async (project) => {
