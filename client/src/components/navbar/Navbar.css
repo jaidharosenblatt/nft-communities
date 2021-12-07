@@ -22,6 +22,11 @@
   height: 20px;
   margin-right: var(--padding-small);
 }
+.navbar .bs-logo:hover{
+  /* hardcoded filter for primary blue */
+  filter: invert(20%) sepia(89%) saturate(6172%) hue-rotate(226deg) brightness(100%) contrast(109%);
+}
+
 
 .navbar .row {
   display: flex;
