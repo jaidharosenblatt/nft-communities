@@ -4,9 +4,11 @@ import BSBlack from "../../static/bs-black.svg";
 import BSWhite from "../../static/bs-white.svg";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export default function Navbar() {
   const darkMode = useAppSelector((state) => state.status.darkMode);
+  const { isMobile } = useWindowDimensions();
   return (
     <div className="navbar">
       <div className="row">
@@ -36,8 +38,13 @@ export default function Navbar() {
 
         <div className="body">
           <div className="right">
-            <Link to="/"> All Collections</Link>
-            <Link to="/submit-collection"> Submit Collection</Link>
+            {!isMobile && (
+              <>
+                <Link to="/"> All Collections</Link>
+                {/* <Link to="/submit-collection"> Submit Collection</Link> */}
+              </>
+            )}
+
             <DarkModeSwitch />
           </div>
         </div>
