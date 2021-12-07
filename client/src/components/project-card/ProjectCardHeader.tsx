@@ -1,5 +1,6 @@
+import ImageWithFallback from "../util/ImageWithFallback";
 import Socials from "./Socials";
-
+import NftPlaceholder from "../../static/NftPlaceholder.png";
 type Props = { project: Project };
 export default function ProjectCardHeader({ project }: Props) {
   const truncatedN = 28;
@@ -14,7 +15,8 @@ export default function ProjectCardHeader({ project }: Props) {
 
   return (
     <div className="header">
-      <img alt={"Twitter Avatar"} src={covertAvatar(project.avatar)} />
+      <ImageWithFallback fallback={NftPlaceholder} src={covertAvatar(project.avatar)} />
+
       <div>
         <h2>{truncatedName}</h2>
         <p>

@@ -1,9 +1,4 @@
-.project-card {
-  background-color: var(--card-fill);
-  border-radius: var(--border-radius);
-  padding: var(--padding-large);
-  border: var(--card-border);
-  max-width: var(--card-max-width);
+.card .project-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,13 +7,6 @@
 .project-card .not-bottom {
   justify-content: normal;
   margin-bottom: var(--padding-medium);
-}
-
-.project-card .header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  word-wrap: break-word;
 }
 
 .project-card .social svg {
@@ -35,12 +23,11 @@
 }
 
 .project-card img {
-  border-radius: 100px;
-  margin-top: var(--padding-small);
-  margin-bottom: var(--padding-medium);
-  margin-right: var(--padding-medium);
-  width: 80px;
-  height: 80px;
+  border-radius: var(--border-radius);
+  margin: var(--padding-medium);
+  margin-left: 0;
+
+  width: 100%;
 }
 
 .project-card .date-topper {

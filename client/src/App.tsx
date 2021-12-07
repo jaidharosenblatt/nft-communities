@@ -2,8 +2,9 @@ import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import { useAppSelector } from "./redux/hooks";
 import ThemeSelector from "./themes/ThemeSelector";
-import Collections from "./pages/Collections";
+import Collections from "./pages/collections/Collections";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SubmitCollection from "./pages/submit-collections/SubmitCollection";
 
 function App(): JSX.Element {
   const { darkMode } = useAppSelector((state) => state.status);
@@ -16,7 +17,7 @@ function App(): JSX.Element {
 
           <Routes>
             <Route path="/" element={<Collections />}></Route>
-            <Route path="/submit-collection" element={<div> hi</div>}></Route>
+            <Route path="/submit-collection" element={<SubmitCollection />}></Route>
           </Routes>
         </BrowserRouter>
       </div>

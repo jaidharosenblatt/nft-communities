@@ -10,3 +10,18 @@
 .graph .ant-select {
   margin: var(--padding-medium) 0;
 }
+
+.graph .project-card .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  word-wrap: break-word;
+}
+
+.graph .project-card img {
+  border-radius: var(--card-border);
+  margin-top: var(--padding-small);
+  margin-bottom: var(--padding-medium);
+  margin-right: var(--padding-medium);
+  width: 80x;
+}

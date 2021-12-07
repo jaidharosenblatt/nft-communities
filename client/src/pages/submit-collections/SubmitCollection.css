@@ -1,0 +1,12 @@
+.submit-collection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.submit-collection .content {
+  background-color: red;
+  width: 100%;
+  max-width: 500px;
+  height: 600px;
+}
