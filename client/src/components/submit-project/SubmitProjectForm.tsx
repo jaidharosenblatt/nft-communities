@@ -82,7 +82,7 @@ export default function SubmitProjectForm() {
         <Form.Item rules={errorRule("description")} name="description" label="Description">
           <Input.TextArea />
         </Form.Item>
-        <Button loading={false} style={fullWidthStyle} htmlType="submit" type="primary">
+        <Button loading={loading} style={fullWidthStyle} htmlType="submit" type="primary">
           Submit for Review
         </Button>
       </Form>
