@@ -5,6 +5,7 @@ import { getLastUpdated, getProjects } from "../../redux/actionCreators";
 import { Skeleton } from "antd";
 import PaginationCard from "../form/PaginationCard";
 import GraphCard from "../graph/GraphCard";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
   const dispatch = useAppDispatch();
@@ -25,7 +26,11 @@ export default function Projects() {
           {loading ? "Loading collections..." : `${projects.count} collections found`}
         </p>
         {projects.count > 0 && <PaginationCard />}
-
+        {projects.count === 0 && !loading && (
+          <h2>
+            Don't see your project? <Link to="/submit-collection">You can add it here</Link>{" "}
+          </h2>
+        )}
         <GraphCard />
       </div>
       <div className="projects-holder">
@@ -35,6 +40,7 @@ export default function Projects() {
           projects.projects.map((p: Project, i) => <ProjectCard key={i} project={p} />)
         )}
       </div>
+
       <div className="pagination-card-bottom">{projects.count > 0 && <PaginationCard />}</div>
     </>
   );

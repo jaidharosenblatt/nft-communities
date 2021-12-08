@@ -10,8 +10,19 @@
   align-items: center;
 }
 
-.navbar h1{
+.navbar a {
+  color: var(--gray-0);
+}
+
+.navbar a :hover {
+  color: var(--primary);
+}
+
+.navbar h1 {
   font-size: 20px;
+}
+.navbar h1:hover {
+  color: var(--primary-text);
 }
 
 .navbar .by-bs {
@@ -20,13 +31,8 @@
 
 .navbar .bs-logo {
   height: 20px;
-  margin-right: var(--padding-small);
+  margin: 0 var(--padding-medium);
 }
-.navbar .bs-logo:hover{
-  /* hardcoded filter for primary blue */
-  filter: invert(20%) sepia(89%) saturate(6172%) hue-rotate(226deg) brightness(100%) contrast(109%);
-}
-
 
 .navbar .row {
   display: flex;
@@ -52,7 +58,7 @@
   position: fixed;
 }
 
-.navbar .row .right > *{
+.navbar .row .right > * {
   margin-left: var(--padding-medium);
 }
 

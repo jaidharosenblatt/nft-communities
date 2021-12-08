@@ -2,9 +2,12 @@ import "./Navbar.css";
 import DarkModeSwitch from "../form/DarkModeSwitch";
 import BSBlack from "../../static/bs-black.svg";
 import BSWhite from "../../static/bs-white.svg";
+import BSBlue from "../../static/bs-blue.svg";
+
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import HoverImage from "../util/HoverImage";
 
 export default function Navbar() {
   const darkMode = useAppSelector((state) => state.status.darkMode);
@@ -26,8 +29,8 @@ export default function Navbar() {
               href="https://bridgesplit.com/"
             >
               |
-              <img
-                style={{ marginLeft: "var(--padding-medium)" }}
+              <HoverImage
+                srcOnHover={BSBlue}
                 alt="bs-logo"
                 className="bs-logo"
                 src={darkMode ? BSWhite : BSBlack}
