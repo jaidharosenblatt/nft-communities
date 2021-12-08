@@ -85,19 +85,23 @@ async function updateTweetEngagement() {
   d.setMonth(d.getMonth() - 1);
   const limit = parseInt(process.env.TWEET_LIMIT) || 50;
   // only gather trends for projects that minted this month
+
+  // get projects who have never been updated
+  const nullMomentProjects = await Project.find({ momentLastUpdate: null })
+    .sort("momentLastUpdate")
+    .limit(limit);
+
   const projects = await Project.find({ releaseDate: { $gte: d } })
     .sort("momentLastUpdate")
     .limit(limit);
 
+  const allProjects = nullMomentProjects.concat(projects);
+
   await Promise.all(
-    projects.map(async (project) => {
+    allProjects.map(async (project) => {
       if (!project.twitterId) {
         console.log(`Skipping project, ${project.name}`);
         return;
-      }
-
-      if (project.name === "Stock Tylers") {
-        console.log(project);
       }
 
       // Get updated followers

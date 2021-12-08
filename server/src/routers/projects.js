@@ -113,7 +113,7 @@ router.get("/projects", async (req, res) => {
     }
     const filters = req.query.filters ? JSON.parse(req.query.filters) : {};
     const aggregate = [
-      { $match: filters },
+      { $match: { ...filters, needsReview: { $ne: true } } },
       {
         // find trend matching this project
         $lookup: {

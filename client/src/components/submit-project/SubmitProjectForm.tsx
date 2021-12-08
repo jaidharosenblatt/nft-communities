@@ -74,7 +74,7 @@ export default function SubmitProjectForm() {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item rules={errorRule("mint date")} name="releaseData" label="Mint Date">
+        <Form.Item rules={errorRule("mint date")} name="releaseDate" label="Mint Date">
           <DatePicker disabledDate={disabledDate} style={fullWidthStyle} format="MM/DD/YYYY" />
         </Form.Item>
         <Form.Item rules={errorRule("description")} name="description" label="Description">

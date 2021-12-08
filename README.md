@@ -2,7 +2,7 @@
 
 Yes
 
-- fix update of new projects
+- fix two card view
 - feature request form
 - ratios
   - sort likes/followers
