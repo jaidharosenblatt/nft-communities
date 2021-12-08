@@ -37,7 +37,7 @@ router.post("/projects", async (req, res) => {
   try {
     const twitterData = await checkTwitterHandle(req.body.twitter);
     if (!twitterData) {
-      throw new ServerError(400, "Error finding Twitter");
+      throw new ServerError(400, `${req.body.twitter} is not a valid Twitter username`);
     }
     const project = Project({
       ...req.body,
@@ -55,6 +55,9 @@ router.post("/projects", async (req, res) => {
       const value = keyValue[key];
       res.status(400);
       return res.send(`${value} is already a listed collection`);
+    }
+    if (e.data) {
+      return sendError(e, res);
     }
     res.status(400);
     return res.send("Error creating collection. Make sure you are inputting a valid project");

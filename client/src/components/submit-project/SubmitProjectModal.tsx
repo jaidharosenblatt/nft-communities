@@ -12,11 +12,14 @@ export default function SubmitProjectModal() {
     <Modal centered footer={false} visible={submittedProject !== undefined}>
       {submittedProject && (
         <div className="submit-project-modal">
-          <h2> {submittedProject.name} </h2>
-          <p> ...will be in the collections page soon. Please check back in a few days. </p>
+          <h2> Collection Submitted </h2>
+          <p>
+            {submittedProject.name} will be in the collections page soon. Please check back in a few
+            days
+          </p>
           <ProjectCardHeader project={submittedProject} />
           <Button style={{ width: "100%" }} onClick={() => dispatch(clearSubmitProject())}>
-            Ok, I'll wait
+            Okay
           </Button>
         </div>
       )}

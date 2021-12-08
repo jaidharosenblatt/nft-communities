@@ -73,6 +73,12 @@ interface ApiHeader {
   iv: string;
 }
 
+type ApiError = {
+  isAxios?: boolean;
+  code?: number;
+  message?: string;
+};
+
 interface GraphResponse {
   value: number;
   date: string;

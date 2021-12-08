@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // Define a type for the slice state
 interface SubmitCollectionState {
   project?: Project;
+  resetForm?: boolean;
 }
 
 // Define the initial state using that type
@@ -16,7 +17,11 @@ export const submitCollectionSlice = createSlice({
     setSubmittedProject: (state, action: PayloadAction<Project | undefined>) => {
       state.project = action.payload;
     },
+
+    setResetForm: (state, action: PayloadAction<boolean>) => {
+      state.resetForm = action.payload;
+    },
   },
 });
 
-export const { setSubmittedProject } = submitCollectionSlice.actions;
+export const { setSubmittedProject, setResetForm } = submitCollectionSlice.actions;

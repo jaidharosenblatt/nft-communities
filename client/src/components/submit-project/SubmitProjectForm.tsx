@@ -1,15 +1,37 @@
 import { Button, Col, DatePicker, Form, Input, InputNumber, Row } from "antd";
+import moment from "moment";
+import { useEffect } from "react";
 import { submitProject } from "../../redux/actionCreators";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setResetForm } from "../../redux/submitCollection";
 
 export default function SubmitProjectForm() {
   const fullWidthStyle = { width: "100%" };
   const dispatch = useAppDispatch();
+  const resetForm = useAppSelector((state) => state.submitCollection.resetForm);
+  const loading = useAppSelector((state) => state.status.loading);
+
+  const [form] = Form.useForm();
+
   const onFinish = (values: any) => {
     dispatch(submitProject(values));
-    form.resetFields();
   };
-  const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (resetForm) {
+      console.log(resetForm);
+
+      form.resetFields();
+    }
+    return () => {
+      dispatch(setResetForm(false));
+    };
+  }, [resetForm]);
+
+  function disabledDate(current: any) {
+    // Can not select days before today and today
+    return current < moment().startOf("day");
+  }
 
   function errorRule(fieldName: string) {
     const capitalized = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
@@ -55,12 +77,12 @@ export default function SubmitProjectForm() {
           </Col>
         </Row>
         <Form.Item rules={errorRule("mint date")} name="releaseData" label="Mint Date">
-          <DatePicker style={fullWidthStyle} format="MM/DD/YYYY" />
+          <DatePicker disabledDate={disabledDate} style={fullWidthStyle} format="MM/DD/YYYY" />
         </Form.Item>
         <Form.Item rules={errorRule("description")} name="description" label="Description">
           <Input.TextArea />
         </Form.Item>
-        <Button style={fullWidthStyle} htmlType="submit" type="primary">
+        <Button loading={false} style={fullWidthStyle} htmlType="submit" type="primary">
           Submit for Review
         </Button>
       </Form>
