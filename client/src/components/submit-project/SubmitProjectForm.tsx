@@ -40,8 +40,12 @@ export default function SubmitProjectForm() {
     <div>
       <h2>Submit Collection</h2>
       <p className="caption">
-        Collections are manually verified and are updated every few days. If it's been more than a
-        week, message @jaidharo on Twitter
+        Collections are manually verified and are updated every few days. If you've waited more than
+        a week, message{" "}
+        <a rel="noreferrer" href="https://twitter.com/jaidharo" target="_blank">
+          @jaidharo
+        </a>{" "}
+        on Twitter
       </p>
       <Form
         form={form}
