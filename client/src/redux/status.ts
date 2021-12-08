@@ -9,7 +9,7 @@ interface ProjectsState {
 
 // Define the initial state using that type
 const initialState: ProjectsState = {
-  loading: true,
+  loading: false,
   darkMode: localStorage.getItem("theme") === "dark",
 };
 

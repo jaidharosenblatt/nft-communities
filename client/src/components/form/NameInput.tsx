@@ -19,6 +19,7 @@ export default function NameInput() {
         text={<p> Collection Name</p>}
       />
       <Input
+        allowClear
         placeholder="ex. Degenerate Ape"
         style={{
           margin: "var(--padding-filters)",

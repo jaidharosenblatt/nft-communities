@@ -1,8 +1,8 @@
 const express = require("express");
 const Project = require("../models/project");
-const { updateAllFollowers, updateTweetEngagement } = require("../api/twitter");
+const { updateAllFollowers, updateTweetEngagement, checkTwitterHandle } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
-const { getParamVariable, sendError, isValidDate } = require("./util");
+const { getParamVariable, sendError, isValidDate, ServerError } = require("./util");
 
 const router = new express.Router();
 
@@ -35,11 +35,37 @@ router.post("/updateTweets", async (req, res) => {
 
 router.post("/projects", async (req, res) => {
   try {
-    const project = Project(req.body);
+    const twitterData = await checkTwitterHandle(req.body.twitter);
+    if (!twitterData) {
+      throw new ServerError(400, `${req.body.twitter} is not a valid Twitter username`);
+    }
+    const project = Project({
+      ...req.body,
+      ...twitterData,
+      twitterUrl: "https://twitter.com/" + req.body.twitter,
+      needsReview: true,
+    });
+
     const p = await project.save();
     res.send(p);
   } catch (e) {
-    sendError(e, res);
+    if (e.code === 11000) {
+      const keyValue = e.keyValue;
+      const key = Object.keys(keyValue)[0];
+      const value = keyValue[key];
+      res.status(400);
+      return res.send(`${value} is already a listed collection`);
+    }
+    if (e.data?.title === "Invalid Request") {
+      res.status(400);
+      return res.send("Invalid Twitter username");
+    }
+
+    if (e.data) {
+      return sendError(e, res);
+    }
+    res.status(400);
+    return res.send("Error creating collection. Make sure you are inputting a valid project");
   }
 });
 
