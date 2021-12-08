@@ -8,8 +8,10 @@ type Props = { children: ReactElement<any, any>; isDark: boolean };
 export default function ThemeSelector({ children, isDark }: Props) {
   return (
     <>
-      <React.Suspense fallback={<></>}>{isDark ? <DarkTheme /> : <LightTheme />}</React.Suspense>
-      {children}
+      <React.Suspense fallback={<></>}>
+        {isDark ? <DarkTheme /> : <LightTheme />}
+        {children}
+      </React.Suspense>
     </>
   );
 }
