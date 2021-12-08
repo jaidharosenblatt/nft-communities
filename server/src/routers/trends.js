@@ -11,8 +11,9 @@ const router = new express.Router();
 
 router.post("/trends/update", async (req, res) => {
   try {
-    const status = await updateAllProjectTrends();
-    res.send(status);
+    res.send("Updating");
+    await updateAllProjectTrends();
+    console.log("Finished updating trends");
   } catch (e) {
     sendError(e, res);
   }

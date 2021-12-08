@@ -2,8 +2,7 @@
 
 Yes
 
-- Create project
-- fix timeout for trends update
+- fix update of new projects
 - feature request form
 - ratios
   - sort likes/followers
