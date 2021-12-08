@@ -13,6 +13,9 @@ export default function ProjectCardHeader({ project }: Props) {
 
   const quantity = project.quantity && parseInt(project.quantity).toLocaleString();
   function covertAvatar(avatar: string): string {
+    if (!avatar) {
+      return NftPlaceholder;
+    }
     return avatar.replace("_normal", "");
   }
 

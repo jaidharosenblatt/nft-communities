@@ -3,7 +3,7 @@ import Navbar from "./components/navbar/Navbar";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import ThemeSelector from "./themes/ThemeSelector";
 import Collections from "./pages/collections/Collections";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import SubmitCollection from "./pages/submit-collections/SubmitCollection";
 import { notification } from "antd";
 
@@ -38,8 +38,9 @@ function App(): JSX.Element {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<Collections />}></Route>
-            <Route path="/submit-collection" element={<SubmitCollection />}></Route>
+            <Route path="/" element={<Collections />} />
+            <Route path="/submit-collection" element={<SubmitCollection />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </BrowserRouter>
       </div>
