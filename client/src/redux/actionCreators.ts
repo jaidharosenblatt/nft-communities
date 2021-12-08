@@ -69,7 +69,6 @@ export const submitProject =
       });
       dispatch(setSubmittedProject(res.data));
       dispatch(setResetForm(true));
-      dispatch(setLoading(false));
       // reset form
     } catch (error) {
       // don't reset values
@@ -89,6 +88,7 @@ export const submitProject =
         );
       }
     }
+    dispatch(setLoading(false));
   };
 
 export const clearSubmitProject = (): AppThunk => async (dispatch, getState) => {

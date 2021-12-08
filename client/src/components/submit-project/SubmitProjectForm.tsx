@@ -19,14 +19,12 @@ export default function SubmitProjectForm() {
 
   useEffect(() => {
     if (resetForm) {
-      console.log(resetForm);
-
       form.resetFields();
     }
     return () => {
       dispatch(setResetForm(false));
     };
-  }, [resetForm]);
+  }, [resetForm, dispatch, form]);
 
   function disabledDate(current: any) {
     // Can not select days before today and today

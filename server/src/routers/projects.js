@@ -56,6 +56,11 @@ router.post("/projects", async (req, res) => {
       res.status(400);
       return res.send(`${value} is already a listed collection`);
     }
+    if (e.data?.title === "Invalid Request") {
+      res.status(400);
+      return res.send("Invalid Twitter username");
+    }
+
     if (e.data) {
       return sendError(e, res);
     }
