@@ -2,14 +2,12 @@
 
 Yes
 
-- Create project
-- fix timeout for trends update
+- fix two card view
 - feature request form
 - ratios
   - sort likes/followers
   - followers/supply
 - upvotes and downvotes backed by signatures
-- spinner for page initially loading
 - save queries in local storage or to wallet
 - scrape https://nextdrop.is/upcoming
 - track prices pre mint => floor

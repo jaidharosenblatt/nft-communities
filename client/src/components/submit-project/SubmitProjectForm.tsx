@@ -40,8 +40,12 @@ export default function SubmitProjectForm() {
     <div>
       <h2>Submit Collection</h2>
       <p className="caption">
-        Collections are manually verified and are updated every few days. If it's been more than a
-        week, message @jaidharo on Twitter
+        Collections are manually verified and are updated every few days. If you've waited more than
+        a week, message{" "}
+        <a rel="noreferrer" href="https://twitter.com/jaidharo" target="_blank">
+          @jaidharo
+        </a>{" "}
+        on Twitter
       </p>
       <Form
         form={form}
@@ -74,7 +78,7 @@ export default function SubmitProjectForm() {
             </Form.Item>
           </Col>
         </Row>
-        <Form.Item rules={errorRule("mint date")} name="releaseData" label="Mint Date">
+        <Form.Item rules={errorRule("mint date")} name="releaseDate" label="Mint Date">
           <DatePicker disabledDate={disabledDate} style={fullWidthStyle} format="MM/DD/YYYY" />
         </Form.Item>
         <Form.Item rules={errorRule("description")} name="description" label="Description">
