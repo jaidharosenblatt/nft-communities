@@ -16,12 +16,10 @@ export default function ProjectCard({ project }: Props) {
   return (
     <div className="project-card">
       <div className="not-bottom">
-        <DateTopper date={project.releaseDate} />
         <ProjectCardHeader project={project} />
       </div>
       <div className="stats-row">
         <StatsRow project={project} />
-        <ShowGraphButton project={project} />
       </div>
     </div>
   );

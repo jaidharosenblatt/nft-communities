@@ -29,10 +29,8 @@ export default function GraphCard() {
       visible={showModal}
     >
       {project && (
-        <div className="project-card">
-          <DateTopper date={project.releaseDate} />
-
-          <ProjectCardHeader project={project} />
+        <div>
+          <h1> {project.name}</h1>
           <p> {project.description}</p>
           {/* <StatsRow project={project} /> */}
           <TwitterCreatedAt twitterCreatedAt={project.twitterCreatedAt} />

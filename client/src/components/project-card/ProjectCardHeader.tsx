@@ -3,6 +3,8 @@ import NftPlaceholder from "../../static/NftPlaceholder.png";
 import { useImage } from "react-image";
 import { Suspense } from "react";
 import { Skeleton } from "antd";
+import ShowGraphButton from "../graph/ShowGraphButton";
+import DateTopper from "./DateTopper";
 
 type Props = { project: Project };
 export default function ProjectCardHeader({ project }: Props) {
@@ -29,17 +31,20 @@ export default function ProjectCardHeader({ project }: Props) {
 
   return (
     <div className="header">
+      <DateTopper date={project.releaseDate} />
       <Suspense fallback={<Skeleton />}>
         <MyImageComponent />
       </Suspense>
       <div className="text">
-        <h2>{truncatedName}</h2>
-        <p>
-          {project.price !== undefined && `${project.price} SOL mint | `}
-          {quantity !== undefined && `${quantity} supply`}
-        </p>
-
-        <Socials size={30} project={project} />
+        <div>
+          <h2>{truncatedName}</h2>
+          <p>
+            {project.price !== undefined && `${project.price} SOL mint | `}
+            {quantity !== undefined && `${quantity} supply`}
+          </p>
+          <Socials size={30} project={project} />
+          <ShowGraphButton project={project} />
+        </div>
       </div>
     </div>
   );

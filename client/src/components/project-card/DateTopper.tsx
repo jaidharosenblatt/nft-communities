@@ -2,7 +2,7 @@ type Props = { date?: string };
 export default function DateTopper({ date }: Props) {
   function getDateFromString() {
     if (!date) {
-      return date;
+      return "No date specified";
     }
     const startOfToday = new Date();
     startOfToday.setHours(0, 0, 0, 0);
