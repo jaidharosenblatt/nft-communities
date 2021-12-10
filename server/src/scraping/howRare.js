@@ -1,6 +1,11 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { getTwitterUsernameFromUrl, convertQuantity, convertSolString } = require("./util");
+const {
+  getTwitterUsernameFromUrl,
+  convertQuantity,
+  convertSolString,
+  undefinedIfEmpty,
+} = require("./util");
 
 async function getHowRareProjects() {
   const { data } = await axios.get("https://howrare.is/drops");
@@ -52,10 +57,6 @@ async function getHowRareProjects() {
         });
     });
   return projects;
-}
-
-function undefinedIfEmpty(str) {
-  return str === "" ? undefined : str;
 }
 
 function convertDateString(date) {
