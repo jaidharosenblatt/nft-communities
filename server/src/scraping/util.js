@@ -5,17 +5,22 @@ function getTwitterUsernameFromUrl(url) {
 
   // ordered in reverse priority
   const twitterPrefixes = [
+    "https://www.twitter.com/",
+    "http://www.twitter.com/",
     "http://twitter.com/",
     "https://twitter.com/",
     "http://twitter.com/@",
     "https://mobile.twitter.com/",
     "https://twitter.com/@",
+    "twitter.com/",
   ];
-  const urlLowerCase = url.toLowerCase();
+  const urlLowerCase = url.toLowerCase().trim();
   let usernamePost = urlLowerCase;
+  let match = false;
   twitterPrefixes.forEach((prefix) => {
     if (urlLowerCase.startsWith(prefix)) {
       usernamePost = urlLowerCase.split(prefix)[1].toString();
+      match = true;
     }
   });
   // remove trailing chars from end ex https://twitter.com/username?s=20
@@ -24,7 +29,11 @@ function getTwitterUsernameFromUrl(url) {
   trailingChars.forEach((char) => {
     if (usernamePost.includes(char)) username = usernamePost.split(char)[0];
   });
-  return username;
+  return match ? username : undefined;
+}
+
+function undefinedIfEmpty(str) {
+  return str === "" || str === "none" ? undefined : str;
 }
 
 function getDiscordIdFromUrl(url) {
@@ -70,8 +79,9 @@ function convertSolString(price) {
 
 function convertQuantity(quantity) {
   if (!quantity) return undefined;
+  const num = parseInt(quantity.toString().replace(/,/g, ""));
 
-  return parseInt(quantity.toString().replace(/,/g, ""));
+  return isNaN(num) ? undefined : num;
 }
 
 module.exports = {
@@ -79,4 +89,5 @@ module.exports = {
   getDiscordIdFromUrl,
   convertSolString,
   convertQuantity,
+  undefinedIfEmpty,
 };

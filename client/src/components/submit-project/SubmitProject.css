@@ -4,6 +4,12 @@
   flex-direction: column;
 }
 
+.submit-project-modal .row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
 .submit-project-modal img {
   width: 80px;
   border-radius: 100px;

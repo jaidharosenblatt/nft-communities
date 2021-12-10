@@ -10,10 +10,12 @@ Yes
 - upvotes and downvotes backed by signatures
 - save queries in local storage or to wallet
 - scrape https://nextdrop.is/upcoming
+- scrape Magic Eden
 - track prices pre mint => floor
 - reset pagination after search/filter change
+- https://discord.com/developers/docs/resources/guild#get-guild-preview
 
-No
+  No
 
 - filter by growth
 - Discord activity

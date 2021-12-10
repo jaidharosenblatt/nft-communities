@@ -1,41 +1,49 @@
 const Project = require("../models/project");
 const { getHowRareProjects } = require("./howRare");
+const { getNextDrop } = require("./nextDrop");
 const { getSolanalysisProjects } = require("./solanalysis");
 const { getSolanartProjects } = require("./solanart");
 
 async function scrapeProjects() {
   try {
+    const nextDropProjects = await getNextDrop();
     const howRareProjects = await getHowRareProjects();
     const solanartProjects = await getSolanartProjects();
     const solanalysisProjects = await getSolanalysisProjects();
-    const projects = solanartProjects.concat(howRareProjects, solanalysisProjects);
-
-    // add new fields
-    const updated = await Project.bulkWrite(
-      projects.map((project) => ({
-        updateOne: {
-          filter: { twitter: project.twitter },
-          update: {
-            $set: {
-              quantity: project.quantity,
-              price: project.price,
-              description: project.description,
-            },
-          },
-        },
-      }))
+    const projects = solanartProjects.concat(
+      nextDropProjects,
+      solanartProjects,
+      howRareProjects,
+      solanalysisProjects
     );
-    const created = await Project.insertMany(projects, {
-      ordered: false,
+
+    // necessary to update an entire document
+    const projectObjects = projects.map((p) => {
+      const projectModel = new Project(p);
+      const projectObject = projectModel.toObject();
+
+      delete projectObject._id;
+      return projectObject;
     });
 
-    return updated;
+    const ops = projectObjects.map((p) => {
+      return {
+        updateOne: {
+          filter: { twitter: p.twitter },
+          update: p,
+          upsert: true,
+        },
+      };
+    });
+    const projectsCreated = await Project.bulkWrite(ops, { ordered: false });
+
+    return projectsCreated;
   } catch (e) {
     if (process.env.DEBUG === "TRUE") {
       console.error(e);
     }
-    if (e.code === 11000) {
-      return `${e.insertedDocs?.length || 0} projects created`;
+    if (e.result) {
+      return e.result;
     }
     return e;
   }

@@ -15,7 +15,7 @@ export default function Socials({ project, color, size }: Props) {
       )}
       {project.website && (
         <a target="_blank" rel="noreferrer" href={project.website}>
-          <AiOutlineLink color={color || "var(--gray-1)"} size={size + "px"} />
+          <AiOutlineLink color={color || "var(--gray-0)"} size={size + "px"} />
         </a>
       )}
     </div>

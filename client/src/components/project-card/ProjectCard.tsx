@@ -1,8 +1,6 @@
 import "./ProjectCard.css";
-import DateTopper from "./DateTopper";
 import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";
-import ShowGraphButton from "../graph/ShowGraphButton";
 import ProjectCardHeader from "./ProjectCardHeader";
 import StatsRow from "./StatsRow";
 
@@ -16,12 +14,10 @@ export default function ProjectCard({ project }: Props) {
   return (
     <div className="project-card">
       <div className="not-bottom">
-        <DateTopper date={project.releaseDate} />
         <ProjectCardHeader project={project} />
       </div>
       <div className="stats-row">
         <StatsRow project={project} />
-        <ShowGraphButton project={project} />
       </div>
     </div>
   );

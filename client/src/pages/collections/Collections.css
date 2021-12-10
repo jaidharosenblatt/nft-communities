@@ -1,6 +1,6 @@
 .projects-holder {
   display: grid;
-  grid-gap: 12px;
+  grid-gap: var(--padding-large);
   grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
   grid-column-start: 2;
   grid-row-start: 4;
