@@ -3,8 +3,6 @@ import { GRAPH_MODAL_WIDTH, GRAPH_MODAL_WIDTH_MOBILE } from "../../constants";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { closeHighlightedProject } from "../../redux/actionCreators";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import DateTopper from "../project-card/DateTopper";
-import ProjectCardHeader from "../project-card/ProjectCardHeader";
 import FieldSelector from "./FieldSelector";
 import Graph from "./Graph";
 import TwitterCreatedAt from "./TwitterCreatedAt";
