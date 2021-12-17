@@ -1,5 +1,10 @@
 const axios = require("axios");
-const { getTwitterUsernameFromUrl, convertSolString, convertQuantity } = require("./util");
+const {
+  getTwitterUsernameFromUrl,
+  convertSolString,
+  convertQuantity,
+  undefinedIfEmpty,
+} = require("./util");
 const bodyParams = require("./solanalysisParams");
 
 async function getSolanalysisProjects() {
@@ -18,8 +23,8 @@ async function getSolanalysisProjects() {
         name: p.display_name,
         twitter: getTwitterUsernameFromUrl(p.twitter),
         twitterUrl: p.twitter,
-        discordUrl: p.discord,
-        website: p.website,
+        discordUrl: undefinedIfEmpty(p.discord),
+        website: undefinedIfEmpty(p.website),
         price: convertSolString(p.price),
         quantity: convertQuantity(p.supply),
         releaseDate: d,
