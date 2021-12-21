@@ -90,9 +90,17 @@ router.get("/eden", async (req, res) => {
   const response = await axios.get(
     "https://api-mainnet.magiceden.io/rpc/getAggregatedCollectionMetrics"
   );
-  const week = false;
+
+  function queryToInt(val, _default) {
+    const int = parseInt(val);
+    return isNaN(int) ? _default : int;
+  }
+  const week = req.query.range === "week";
   const value = week ? "value7d" : "value1d";
   const prev = week ? "prev7d" : "prev1d";
+  const volumeWeek = queryToInt(req.query.minVolWeek, 2000);
+  const volumeDay = queryToInt(req.query.minVolDay, 20);
+  const price = queryToInt(req.query.maxPrice, 5);
 
   function diff(a) {
     return (
@@ -110,9 +118,6 @@ router.get("/eden", async (req, res) => {
   }
 
   const data = response.data.results;
-  const volumeWeek = 2000;
-  const volumeDay = 50;
-  const price = 10;
   const filtered = data.filter(
     (d) =>
       d.txVolume !== undefined &&
