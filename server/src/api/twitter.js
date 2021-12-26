@@ -50,7 +50,7 @@ async function updateAllFollowers() {
     data.map(async (d, i) => {
       const followers = d.public_metrics?.followers_count;
       const p = await Project.findOne({ twitter: d.username.toLowerCase() });
-      if (p && p.length > 0) {
+      if (p) {
         p.twitterFollowers = followers;
         p.twitterId = d.id;
         p.avatar = d.profile_image_url;
