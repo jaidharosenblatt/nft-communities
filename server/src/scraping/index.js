@@ -7,10 +7,7 @@ const { getSolanartProjects } = require("./solanart");
 async function scrapeProjects() {
   try {
     const howRareProjects = await getHowRareProjects();
-
-    return;
     const nextDropProjects = await getNextDrop();
-
     const solanartProjects = await getSolanartProjects();
     const solanalysisProjects = await getSolanalysisProjects();
     const projects = solanartProjects.concat(
