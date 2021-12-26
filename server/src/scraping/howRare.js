@@ -12,11 +12,12 @@ async function getHowRareProjects() {
   const $ = cheerio.load(data);
   let projects = [];
   let releaseDate;
-  $("div.col")
+
+  $(".all_collections")
     .children()
     .each((i, e) => {
       // get date by finding calendar icon and going to it's parent
-      const date = $(e).find("i.far.fa-calendar-alt").parent().text().trim();
+      const date = $(e).find("div.all_coll_row.drop_date img").parent().text().trim();
       // skip newlines
       if (date != "") {
         releaseDate = convertDateString(date);
@@ -24,11 +25,11 @@ async function getHowRareProjects() {
 
       // loop throgh each table row
       $(e)
-        .find("tr")
+        .find(".all_coll_row")
         .each((j, e2) => {
-          const children = $(e2).find("td").children().length;
+          const children = $(e2).find("div.all_coll_col").children().length;
           // add all text elements (not <a>)
-          const name = $(e2).find("td:nth-child(1)").text().trim();
+          const name = $(e2).find("div.all_coll_col:nth-child(1) a span").text().trim();
           const quantity = $(e2).find("td:nth-last-child(3)").text().trim();
           const price = $(e2).find("td:nth-last-child(2)").text().trim();
           const description = $(e2).find("td:last-child").text().trim();
@@ -38,6 +39,8 @@ async function getHowRareProjects() {
           const twitterUrl = $(e2).find("i.fab.fa-twitter").parent().attr("href");
           const discordUrl = $(e2).find("i.fab.fa-discord").parent().attr("href");
           const website = $(e2).find("i.fab.fab.fa-firefox").parent().attr("href");
+
+          console.log(name);
 
           const twitter = getTwitterUsernameFromUrl(twitterUrl);
           const project = {
