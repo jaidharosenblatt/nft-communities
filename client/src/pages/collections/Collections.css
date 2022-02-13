@@ -1,7 +1,7 @@
 .projects-holder {
   display: grid;
   grid-gap: var(--padding-large);
-  grid-template-columns: repeat(auto-fit, minmax(var(--card-width), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
   grid-column-start: 2;
   grid-row-start: 4;
   padding: var(--padding-large);
