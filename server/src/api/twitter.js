@@ -4,9 +4,11 @@ const Project = require("../models/project");
 
 async function updateAllFollowers() {
   const projects = await Project.find({});
+  // twitter username regex
+  const regex = new RegExp(/^[A-Za-z0-9_]{1,15}$/);
   let usernames = await Promise.all(
     projects.map(async (p) => {
-      if (p.twitter) {
+      if (p.twitter && regex.test(p.twitter)) {
         return p.twitter;
       } else {
         await Project.deleteOne({ _id: p._id });

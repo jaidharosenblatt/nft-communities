@@ -1,5 +1,10 @@
 const axios = require("axios");
-const { getTwitterUsernameFromUrl, convertQuantity, convertSolString } = require("./util");
+const {
+  getTwitterUsernameFromUrl,
+  convertQuantity,
+  convertSolString,
+  undefinedIfEmpty,
+} = require("./util");
 
 async function getSolanartProjects() {
   const res = await axios.get("https://qzlsklfacc.medianetwork.cloud/get_collections");
@@ -13,7 +18,7 @@ async function getSolanartProjects() {
         name: p.name,
         twitter: getTwitterUsernameFromUrl(p.twitter),
         twitterUrl: p.twitter,
-        discordUrl: p.discord,
+        discordUrl: undefinedIfEmpty(p.discord),
         website: p.website,
         releaseDate: d,
         price: convertSolString(p.price),

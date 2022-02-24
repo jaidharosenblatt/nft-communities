@@ -1,3 +1,4 @@
+const { default: axios } = require("axios");
 const express = require("express");
 const mongoose = require("mongoose");
 const Aggregation = require("../models/aggregation");
@@ -83,6 +84,65 @@ router.get("/graph/:id", async (req, res) => {
   } catch (e) {
     sendError(e, res);
   }
+});
+
+router.get("/eden", async (req, res) => {
+  const response = await axios.get(
+    "https://api-mainnet.magiceden.io/rpc/getAggregatedCollectionMetrics"
+  );
+
+  function queryToInt(val, _default) {
+    const int = parseInt(val);
+    return isNaN(int) ? _default : int;
+  }
+  const week = req.query.range === "week";
+  const value = week ? "value7d" : "value1d";
+  const prev = week ? "prev7d" : "prev1d";
+  const volumeWeek = queryToInt(req.query.minVolWeek, 2000);
+  const volumeDay = queryToInt(req.query.minVolDay, 20);
+  const price = queryToInt(req.query.maxPrice, 5);
+
+  function diff(a) {
+    return (
+      percentIncrease(a.avgPrice[prev], a.avgPrice[value]) -
+      percentIncrease(a.txVolume[prev], a.txVolume[value])
+    );
+  }
+
+  function percentIncrease(start, end) {
+    if (start === 0 || end === 0) {
+      return 0;
+    } else {
+      return (((end - start) / start) * 100).toFixed(2);
+    }
+  }
+
+  const data = response.data.results;
+  const filtered = data.filter(
+    (d) =>
+      d.txVolume !== undefined &&
+      d.avgPrice !== undefined &&
+      d.txVolume.value1d > volumeDay &&
+      d.txVolume.value7d > volumeWeek &&
+      d.floorPrice.value1d < price
+  );
+
+  const sorted = filtered.sort((a, b) => {
+    return diff(a) - diff(b);
+  });
+  const truncated = sorted.map((d) => {
+    return {
+      name: d.name,
+      price1: d.avgPrice.value1d,
+      price7: d.avgPrice.value7d,
+      floor: d.floorPrice.value1d,
+      volume1: d.txVolume.value1d,
+      volume7: d.txVolume.value7d,
+      percPrice: percentIncrease(d.avgPrice[prev], d.avgPrice[value]) + "%",
+      percVol: percentIncrease(d.txVolume[prev], d.txVolume[value]) + "%",
+    };
+  });
+  res.send(truncated);
 });
 
 module.exports = router;

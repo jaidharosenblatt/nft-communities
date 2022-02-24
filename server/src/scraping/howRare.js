@@ -12,51 +12,76 @@ async function getHowRareProjects() {
   const $ = cheerio.load(data);
   let projects = [];
   let releaseDate;
-  $("div.col")
+
+  $(".all_collections")
     .children()
     .each((i, e) => {
       // get date by finding calendar icon and going to it's parent
-      const date = $(e).find("i.far.fa-calendar-alt").parent().text().trim();
+      const date = $(e).find("div.all_coll_row.drop_date img").parent().text().trim();
       // skip newlines
       if (date != "") {
         releaseDate = convertDateString(date);
       }
 
-      // loop throgh each table row
-      $(e)
-        .find("tr")
-        .each((j, e2) => {
-          const children = $(e2).find("td").children().length;
-          // add all text elements (not <a>)
-          const name = $(e2).find("td:nth-child(1)").text().trim();
-          const quantity = $(e2).find("td:nth-last-child(3)").text().trim();
-          const price = $(e2).find("td:nth-last-child(2)").text().trim();
-          const description = $(e2).find("td:last-child").text().trim();
-          const priceNumber = convertSolString(price);
-          const quantityNumber = convertQuantity(quantity);
-
-          const twitterUrl = $(e2).find("i.fab.fa-twitter").parent().attr("href");
-          const discordUrl = $(e2).find("i.fab.fa-discord").parent().attr("href");
-          const website = $(e2).find("i.fab.fab.fa-firefox").parent().attr("href");
-
-          const twitter = getTwitterUsernameFromUrl(twitterUrl);
-          const project = {
-            name,
-            website: undefinedIfEmpty(website),
-            quantity: quantityNumber,
-            price: priceNumber,
-            twitter,
-            discordUrl: undefinedIfEmpty(discordUrl),
-            twitterUrl,
-            releaseDate,
-            description: undefinedIfEmpty(description),
-          };
-          if (project.name && project.twitter) {
-            projects.push(project);
+      // get all rows since all_coll_row doesn't work
+      const rows = $(e)
+        .find("div.all_coll_col a span")
+        .map((a, elem) => {
+          const text = $(elem).text().trim();
+          if (text.length > 0) {
+            return $(elem).parent().parent().parent();
           }
         });
+
+      // loop throgh each table row
+      rows.each((j, e2) => {
+        // add all text elements (not <a>)
+        const name = $(e2).find(":nth-child(1) a span").text().trim();
+        const quantity = $(e2).find(":nth-last-child(3)").text().trim();
+        const price = $(e2).find(":nth-last-child(2)").text().trim();
+        const priceNumber = convertSolString(price);
+        const quantityNumber = convertQuantity(quantity);
+
+        const socials = $(e2).find(".drop_links");
+        const { twitterUrl, discordUrl, website } = getSocials($, socials);
+        const twitter = getTwitterUsernameFromUrl(twitterUrl);
+
+        const project = {
+          name,
+          quantity: quantityNumber,
+          price: priceNumber,
+          releaseDate,
+          twitter,
+          website: undefinedIfEmpty(website),
+          discordUrl: undefinedIfEmpty(discordUrl),
+          twitterUrl,
+        };
+
+        if (project.name && project.twitter) {
+          projects.push(project);
+        }
+      });
     });
   return projects;
+}
+
+function getSocials($, socials) {
+  let twitterUrl, discordUrl, website;
+  $(socials)
+    .find("a")
+    .each((i, e) => {
+      const image = $(e).find("img").attr("src");
+      const url = $(e).attr("href");
+
+      if (image === "/n/img/discord.svg") {
+        discordUrl = url;
+      } else if (image === "/n/img/twitter.svg") {
+        twitterUrl = url;
+      } else if (image === "/n/img/link.svg") {
+        website = url;
+      }
+    });
+  return { twitterUrl, discordUrl, website };
 }
 
 function convertDateString(date) {
