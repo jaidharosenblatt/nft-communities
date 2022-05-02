@@ -16,7 +16,7 @@ export default function ShowGraphButton({ project }: Props) {
       loading={loading}
       onClick={() => dispatch(setHighlightedProject(project))}
     >
-      <IconText color="white" icon={<AiOutlineStock />} text={<p>View Analytics</p>} />
+      <IconText color="white" icon={<AiOutlineStock />} text={<p>Trends</p>} />
     </Button>
   );
 }
