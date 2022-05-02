@@ -36,9 +36,13 @@ async function updateAllFollowers() {
     return found === -1;
   });
 
+  // delete all error entries
+  const blacklistedUsernames = usernames.filter((username) => ["home"].includes(username));
+
+  const usernamesToDelete = [...blacklistedUsernames, ...missingUsernames];
   //delete all bad usernames (404 and banned users)
   await Promise.all(
-    missingUsernames.map(async (username) => {
+    usernamesToDelete.map(async (username) => {
       await Project.deleteOne({ twitter: username });
     })
   );
@@ -47,6 +51,7 @@ async function updateAllFollowers() {
   await Promise.all(
     data.map(async (d, i) => {
       const followers = d.public_metrics?.followers_count;
+
       const p = await Project.findOne({ twitter: d.username.toLowerCase() });
       if (p) {
         p.twitterFollowers = followers;
