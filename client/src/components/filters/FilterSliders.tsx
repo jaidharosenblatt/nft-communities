@@ -17,26 +17,7 @@ export default function FilterSliders() {
         value="twitterFollowers"
         max={aggregation.highestFollowersRounded}
       />
-      <IconText
-        color="var(--primary-text)"
-        icon={<IoHeartOutline size={14} />}
-        text={<p>Average Likes/Tweet</p>}
-      />
-      <FilterRange
-        filters={filters}
-        value="twitterAverageTweetEngagement"
-        max={aggregation.highestTweetLikesRounded}
-      />
-      <IconText
-        color="var(--primary-text)"
-        icon={<GoMention size={14} />}
-        text={<p>Average Likes/Mention</p>}
-      />
-      <FilterRange
-        filters={filters}
-        value="twitterAverageMentionEngagement"
-        max={aggregation.highestMentionLikesRounded}
-      />
+
       <IconText
         color="var(--primary-text)"
         icon={<IoPricetagOutline size={14} />}
