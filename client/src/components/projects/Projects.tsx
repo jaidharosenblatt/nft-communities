@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ProjectCard from "../project-card/ProjectCard";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getLastUpdated, getProjects } from "../../redux/actionCreators";
-import { Row, Skeleton } from "antd";
+import { Skeleton } from "antd";
 import PaginationCard from "../form/PaginationCard";
 import GraphCard from "../graph/GraphCard";
 import { Link } from "react-router-dom";

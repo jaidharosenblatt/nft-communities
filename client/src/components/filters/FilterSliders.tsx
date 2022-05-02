@@ -1,7 +1,6 @@
-import { IoBagOutline, IoHeartOutline, IoPricetagOutline } from "react-icons/io5";
+import { IoBagOutline, IoPricetagOutline } from "react-icons/io5";
 import FilterRange from "../form/FilterRange";
 import IconText from "../util/IconText";
-import { GoMention } from "react-icons/go";
 import { BsPeople } from "react-icons/bs";
 import { useAppSelector } from "../../redux/hooks";
 
