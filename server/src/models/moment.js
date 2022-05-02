@@ -12,6 +12,14 @@ const momentSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    discordMembers: {
+      type: Number,
+      required: false,
+    },
+    discordActiveMembers: {
+      type: Number,
+      required: false,
+    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

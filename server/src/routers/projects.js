@@ -2,7 +2,7 @@ const express = require("express");
 const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement, checkTwitterHandle } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
-const { updateDiscord } = require("../scraping/discord");
+const { updateDiscord } = require("../api/discord");
 
 const { getParamVariable, sendError, isValidDate, ServerError } = require("./util");
 
@@ -19,9 +19,11 @@ router.post("/updateProjects", async (req, res) => {
 
 router.post("/updateDiscord", async (req, res) => {
   try {
-    const status = await updateDiscord();
-    res.send(status);
+    res.send("Updating Discord async");
+    await updateDiscord();
   } catch (e) {
+    console.log(e);
+
     sendError(e, res);
   }
 });
@@ -96,6 +98,8 @@ router.get("/projects", async (req, res) => {
       "trends.followingPercentChange",
       "quantity",
       "price",
+      "discordMembers",
+      "discordActiveMembers",
     ];
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
     const sortDirection = req.query.sortDirection ? parseInt(req.query.sortDirection) : -1;
@@ -147,6 +151,8 @@ router.get("/projects", async (req, res) => {
           twitterFollowers: 1,
           twitterUrl: 1,
           twitterCreatedAt: 1,
+          discordMembers: 1,
+          discordActiveMembers: 1,
         },
       },
       { $sort: { [sortBy]: sortDirection } },

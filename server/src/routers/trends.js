@@ -16,7 +16,8 @@ router.post("/trends/update", async (req, res) => {
     await updateAllProjectTrends();
     console.log("Finished updating trends");
   } catch (e) {
-    sendError(e, res);
+    console.log(e);
+    // sendError(e, res);
   }
 });
 

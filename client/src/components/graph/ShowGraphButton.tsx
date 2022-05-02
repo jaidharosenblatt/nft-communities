@@ -10,12 +10,17 @@ export default function ShowGraphButton({ project }: Props) {
 
   return (
     <Button
-      type="ghost"
+      type="link"
       loading={loading}
-      style={{ width: "100%", borderRadius: "0 0 var(--border-radius) var(--border-radius)" }}
+      style={{
+        width: "100%",
+        color: "var(--primary-text)",
+        backgroundColor: "var(--card-fill)",
+        borderRadius: "0 0 var(--border-radius) var(--border-radius)",
+      }}
       onClick={() => dispatch(setHighlightedProject(project))}
     >
-      Trends{" "}
+      Details
     </Button>
   );
 }

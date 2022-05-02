@@ -19,13 +19,16 @@ export default function SortSelector() {
       bordered={false}
       value={value}
     >
-      <Select.Option value="1:releaseDate">Mint Date </Select.Option>
-      <Select.Option value="-1:twitterFollowers">Most Twitter Followers </Select.Option>
+      <Select.Option value="1:releaseDate">Mint date </Select.Option>
+      <Select.Option value="-1:twitterFollowers">Most Twitter followers </Select.Option>
+      <Select.Option value="-1:discordMembers">Most Discord members </Select.Option>
+      <Select.Option value="-1:discordActiveMembers">Most active Discord members </Select.Option>
+
       <Select.Option value="1:name">Name (A-Z)</Select.Option>
       <Select.Option value="-1:name">Name (Z-A)</Select.Option>
-      <Select.Option value="-1:trends.followingChange">Followers Growth </Select.Option>
-      <Select.Option value="-1:price">Hightest Mint Price</Select.Option>
-      <Select.Option value="-1:quantity">Highest Supply</Select.Option>
+      <Select.Option value="-1:trends.followingChange">Followers growth </Select.Option>
+      <Select.Option value="-1:price">Hightest mint price</Select.Option>
+      <Select.Option value="-1:quantity">Highest supply</Select.Option>
     </Select>
   );
 }

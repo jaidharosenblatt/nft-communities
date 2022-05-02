@@ -54,7 +54,12 @@ const projectSchema = new mongoose.Schema(
     twitterFollowers: {
       type: Number,
     },
-
+    discordMembers: {
+      type: Number,
+    },
+    discordActiveMembers: {
+      type: Number,
+    },
     dayTrend: {
       type: mongoose.Types.ObjectId,
       ref: Trend,

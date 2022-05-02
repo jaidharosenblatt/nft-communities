@@ -17,7 +17,9 @@ export default function Socials({ project }: Props) {
         <Stat
           href={project.discordUrl}
           icon={<IoLogoDiscord color={"#5865F2"} size={"16px"} />}
-          current={0}
+          current={`${project.discordMembers?.toLocaleString() || 0} (${
+            project.discordActiveMembers?.toLocaleString() || 0
+          } active)`}
         />
       )}
     </Space>
