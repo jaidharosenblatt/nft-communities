@@ -29,7 +29,7 @@ async function getDiscordFromUrl(discordUrl) {
 }
 
 async function updateDiscord() {
-  const projects = await Project.find().sort("-twitterFollowers");
+  const projects = await Project.find({ discordMembers: null }).sort("-twitterFollowers");
   const discords = [];
   for (const project of projects) {
     const discord = await getDiscordFromUrl(project.discordUrl);
