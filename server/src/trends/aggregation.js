@@ -27,6 +27,7 @@ async function updateAggregate() {
   const aggregation = new Aggregation({
     lastMoment,
     highestFollowers,
+    highestFollowersRounded: roundTo(highestFollowers, 10000),
     highestPrice: roundTo(highestPrice, 10),
     highestQuantity: roundTo(highestQuantity, 10000),
   });
