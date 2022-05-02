@@ -2,6 +2,7 @@ import { Space } from "antd";
 import React from "react";
 import { setEndDate, setStartDate } from "../../redux/filters";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import "./Filters.css";
 
 export default function DateTitle() {
   const { startDate, endDate } = useAppSelector((state) => state.filters);
@@ -31,7 +32,7 @@ export default function DateTitle() {
   }
 
   return (
-    <Space size="middle">
+    <Space className="date-title" size="middle">
       <h1
         onClick={setUpcoming}
         style={{ cursor: "pointer", color: selected !== "upcoming" ? "var(--gray-0)" : undefined }}
