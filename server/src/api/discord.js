@@ -19,34 +19,34 @@ async function getDiscordFromUrl(discordUrl) {
     };
   } catch (error) {
     if (error.response) {
-      console.log(error.response.data);
-      console.log(error.response.headers);
+      return { timeout: error.response.headers["retry-after"] };
     }
-    return undefined;
+    return { timeout: 1000 };
   }
 }
 
 async function updateDiscord() {
-  const project = await Project.findOne();
-  const data = await getDiscordFromUrl(project.discordUrl);
-  return data;
-  // const projects = await Project.find();
+  const projects = await Project.find().limit(50);
+  const discords = [];
 
-  // const discords = [];
-  // await Promise.all(
-  //   projects.map(async (project) => {
-  //     if (project.discordUrl) {
-  //       const data = await getDiscordFromUrl(project.discordUrl);
-  //       console.log(data);
+  for (const project of projects) {
+    const discord = await getDiscordFromUrl(project.discordUrl);
+    if (discord.timeout) {
+      console.log("Waiting for timeout:", discord.timeout);
 
-  //       if (data) {
-  //         discords.push({ ...data, name: project.name });
-  //       }
-  //     }
-  //   })
-  // );
+      await timeout(discord.timeout);
+    } else {
+      project.discordMembers = discord.total;
+      project.discordActiveMembers = discord.active;
+      await project.save();
+    }
+  }
 
-  // return discords;
+  return discords;
+}
+
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 module.exports = { updateDiscord };
