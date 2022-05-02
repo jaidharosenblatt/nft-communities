@@ -2,6 +2,8 @@ const express = require("express");
 const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement, checkTwitterHandle } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
+const { updateDiscord } = require("../scraping/discord");
+
 const { getParamVariable, sendError, isValidDate, ServerError } = require("./util");
 
 const router = new express.Router();
@@ -9,6 +11,15 @@ const router = new express.Router();
 router.post("/updateProjects", async (req, res) => {
   try {
     const status = await scrapeProjects();
+    res.send(status);
+  } catch (e) {
+    sendError(e, res);
+  }
+});
+
+router.post("/updateDiscord", async (req, res) => {
+  try {
+    const status = await updateDiscord();
     res.send(status);
   } catch (e) {
     sendError(e, res);
@@ -83,12 +94,6 @@ router.get("/projects", async (req, res) => {
       "name",
       "trends.followingChange",
       "trends.followingPercentChange",
-      "trends.tweetEngagementChange",
-      "trends.tweetEngagementPercentChange",
-      "trends.tweetMentionChange",
-      "trends.tweetMentionPercentChange",
-      "twitterAverageTweetEngagement",
-      "twitterAverageMentionEngagement",
       "quantity",
       "price",
     ];
@@ -136,15 +141,11 @@ router.get("/projects", async (req, res) => {
           "trends.followingPercentChange": 1,
           "trends.tweetEngagementChange": 1,
           "trends.tweetEngagementPercentChange": 1,
-          "trends.tweetMentionChange": 1,
-          "trends.tweetMentionPercentChange": 1,
           description: 1,
           quantity: 1,
           price: 1,
           twitterFollowers: 1,
           twitterUrl: 1,
-          twitterAverageTweetEngagement: 1,
-          twitterAverageMentionEngagement: 1,
           twitterCreatedAt: 1,
         },
       },
