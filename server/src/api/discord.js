@@ -26,7 +26,7 @@ async function getDiscordFromUrl(discordUrl) {
 }
 
 async function updateDiscord() {
-  const projects = await Project.find().limit(50);
+  const projects = await Project.find();
   const discords = [];
 
   for (const project of projects) {
