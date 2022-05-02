@@ -18,7 +18,7 @@ export default function SubmitProjectModal() {
             <TwitterImage project={submittedProject} />
             <div>
               <h2> {submittedProject.name}</h2>
-              <Socials size={24} project={submittedProject} />
+              <Socials project={submittedProject} />
             </div>
           </div>
           <p>

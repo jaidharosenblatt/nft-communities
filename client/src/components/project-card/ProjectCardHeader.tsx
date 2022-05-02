@@ -1,5 +1,4 @@
 import Socials from "./Socials";
-import ShowGraphButton from "../graph/ShowGraphButton";
 import DateTopper from "./DateTopper";
 import TwitterImage from "./TwitterImage";
 
@@ -18,13 +17,15 @@ export default function ProjectCardHeader({ project }: Props) {
       <TwitterImage project={project} />
       <div className="text">
         <div>
-          <h2>{truncatedName}</h2>
+          <a target="_blank" rel="noreferrer" href={project.website}>
+            <h2 style={{ textDecoration: "underline", cursor: "pointer" }}>{truncatedName}</h2>
+          </a>
+
           <p>
             {project.price !== undefined && `${project.price} SOL mint | `}
             {quantity !== undefined && `${quantity} supply`}
           </p>
-          <Socials size={30} project={project} />
-          <ShowGraphButton project={project} />
+          <Socials project={project} />
         </div>
       </div>
     </div>

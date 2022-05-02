@@ -2,8 +2,6 @@ import { Button } from "antd";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 import { setHighlightedProject } from "../../redux/actionCreators";
-import { AiOutlineStock } from "react-icons/ai";
-import IconText from "../util/IconText";
 
 type Props = { project: Project };
 export default function ShowGraphButton({ project }: Props) {
@@ -12,11 +10,12 @@ export default function ShowGraphButton({ project }: Props) {
 
   return (
     <Button
-      type="primary"
+      type="ghost"
       loading={loading}
+      style={{ width: "100%", borderRadius: "0 0 var(--border-radius) var(--border-radius)" }}
       onClick={() => dispatch(setHighlightedProject(project))}
     >
-      <IconText color="white" icon={<AiOutlineStock />} text={<p>Trends</p>} />
+      Trends{" "}
     </Button>
   );
 }

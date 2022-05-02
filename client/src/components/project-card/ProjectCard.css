@@ -50,15 +50,6 @@
   border-radius: calc(var(--border-radius) - 2px) calc(var(--border-radius) - 2px) 0 0;
 }
 
-/* stats row */
-.project-card .stats-row {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--card-fill);
-  padding: var(--padding-large);
-  border-radius: 0 0px calc(var(--border-radius) - 2px) calc(var(--border-radius) - 2px);
-}
-
 .project-card .ant-btn {
   margin-bottom: var(--padding-small);
   height: 42px;
