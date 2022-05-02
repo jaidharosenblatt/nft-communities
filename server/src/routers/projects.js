@@ -22,6 +22,8 @@ router.post("/updateDiscord", async (req, res) => {
     res.send("Updating Discord async");
     await updateDiscord();
   } catch (e) {
+    console.log(e);
+
     sendError(e, res);
   }
 });

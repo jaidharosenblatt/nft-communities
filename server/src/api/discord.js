@@ -2,13 +2,16 @@ const Project = require("../models/project");
 const axios = require("axios");
 
 async function getDiscordFromUrl(discordUrl) {
-  const splitIndex = discordUrl.lastIndexOf("/");
-
-  if (splitIndex == -1) {
-    return undefined;
-  }
-  const inviteCode = discordUrl.slice(splitIndex + 1, discordUrl.length);
   try {
+    if (!discordUrl) {
+      return {};
+    }
+    const splitIndex = discordUrl.lastIndexOf("/");
+
+    if (splitIndex == -1) {
+      return undefined;
+    }
+    const inviteCode = discordUrl.slice(splitIndex + 1, discordUrl.length);
     const res = await axios.get(
       `https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`
     );
