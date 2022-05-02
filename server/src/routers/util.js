@@ -16,12 +16,11 @@ function sendError(e, res) {
     console.error(e.code, e.data);
   }
   let code = 500;
-  if (code > 400 && code <= 511) {
+  if (e.code > 400 && e.code <= 511) {
     code = e.code;
   }
 
-  res.status(code);
-  res.send(e.data);
+  res.sendStatus(code);
 }
 
 class ServerError extends Error {

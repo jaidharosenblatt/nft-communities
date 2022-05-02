@@ -11,12 +11,6 @@ async function updateAggregate() {
   const projects0 = await Moment.find().sort("-twitterFollowers").limit(1);
   const highestFollowers = projects0[0].twitterFollowers || 0;
 
-  const projects1 = await Moment.find().sort("-twitterAverageTweetEngagement").limit(1);
-  const highestTweetLikes = projects1[0].twitterAverageTweetEngagement || 0;
-
-  const projects2 = await Moment.find().sort("-twitterAverageMentionEngagement").limit(1);
-  const highestMentionLikes = projects2[0].twitterAverageMentionEngagement || 0;
-
   const projects3 = await Project.find().sort("-quantity").limit(1);
   const highestQuantity = projects3[0].quantity || 0;
 
@@ -33,11 +27,6 @@ async function updateAggregate() {
   const aggregation = new Aggregation({
     lastMoment,
     highestFollowers,
-    highestTweetLikes,
-    highestMentionLikes,
-    highestFollowersRounded: roundTo(highestFollowers, 10000),
-    highestTweetLikesRounded: roundTo(highestTweetLikes, 1000),
-    highestMentionLikesRounded: roundTo(highestMentionLikes, 100),
     highestPrice: roundTo(highestPrice, 10),
     highestQuantity: roundTo(highestQuantity, 10000),
   });
