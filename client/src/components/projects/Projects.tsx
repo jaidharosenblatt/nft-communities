@@ -6,6 +6,7 @@ import { Skeleton } from "antd";
 import PaginationCard from "../form/PaginationCard";
 import GraphCard from "../graph/GraphCard";
 import { Link } from "react-router-dom";
+import DateTitle from "../filters/DateTitle";
 
 export default function Projects() {
   const dispatch = useAppDispatch();
@@ -22,6 +23,8 @@ export default function Projects() {
   return (
     <>
       <div className="pagination-card-top">
+        <DateTitle />
+
         <p className="caption" style={{ marginBottom: "var(--padding-medium)" }}>
           {loading ? "Loading collections..." : `${projects.count} collections found`}
         </p>

@@ -1,10 +1,9 @@
 import { IoFilter, IoLogoTwitter } from "react-icons/io5";
 import { BiSortAlt2 } from "react-icons/bi";
-import { AiOutlineClockCircle, AiOutlineStock } from "react-icons/ai";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import IconText from "../util/IconText";
 import "./Filters.css";
 import SortSelector from "../form/SortSelector";
-import TimePeriodSelector from "../form/TimePeriodSelector";
 import MintDatePicker from "../form/MintDatePicker";
 import { Divider } from "antd";
 import FilterSliders from "./FilterSliders";
@@ -27,12 +26,7 @@ export default function Filters() {
           text={<h3 style={{ color: "var(--secondary)" }}>Filter</h3>}
         />
         <Divider />
-        <IconText
-          color="var(--primary-text)"
-          icon={<AiOutlineStock size={14} />}
-          text={<p>Trend Time Frame</p>}
-        />
-        <TimePeriodSelector />
+
         <IconText
           color="var(--primary-text)"
           icon={<AiOutlineClockCircle size={14} />}

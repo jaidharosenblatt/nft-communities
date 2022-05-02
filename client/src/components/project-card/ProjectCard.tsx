@@ -2,7 +2,7 @@ import "./ProjectCard.css";
 import { useAppSelector } from "../../redux/hooks";
 import { Skeleton } from "antd";
 import ProjectCardHeader from "./ProjectCardHeader";
-import StatsRow from "./StatsRow";
+import ShowGraphButton from "../graph/ShowGraphButton";
 
 type Props = { project: Project };
 export default function ProjectCard({ project }: Props) {
@@ -16,9 +16,7 @@ export default function ProjectCard({ project }: Props) {
       <div className="not-bottom">
         <ProjectCardHeader project={project} />
       </div>
-      <div className="stats-row">
-        <StatsRow project={project} />
-      </div>
+      <ShowGraphButton project={project} />
     </div>
   );
 }

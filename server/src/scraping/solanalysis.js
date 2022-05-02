@@ -9,13 +9,9 @@ const bodyParams = require("./solanalysisParams");
 
 async function getSolanalysisProjects() {
   try {
-    const res = await axios.post(
-      "https://solanalysis-graphql-dot-feliz-finance.uc.r.appspot.com/",
-      bodyParams
-    );
+    const res = await axios.post("https://beta.api.solanalysis.com/graphql", bodyParams);
     const projects = res.data?.data?.getUpcomingProjectsRaw?.upcoming_projects;
     if (!projects) return [];
-
     return projects.map((p) => {
       if (p.twitter && p.display_name) {
         const d = p.launch_date ? new Date(p.launch_date) : undefined;

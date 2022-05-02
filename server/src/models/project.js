@@ -16,9 +16,7 @@ const projectSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    needsReview: {
-      type: Boolean,
-    },
+
     price: {
       type: Number,
     },
@@ -56,12 +54,7 @@ const projectSchema = new mongoose.Schema(
     twitterFollowers: {
       type: Number,
     },
-    twitterAverageMentionEngagement: {
-      type: Number,
-    },
-    twitterAverageTweetEngagement: {
-      type: Number,
-    },
+
     dayTrend: {
       type: mongoose.Types.ObjectId,
       ref: Trend,

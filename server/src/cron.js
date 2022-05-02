@@ -1,21 +1,12 @@
-const { updateAllFollowers, updateTweetEngagement } = require("./api/twitter");
+const { updateAllFollowers } = require("./api/twitter");
 const { scrapeProjects } = require("./scraping");
 const { updateAllProjectTrends } = require("./trends");
 const { updateAggregate } = require("./trends/aggregation");
 
-async function everHour() {
-  console.log("RUNNING CRON");
-  console.log("----------------");
-  await updateTweetEngagement();
-  console.log("----------------");
-  console.log("FINISHING CRON");
-}
-
-async function everyDay() {
+async function runCron() {
   try {
     await scrapeProjects();
     await updateAllFollowers();
-    await updateTweetEngagement();
     await updateAllProjectTrends();
     await updateAggregate();
   } catch (error) {
@@ -23,4 +14,4 @@ async function everyDay() {
   }
 }
 
-module.exports = { everHour, everyDay };
+module.exports = { runCron };

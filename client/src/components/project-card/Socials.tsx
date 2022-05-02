@@ -1,23 +1,25 @@
+import React from "react";
+import Stat from "./Stat";
 import { IoLogoTwitter, IoLogoDiscord } from "react-icons/io5";
-import { AiOutlineLink } from "react-icons/ai";
+import { Space } from "antd";
 
-type Props = { project: Project; color?: string; size: number };
-export default function Socials({ project, color, size }: Props) {
+type Props = { project: Project };
+
+export default function Socials({ project }: Props) {
   return (
-    <div className="social">
-      <a target="_blank" rel="noreferrer" href={project.twitterUrl}>
-        <IoLogoTwitter color={color || "#1DA1F2"} size={size + "px"} />
-      </a>
+    <Space size="middle">
+      <Stat
+        href={project.twitterUrl}
+        icon={<IoLogoTwitter color={"#1DA1F2"} size={"16px"} />}
+        current={project.twitterFollowers}
+      />
       {project.discordUrl && (
-        <a target="_blank" rel="noreferrer" href={project.discordUrl}>
-          <IoLogoDiscord color={color || "#5865F2"} size={size + "px"} />
-        </a>
+        <Stat
+          href={project.discordUrl}
+          icon={<IoLogoDiscord color={"#5865F2"} size={"16px"} />}
+          current={0}
+        />
       )}
-      {project.website && (
-        <a target="_blank" rel="noreferrer" href={project.website}>
-          <AiOutlineLink color={color || "var(--gray-0)"} size={size + "px"} />
-        </a>
-      )}
-    </div>
+    </Space>
   );
 }

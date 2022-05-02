@@ -18,8 +18,8 @@ export interface FiltersState {
 // Define the initial state using that type
 const initialState: FiltersState = {
   trendType: "allTrend",
-  sortBy: "releaseDate",
-  sortDirection: 1,
+  sortBy: "twitterFollowers",
+  sortDirection: -1,
   startDate: new Date().toUTCString(),
 };
 

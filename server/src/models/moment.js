@@ -12,14 +12,6 @@ const momentSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    twitterAverageMentionEngagement: {
-      type: Number,
-      required: true,
-    },
-    twitterAverageTweetEngagement: {
-      type: Number,
-      required: true,
-    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

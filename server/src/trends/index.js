@@ -74,18 +74,8 @@ async function getTrendObject(projectId, recentMoment, time) {
     timePeriod: time,
     startFollowers: agoMoment?.twitterFollowers || recentMoment.twitterFollowers,
     endFollowers: recentMoment.twitterFollowers,
-    startTweetEngagement:
-      agoMoment?.twitterAverageTweetEngagement || recentMoment.twitterAverageTweetEngagement,
-    endTweetEngagement: recentMoment.twitterAverageTweetEngagement,
-    startMentionEngagement:
-      agoMoment?.twitterAverageMentionEngagement || recentMoment.twitterAverageMentionEngagement,
-    endMentionEngagement: recentMoment.twitterAverageMentionEngagement,
     followingChange: 0,
     followingPercentChange: 0,
-    tweetEngagementChange: 0,
-    tweetEngagementPercentChange: 0,
-    tweetMentionChange: 0,
-    tweetMentionPercentChange: 0,
   };
 
   // return default if empty of records are same
@@ -94,23 +84,11 @@ async function getTrendObject(projectId, recentMoment, time) {
   }
 
   const following = percentIncrease(agoMoment.twitterFollowers, recentMoment.twitterFollowers);
-  const mentionEngagement = percentIncrease(
-    agoMoment.twitterAverageMentionEngagement,
-    recentMoment.twitterAverageMentionEngagement
-  );
-  const tweetEngagement = percentIncrease(
-    agoMoment.twitterAverageTweetEngagement,
-    recentMoment.twitterAverageTweetEngagement
-  );
 
   return {
     ...trend,
     followingChange: following.change,
     followingPercentChange: following.percent,
-    tweetEngagementChange: tweetEngagement.change,
-    tweetEngagementPercentChange: tweetEngagement.percent,
-    tweetMentionChange: mentionEngagement.change,
-    tweetMentionPercentChange: mentionEngagement.percent,
   };
 }
 
