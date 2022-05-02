@@ -98,6 +98,8 @@ router.get("/projects", async (req, res) => {
       "trends.followingPercentChange",
       "quantity",
       "price",
+      "discordMembers",
+      "discordActiveMembers",
     ];
     const sortBy = getParamVariable(req, "sortBy", "twitterFollowers", allowedFields);
     const sortDirection = req.query.sortDirection ? parseInt(req.query.sortDirection) : -1;
