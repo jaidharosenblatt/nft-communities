@@ -147,6 +147,8 @@ router.get("/projects", async (req, res) => {
           twitterFollowers: 1,
           twitterUrl: 1,
           twitterCreatedAt: 1,
+          discordMembers: 1,
+          discordActiveMembers: 1,
         },
       },
       { $sort: { [sortBy]: sortDirection } },

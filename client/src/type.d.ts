@@ -17,8 +17,8 @@ interface Project {
   twitterId: string;
   avatar: string;
   twitterFollowers: number;
-  twitterAverageMentionEngagement?: number;
-  twitterAverageTweetEngagement?: number;
+  discordMembers?: number;
+  discordActiveMembers?: number;
   trends: Trend;
   __v?: number;
 }
