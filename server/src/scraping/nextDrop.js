@@ -35,6 +35,7 @@ async function getNextDrop() {
       twitter,
       discordUrl: undefinedIfEmpty(discordUrl),
       twitterUrl,
+      scrapingSource: "nextDrop",
     };
     if (project.name && project.twitter) {
       projects.push(project);

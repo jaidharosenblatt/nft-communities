@@ -51,6 +51,9 @@ const projectSchema = new mongoose.Schema(
     avatar: {
       type: String,
     },
+    scrapingSource: {
+      type: String,
+    },
     twitterFollowers: {
       type: Number,
     },

@@ -26,6 +26,7 @@ async function getSolanalysisProjects() {
           quantity: convertQuantity(p.supply),
           releaseDate: d,
           description: p.description,
+          scrapingSource: "solanalysis",
         };
       }
     });

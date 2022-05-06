@@ -55,6 +55,7 @@ async function getHowRareProjects() {
           website: undefinedIfEmpty(website),
           discordUrl: undefinedIfEmpty(discordUrl),
           twitterUrl,
+          scrapingSource: "howRare",
         };
 
         if (project.name && project.twitter) {

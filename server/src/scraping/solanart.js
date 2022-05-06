@@ -24,6 +24,7 @@ async function getSolanartProjects() {
         price: convertSolString(p.price),
         quantity: convertQuantity(p.supply),
         description: p.description,
+        scrapingSource: "solanart",
       };
     }
   });

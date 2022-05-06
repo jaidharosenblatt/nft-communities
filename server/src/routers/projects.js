@@ -3,7 +3,7 @@ const Project = require("../models/project");
 const { updateAllFollowers, updateTweetEngagement, checkTwitterHandle } = require("../api/twitter");
 const { scrapeProjects } = require("../scraping/");
 const { updateDiscord } = require("../api/discord");
-
+const { getMagicEdenProjects } = require("../scraping/magicEden");
 const { getParamVariable, sendError, isValidDate, ServerError } = require("./util");
 
 const router = new express.Router();
@@ -141,6 +141,7 @@ router.get("/projects", async (req, res) => {
           avatarLarge: 1,
           website: 1,
           discordUrl: 1,
+          scrapingSource: 1,
           "trends.followingChange": 1,
           "trends.followingPercentChange": 1,
           "trends.tweetEngagementChange": 1,

@@ -3,18 +3,20 @@ const { getHowRareProjects } = require("./howRare");
 const { getNextDrop } = require("./nextDrop");
 const { getSolanalysisProjects } = require("./solanalysis");
 const { getSolanartProjects } = require("./solanart");
-
+const { getMagicEdenProjects } = require("./magicEden");
 async function scrapeProjects() {
   try {
     const howRareProjects = await getHowRareProjects();
     const nextDropProjects = await getNextDrop();
     const solanartProjects = await getSolanartProjects();
     const solanalysisProjects = await getSolanalysisProjects();
+    const magicEdenProjects = await getMagicEdenProjects();
     const projects = solanartProjects.concat(
       nextDropProjects,
       solanartProjects,
       howRareProjects,
-      solanalysisProjects
+      solanalysisProjects,
+      magicEdenProjects
     );
 
     // necessary to update an entire document
