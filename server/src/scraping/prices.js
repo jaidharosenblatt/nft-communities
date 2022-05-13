@@ -13,10 +13,20 @@ const LAMPORTS_PER_SOL = 1000000000;
 // params
 const priceToBuy = 2;
 const sortBy = "profit";
+const maxSol = 30;
+const minNftsSold = 0;
 async function getPrices() {
   const atrix = await getAtrixPrices(priceToBuy);
   const raydium = await getRaydiumPrices(priceToBuy);
-  const prices = raydium.concat(atrix);
+  let prices = [];
+  await Promise.all(
+    raydium.concat(atrix).map(async (token) => {
+      const me = await getMagicEdenPrice(token.collection);
+      console.log(me);
+      prices.push({ ...token, ...me });
+    })
+  );
+
   return prices
     .map((price) => {
       const profitInstantBuy = price.floor - price.instantBuy;
@@ -29,6 +39,7 @@ async function getPrices() {
         discount: getDiscount(price.floor, price.customSell),
       };
     })
+    .filter((token) => token.instantBuy <= maxSol && token.nftsSold24h >= minNftsSold)
     .sort((a, b) => {
       if (sortBy === "profit") {
         return b.maxProfit - a.maxProfit;
@@ -49,14 +60,16 @@ async function getAtrixPrices(priceToSell) {
 
   await Promise.all(
     SOLVENT_TOKENS.map(async (token) => {
-      const floor = await getMagicEdenPrice(token.magicEden);
       const atrixData = pairs.find((pair) => token.amm === pair.key);
       if (!atrixData) {
-        console.log(token);
         return;
       }
       const tokenAmount = atrixData.coinTokens;
       const solAmount = atrixData.pcTokens;
+      if (tokenAmount < DROPLET_TOKENS) {
+        // not enough liq
+        return;
+      }
       const instantBuy = getInstantBuyPrice(solAmount, tokenAmount, DROPLET_TOKENS);
       const instantSell = getInstantSellPrice(solAmount, tokenAmount, DROPLET_TOKENS);
       const nftValuation = getNftValuation(solAmount, tokenAmount, DROPLET_TOKENS);
@@ -73,7 +86,6 @@ async function getAtrixPrices(priceToSell) {
         nftValuation: nftValuation / solPrice,
         instantBuy: instantBuy / solPrice,
         instantSell: instantSell / solPrice,
-        floor,
       });
     })
   );
@@ -86,10 +98,16 @@ async function getRaydiumPrices(priceToSell) {
 
   await Promise.all(
     BS_TOKENS.map(async (token) => {
-      const floor = await getMagicEdenPrice(token.magicEden);
       const raydiumData = pairs.find((pair) => token.amm === pair.ammId);
+      if (!raydiumData) {
+        return;
+      }
       const tokenAmount = raydiumData.tokenAmountCoin;
       const solAmount = raydiumData.tokenAmountPc;
+      if (tokenAmount < FLOOR_TOKENS) {
+        // not enough liq
+        return;
+      }
       const instantBuy = getInstantBuyPrice(solAmount, tokenAmount, FLOOR_BUYOUT_TOKENS);
       const instantSell = getInstantSellPrice(solAmount, tokenAmount, FLOOR_SELL_TOKENS);
       const nftValuation = getNftValuation(solAmount, tokenAmount, FLOOR_TOKENS);
@@ -101,7 +119,6 @@ async function getRaydiumPrices(priceToSell) {
         nftValuation,
         instantBuy,
         instantSell,
-        floor,
       });
     })
   );
@@ -127,9 +144,15 @@ async function getMagicEdenPrice(collectionId) {
   const res = await axios.get(
     `${MAGIC_EDEN_URL}/getCollectionEscrowStats/${collectionId}?edge_cache=true`
   );
-  const price = res.data?.results?.floorPrice;
-  if (!price) return 0;
-  return price / LAMPORTS_PER_SOL;
+  const data = res.data?.results;
+  if (!data) return { price: 0, nftsSold24h: 0 };
+
+  const price = data?.floorPrice;
+  const sold = data?.volume24hr / data?.avgPrice24hr;
+  return {
+    floor: price / LAMPORTS_PER_SOL,
+    nftsSold24h: isNaN(sold) ? 0 : sold,
+  };
 }
 
 function getNftValuation(solAmount, tokenAmount, nftAmount) {
@@ -137,6 +160,9 @@ function getNftValuation(solAmount, tokenAmount, nftAmount) {
 }
 
 function getInstantBuyPrice(solAmount, tokenAmount, buyAmount) {
+  if (buyAmount > tokenAmount) {
+    return Number.MAX_SAFE_INTEGER;
+  }
   const k = solAmount * tokenAmount;
   const newTokenAmount = tokenAmount - buyAmount;
   const newSolAmount = k / newTokenAmount;
@@ -146,6 +172,9 @@ function getInstantBuyPrice(solAmount, tokenAmount, buyAmount) {
 }
 
 function getInstantSellPrice(solAmount, tokenAmount, sellAmount) {
+  if (sellAmount > tokenAmount) {
+    return 0;
+  }
   const k = solAmount * tokenAmount;
   const newTokenAmount = tokenAmount + sellAmount;
   const newSolAmount = k / newTokenAmount;
@@ -190,6 +219,52 @@ const BS_TOKENS = [
     token: "WAVES",
   },
   { amm: "2Qmp9jLU64idYVYrqWy8tiBcnHs7hZhzTgCdxSjsY5JZ", magicEden: "portals", token: "IVRY" },
+  { amm: "4zP2DqFHxzwgLf9g7FPgn7XhPmEn9t9rsTZ6VYFBJ87s", magicEden: "theorcs", token: "ORCSFI" },
+  {
+    amm: "5dRv6pNy89zcXg3MzgTpFrPnQmEBmJa8PpYniJTggwDe",
+    magicEden: "lifinity_flares",
+    token: "FLARES",
+  },
+  {
+    amm: "7bCyP5zXzZdX5sxPzsF8kGjrREpv7BuyVbGxA78U2CcR",
+    magicEden: "serum_surfers",
+    token: "SURF",
+  },
+  { amm: "EccDHEaV7rU41CxZx1Dx2h8An5V2KAYtjA3EqAz8bfDQ", magicEden: "dronies", token: "DRONIES" },
+  {
+    amm: "959wnqPK3BX1Fx1BWf8Z9PZ5ihy5d4vaReZev2UGE26i",
+    magicEden: "citizens_by_solsteads",
+    token: "CTZN",
+  },
+  {
+    amm: "B3nzRPTpUrJACR62m3HxQDJuHk2y8idh1Jzs2BwA9a5e",
+    magicEden: "particles_nft",
+    token: "PARTICLES",
+  },
+  { amm: "4xvGQNbQTbCZ6QqsLSLnypMkbpWaEzPdrnNDizSoykLQ", magicEden: "pompeizz", token: "POMP" },
+  { amm: "6HD7LRUwX7bdutzMtF9ZEYhUvd6bS7yMKpLh41z58Y2K", magicEden: "jungle_cats", token: "JCATS" },
+  { amm: "7kL1jYN3f4h75A1wVFyDZM8UZ5ENkpeAd9sEeL5HbPJt", magicEden: "wisecats", token: "CATS" },
+  { amm: "9vphGeFxYUctPh8kN7Kk86CStT6gPdAdSqbeoTYA3nrh", magicEden: "dyor_nerds", token: "DYORN" },
+  {
+    amm: "AsiBPJHP1CzNH5THFC5Mm7iABsrL8iW1AK8GsAc7Ye2f",
+    magicEden: "rogue_sharks",
+    token: "SHARKS",
+  },
+  { amm: "Av8bBcJXQ9BDoZQScQineMPQRYZgf6W49ieV5UaNMcJT", magicEden: "bit_birdz", token: "BIRDZ" },
+  { amm: "AyjapZWrA2BRKWpTx94x82Q3LNP6iy8TdYWMnLfyaNGH", magicEden: "enviro", token: "ENVIRO" },
+  { amm: "Bgjwa6KouUhaZ4VFVezgff3CfcYRA3AohDDfMi59na4E", magicEden: "dskullys", token: "SKULLYS" },
+  { amm: "CMyCeZXVkaukyb4r3NPSo8aRkseCSSgZEnhS9vGVtEAG", magicEden: "solpunks", token: "SOLPUNKS" },
+  {
+    amm: "HbVSbscBGeAa9zGjVyny3ojpKfNik42bW6BLvH6bhaXX",
+    magicEden: "lit_jesus",
+    token: "LITJESUS",
+  },
+  {
+    amm: "i6A1rv2QXNV4LezRE91ivQ34nrUDufZbJf817L9WFZ5",
+    magicEden: "nftrees_solana",
+    token: "NFTREES",
+  },
+  { amm: "J9y1erAob9xDi978ebSmZLR8Zhr8hMindBp3ieg3PwVa", magicEden: "sollamas", token: "LAMAS" },
 ];
 
 const SOLVENT_TOKENS = [
