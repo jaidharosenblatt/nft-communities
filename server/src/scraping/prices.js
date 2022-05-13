@@ -12,7 +12,7 @@ const LAMPORTS_PER_SOL = 1000000000;
 
 // params
 const priceToBuy = 2;
-const sortBy = "discount";
+const sortBy = "profit";
 async function getPrices() {
   const atrix = await getAtrixPrices(priceToBuy);
   const raydium = await getRaydiumPrices(priceToBuy);
@@ -68,6 +68,7 @@ async function getAtrixPrices(priceToSell) {
       );
       prices.push({
         collection: token.magicEden,
+        ticker: token.token,
         customSell: customSell.price / solPrice,
         nftValuation: nftValuation / solPrice,
         instantBuy: instantBuy / solPrice,
@@ -95,6 +96,7 @@ async function getRaydiumPrices(priceToSell) {
       const customSell = getPriceAtSellSolAmount(solAmount, tokenAmount, priceToSell, FLOOR_TOKENS);
       prices.push({
         collection: token.magicEden,
+        ticker: token.token,
         customSell: customSell.price,
         nftValuation,
         instantBuy,
@@ -172,15 +174,81 @@ async function getSolPrice() {
 }
 
 const BS_TOKENS = [
-  { amm: "mb47q5xZJbZsh2gx95xPCzivtvXHXrDoNpJARPDP8z7", magicEden: "boryoku_dragonz" },
-  { amm: "2SXKrb4tnALbCpcS5tJz9GjgdFsZLmdyZSUkG2dGp4uY", magicEden: "stoned_ape_crew" },
-  { amm: "CEmBdGcayBiU5PYZm77U2RkVfnEicDyRx193UeaqWz5f", magicEden: "playground_waves" },
-  { amm: "2Qmp9jLU64idYVYrqWy8tiBcnHs7hZhzTgCdxSjsY5JZ", magicEden: "portals" },
+  {
+    amm: "mb47q5xZJbZsh2gx95xPCzivtvXHXrDoNpJARPDP8z7",
+    magicEden: "boryoku_dragonz",
+    token: "DRGNZ",
+  },
+  {
+    amm: "2SXKrb4tnALbCpcS5tJz9GjgdFsZLmdyZSUkG2dGp4uY",
+    magicEden: "stoned_ape_crew",
+    token: "SAC",
+  },
+  {
+    amm: "CEmBdGcayBiU5PYZm77U2RkVfnEicDyRx193UeaqWz5f",
+    magicEden: "playground_waves",
+    token: "WAVES",
+  },
+  { amm: "2Qmp9jLU64idYVYrqWy8tiBcnHs7hZhzTgCdxSjsY5JZ", magicEden: "portals", token: "IVRY" },
 ];
 
 const SOLVENT_TOKENS = [
-  { amm: "FA2ScSJokN5JJaCVj1UuP2Fbv9c91GqRiU1DvqSWSeXd", magicEden: "the_catalina_whale_mixer" },
-  { amm: "4y9wGYFSTDMmkrCGifu657WRf3mVAspSaSkaveUTyZAC", magicEden: "degenerate_ape_academy" },
+  {
+    amm: "FA2ScSJokN5JJaCVj1UuP2Fbv9c91GqRiU1DvqSWSeXd",
+    magicEden: "the_catalina_whale_mixer",
+    token: "CWM",
+  },
+  {
+    amm: "4y9wGYFSTDMmkrCGifu657WRf3mVAspSaSkaveUTyZAC",
+    magicEden: "degenerate_ape_academy",
+    token: "DAPE",
+  },
+  { amm: "fq96tEMPv8nf2oXg7zjyxMjBwnrfkhtWbKeBEZ5FvAz", magicEden: "thugbirdz", token: "THUGZ" },
+  { amm: "3Qxb8TS5QbLemp7nCkWSbxBjn5aj3GuQGX2a1JCWXaM7", magicEden: "degods", token: "DGOD" },
+  { amm: "62GyyKoEKsL1iqXPjKkr7zzSxQRPAo8aTe4urfJJFY76", magicEden: "balloonsville", token: "BV" },
+  { amm: "DKGQAdbgY1c4JWR96vgdxX5d8KA35s46pGeisEZvoZ8F", magicEden: "genopets", token: "GENO" },
+  { amm: "czd4CkfHgmX4QPZf2peWiYaJyipzpCx5z1wU9PDaLBK", magicEden: "aurory", token: "AUR" },
+  {
+    amm: "FQ3JzCQ7rTSsGmbxK7jyceP5AELabSpFPSMhPuAcnGaL",
+    magicEden: "playground_waves",
+    token: "PLWAV",
+  },
+  {
+    amm: "DUCCQZbw6KGvm2SNYjF8BkNPG3eWVE1QRKioHdRw1GYK",
+    magicEden: "lifinity_flares",
+    token: "LIFL",
+  },
+  {
+    amm: "65rRBZwoiG9DHfHtcfYU7rdGoRYzGkhAHX2LYp1mZDxv",
+    magicEden: "playground_epoch",
+    token: "EPOCH",
+  },
+  { amm: "7dC1HRENpfpqthHHpGHc2t4BoGMNFPtvpUTEVHQrAUTW", magicEden: "gooney_toons", token: "GOON" },
+  {
+    amm: "4zdzDF876Yw2HmRKfZ8rC34mNQWZJanCLr9pvdsqWi57",
+    magicEden: "galactic_geckos",
+    token: "GGSG",
+  },
+  {
+    amm: "6BHZcaaTBQyrn14fmSPmJsjfnqkWQtsspDtVm1sipnb3",
+    magicEden: "pesky_penguins",
+    token: "PSK",
+  },
+  {
+    amm: "67NkSUhwU1wSNAHWEJAq7ghrhpbsWsXNYwMUWDhCb8gB",
+    magicEden: "honey_genesis_bee",
+    token: "HNYG",
+  },
+  {
+    amm: "BQnVEEPBBWLxHc4cSBg4rZR3GVgpW3jGw5kuGVojBqQH",
+    magicEden: "famous_fox_federation",
+    token: "FFF",
+  },
+  {
+    amm: "7yQzTZ9nMpsSePZxgxWpGMK62Zrkr9u7ngEsxyC9j7pG",
+    magicEden: "solana_monkey_business",
+    token: "SMBD",
+  },
 ];
 
 module.exports = { getPrices };
