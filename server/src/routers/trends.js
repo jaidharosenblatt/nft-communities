@@ -23,8 +23,9 @@ router.post("/trends/update", async (req, res) => {
 
 router.get("/nfts", async (req, res) => {
   try {
-    if (req.query.sortBy && !["profit", "discount"].includes(req.query.sortBy)) {
-      return res.send("Sort must be by discount or profit");
+    const allowedSorts = ["profit", "discount", "profitInstantBuy", "profitInstantSell"];
+    if (req.query.sortBy && !allowedSorts.includes(req.query.sortBy)) {
+      return res.send(`Sort be one of the following [${allowedSorts.toString()}]`);
     }
 
     // params

@@ -17,7 +17,6 @@ async function getPrices(sortBy, minNftsSold, maxSol, priceToBuy) {
   await Promise.all(
     raydium.concat(atrix).map(async (token) => {
       const me = await getMagicEdenPrice(token.collection);
-      console.log(me);
       prices.push({ ...token, ...me });
     })
   );
@@ -36,13 +35,16 @@ async function getPrices(sortBy, minNftsSold, maxSol, priceToBuy) {
     })
     .filter((token) => token.instantBuy <= maxSol && token.nftsSold24h >= minNftsSold)
     .sort((a, b) => {
-      if (sortBy === "profit") {
-        return b.maxProfit - a.maxProfit;
+      switch (sortBy) {
+        case "profit":
+          return b.maxProfit - a.maxProfit;
+        case "discount":
+          return a.discount - b.discount;
+        case "profitInstantBuy":
+          return b.profitInstantBuy - a.profitInstantBuy;
+        default:
+          return b.profitInstantSell - a.profitInstantSell;
       }
-      if (sortBy === "discount") {
-        return a.discount - b.discount;
-      }
-      return a.discount - b.discount;
     });
   //
 }
