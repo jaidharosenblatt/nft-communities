@@ -23,7 +23,17 @@ router.post("/trends/update", async (req, res) => {
 
 router.get("/nfts", async (req, res) => {
   try {
-    const info = await getPrices();
+    if (req.query.sortBy && !["profit", "discount"].includes(req.query.sortBy)) {
+      return res.send("Sort must be by discount or profit");
+    }
+
+    // params
+    const sortBy = req.query.sortBy || "profit";
+    const priceToBuy = req.query.priceToBuy || 0;
+    const maxSol = req.query.maxSol || 1000;
+    const minNftsSold = req.query.minNftsSold || 0;
+
+    const info = await getPrices(sortBy, minNftsSold, maxSol, priceToBuy);
     res.send(info);
   } catch (e) {
     console.log(e);

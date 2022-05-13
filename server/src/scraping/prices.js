@@ -10,12 +10,7 @@ const MAGIC_EDEN_URL = "https://api-mainnet.magiceden.io/rpc/";
 const ATRIX_URL = "https://api.atrix.finance/api/";
 const LAMPORTS_PER_SOL = 1000000000;
 
-// params
-const priceToBuy = 2;
-const sortBy = "profit";
-const maxSol = 30;
-const minNftsSold = 0;
-async function getPrices() {
+async function getPrices(sortBy, minNftsSold, maxSol, priceToBuy) {
   const atrix = await getAtrixPrices(priceToBuy);
   const raydium = await getRaydiumPrices(priceToBuy);
   let prices = [];
