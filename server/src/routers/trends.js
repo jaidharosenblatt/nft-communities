@@ -7,7 +7,7 @@ const Trend = require("../models/trend");
 const { updateAllProjectTrends } = require("../trends");
 const { updateAggregate } = require("../trends/aggregation");
 const { sendError, getParamVariable, ServerError } = require("./util");
-
+const { getPrices } = require("../scraping/prices");
 const router = new express.Router();
 
 router.post("/trends/update", async (req, res) => {
@@ -15,6 +15,16 @@ router.post("/trends/update", async (req, res) => {
     res.send("Updating");
     await updateAllProjectTrends();
     console.log("Finished updating trends");
+  } catch (e) {
+    console.log(e);
+    // sendError(e, res);
+  }
+});
+
+router.get("/nfts", async (req, res) => {
+  try {
+    const info = await getPrices();
+    res.send(info);
   } catch (e) {
     console.log(e);
     // sendError(e, res);
