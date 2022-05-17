@@ -4,9 +4,10 @@ const FLOOR_BUYOUT_TOKENS = 1010;
 const FLOOR_SELL_TOKENS = 990;
 const FLOOR_TOKENS = 1000;
 const DROPLET_TOKENS = 100;
+const ME_FEE = 0.1;
 const FEE = 0.0025;
 const RAYDIUM_URL = "https://api.raydium.io/v2";
-const MAGIC_EDEN_URL = "https://api-mainnet.magiceden.io/rpc/";
+const MAGIC_EDEN_URL = "https://api-mainnet.magiceden.io/rpc";
 const ATRIX_URL = "https://api.atrix.finance/api/";
 const LAMPORTS_PER_SOL = 1000000000;
 
@@ -23,10 +24,12 @@ async function getPrices(sortBy, minNftsSold, maxSol, priceToBuy) {
 
   return prices
     .map((price) => {
-      const profitInstantBuy = price.floor - price.instantBuy;
+      const adjustedFloor = price.floor * (1 - price.fee / 100);
+      const profitInstantBuy = adjustedFloor - price.instantBuy;
       const profitInstantSell = price.instantSell - price.floor;
       return {
         ...price,
+        adjustedFloor,
         profitInstantBuy,
         profitInstantSell,
         maxProfit: Math.max(profitInstantBuy, profitInstantSell),
@@ -37,6 +40,9 @@ async function getPrices(sortBy, minNftsSold, maxSol, priceToBuy) {
     .sort((a, b) => {
       switch (sortBy) {
         case "profit":
+          if (a.profitInstantSell > 0 || b.profitInstantSell > 0) {
+            return b.profitInstantSell - a.profitInstantSell;
+          }
           return b.maxProfit - a.maxProfit;
         case "discount":
           return a.discount - b.discount;
@@ -79,6 +85,7 @@ async function getAtrixPrices(priceToSell) {
       prices.push({
         collection: token.magicEden,
         ticker: token.token,
+        fee: token.fee,
         customSell: customSell.price / solPrice,
         nftValuation: nftValuation / solPrice,
         instantBuy: instantBuy / solPrice,
@@ -112,6 +119,7 @@ async function getRaydiumPrices(priceToSell) {
       prices.push({
         collection: token.magicEden,
         ticker: token.token,
+        fee: token.fee,
         customSell: customSell.price,
         nftValuation,
         instantBuy,
@@ -138,18 +146,22 @@ async function getRaydiumPairs() {
 }
 
 async function getMagicEdenPrice(collectionId) {
-  const res = await axios.get(
-    `${MAGIC_EDEN_URL}/getCollectionEscrowStats/${collectionId}?edge_cache=true`
-  );
-  const data = res.data?.results;
-  if (!data) return { price: 0, nftsSold24h: 0 };
+  try {
+    const res = await axios.get(
+      `${MAGIC_EDEN_URL}/getCollectionEscrowStats/${collectionId}?edge_cache=true`
+    );
+    const data = res.data?.results;
+    if (!data) return { price: 0, nftsSold24h: 0 };
 
-  const price = data?.floorPrice;
-  const sold = data?.volume24hr / data?.avgPrice24hr;
-  return {
-    floor: price / LAMPORTS_PER_SOL,
-    nftsSold24h: isNaN(sold) ? 0 : sold,
-  };
+    const price = data?.floorPrice;
+    const sold = data?.volume24hr / data?.avgPrice24hr;
+    return {
+      floor: price / LAMPORTS_PER_SOL,
+      nftsSold24h: isNaN(sold) ? 0 : sold,
+    };
+  } catch (error) {
+    console.log(error.response.data);
+  }
 }
 
 function getNftValuation(solAmount, tokenAmount, nftAmount) {
@@ -204,64 +216,135 @@ const BS_TOKENS = [
     amm: "mb47q5xZJbZsh2gx95xPCzivtvXHXrDoNpJARPDP8z7",
     magicEden: "boryoku_dragonz",
     token: "DRGNZ",
+    fee: 7,
   },
   {
     amm: "2SXKrb4tnALbCpcS5tJz9GjgdFsZLmdyZSUkG2dGp4uY",
     magicEden: "stoned_ape_crew",
     token: "SAC",
+    fee: 9.42,
   },
   {
     amm: "CEmBdGcayBiU5PYZm77U2RkVfnEicDyRx193UeaqWz5f",
     magicEden: "playground_waves",
     token: "WAVES",
+    fee: 12,
   },
-  { amm: "2Qmp9jLU64idYVYrqWy8tiBcnHs7hZhzTgCdxSjsY5JZ", magicEden: "portals", token: "IVRY" },
-  { amm: "4zP2DqFHxzwgLf9g7FPgn7XhPmEn9t9rsTZ6VYFBJ87s", magicEden: "theorcs", token: "ORCSFI" },
+  {
+    amm: "2Qmp9jLU64idYVYrqWy8tiBcnHs7hZhzTgCdxSjsY5JZ",
+    magicEden: "portals",
+    token: "IVRY",
+    fee: 7,
+  },
+  {
+    amm: "4zP2DqFHxzwgLf9g7FPgn7XhPmEn9t9rsTZ6VYFBJ87s",
+    magicEden: "theorcs",
+    token: "ORCSFI",
+    fee: 12,
+  },
   {
     amm: "5dRv6pNy89zcXg3MzgTpFrPnQmEBmJa8PpYniJTggwDe",
     magicEden: "lifinity_flares",
     token: "FLARES",
+    fee: 7,
   },
   {
     amm: "7bCyP5zXzZdX5sxPzsF8kGjrREpv7BuyVbGxA78U2CcR",
     magicEden: "serum_surfers",
     token: "SURF",
+    fee: 7,
   },
-  { amm: "EccDHEaV7rU41CxZx1Dx2h8An5V2KAYtjA3EqAz8bfDQ", magicEden: "dronies", token: "DRONIES" },
+  {
+    amm: "EccDHEaV7rU41CxZx1Dx2h8An5V2KAYtjA3EqAz8bfDQ",
+    magicEden: "dronies",
+    token: "DRONIES",
+    fee: 7,
+  },
   {
     amm: "959wnqPK3BX1Fx1BWf8Z9PZ5ihy5d4vaReZev2UGE26i",
     magicEden: "citizens_by_solsteads",
     token: "CTZN",
+    fee: 7,
   },
   {
     amm: "B3nzRPTpUrJACR62m3HxQDJuHk2y8idh1Jzs2BwA9a5e",
     magicEden: "particles_nft",
     token: "PARTICLES",
+
+    fee: 12,
   },
-  { amm: "4xvGQNbQTbCZ6QqsLSLnypMkbpWaEzPdrnNDizSoykLQ", magicEden: "pompeizz", token: "POMP" },
-  { amm: "6HD7LRUwX7bdutzMtF9ZEYhUvd6bS7yMKpLh41z58Y2K", magicEden: "jungle_cats", token: "JCATS" },
-  { amm: "7kL1jYN3f4h75A1wVFyDZM8UZ5ENkpeAd9sEeL5HbPJt", magicEden: "wisecats", token: "CATS" },
-  { amm: "9vphGeFxYUctPh8kN7Kk86CStT6gPdAdSqbeoTYA3nrh", magicEden: "dyor_nerds", token: "DYORN" },
+  {
+    amm: "4xvGQNbQTbCZ6QqsLSLnypMkbpWaEzPdrnNDizSoykLQ",
+    magicEden: "pompeizz",
+    token: "POMP",
+    fee: 10,
+  },
+  {
+    amm: "6HD7LRUwX7bdutzMtF9ZEYhUvd6bS7yMKpLh41z58Y2K",
+    magicEden: "jungle_cats",
+    token: "JCATS",
+    fee: 7,
+  },
+  {
+    amm: "7kL1jYN3f4h75A1wVFyDZM8UZ5ENkpeAd9sEeL5HbPJt",
+    magicEden: "wisecats",
+    token: "CATS",
+    fee: 10,
+  },
+  {
+    amm: "9vphGeFxYUctPh8kN7Kk86CStT6gPdAdSqbeoTYA3nrh",
+    magicEden: "dyor_nerds",
+    token: "DYORN",
+    fee: 10.88,
+  },
   {
     amm: "AsiBPJHP1CzNH5THFC5Mm7iABsrL8iW1AK8GsAc7Ye2f",
     magicEden: "rogue_sharks",
     token: "SHARKS",
+    fee: 6.2,
   },
-  { amm: "Av8bBcJXQ9BDoZQScQineMPQRYZgf6W49ieV5UaNMcJT", magicEden: "bit_birdz", token: "BIRDZ" },
-  { amm: "AyjapZWrA2BRKWpTx94x82Q3LNP6iy8TdYWMnLfyaNGH", magicEden: "enviro", token: "ENVIRO" },
-  { amm: "Bgjwa6KouUhaZ4VFVezgff3CfcYRA3AohDDfMi59na4E", magicEden: "dskullys", token: "SKULLYS" },
-  { amm: "CMyCeZXVkaukyb4r3NPSo8aRkseCSSgZEnhS9vGVtEAG", magicEden: "solpunks", token: "SOLPUNKS" },
+  {
+    amm: "Av8bBcJXQ9BDoZQScQineMPQRYZgf6W49ieV5UaNMcJT",
+    magicEden: "bit_birdz",
+    token: "BIRDZ",
+    fee: 7,
+  },
+  {
+    amm: "AyjapZWrA2BRKWpTx94x82Q3LNP6iy8TdYWMnLfyaNGH",
+    magicEden: "enviro",
+    token: "ENVIRO",
+    fee: 12,
+  },
+  {
+    amm: "Bgjwa6KouUhaZ4VFVezgff3CfcYRA3AohDDfMi59na4E",
+    magicEden: "dskullys",
+    token: "SKULLYS",
+    fee: 7,
+  },
+  {
+    amm: "CMyCeZXVkaukyb4r3NPSo8aRkseCSSgZEnhS9vGVtEAG",
+    magicEden: "solpunks",
+    token: "SOLPUNKS",
+    fee: 7,
+  },
   {
     amm: "HbVSbscBGeAa9zGjVyny3ojpKfNik42bW6BLvH6bhaXX",
     magicEden: "lit_jesus",
     token: "LITJESUS",
+    fee: 7,
   },
   {
     amm: "i6A1rv2QXNV4LezRE91ivQ34nrUDufZbJf817L9WFZ5",
     magicEden: "nftrees_solana",
     token: "NFTREES",
+    fee: 9.9,
   },
-  { amm: "J9y1erAob9xDi978ebSmZLR8Zhr8hMindBp3ieg3PwVa", magicEden: "sollamas", token: "LAMAS" },
+  {
+    amm: "J9y1erAob9xDi978ebSmZLR8Zhr8hMindBp3ieg3PwVa",
+    magicEden: "sollamas",
+    token: "LAMAS",
+    fee: 7,
+  },
 ];
 
 const SOLVENT_TOKENS = [
@@ -269,57 +352,92 @@ const SOLVENT_TOKENS = [
     amm: "FA2ScSJokN5JJaCVj1UuP2Fbv9c91GqRiU1DvqSWSeXd",
     magicEden: "the_catalina_whale_mixer",
     token: "CWM",
+    fee: 7,
   },
   {
     amm: "4y9wGYFSTDMmkrCGifu657WRf3mVAspSaSkaveUTyZAC",
     magicEden: "degenerate_ape_academy",
+    fee: 6.2,
     token: "DAPE",
   },
-  { amm: "fq96tEMPv8nf2oXg7zjyxMjBwnrfkhtWbKeBEZ5FvAz", magicEden: "thugbirdz", token: "THUGZ" },
-  { amm: "3Qxb8TS5QbLemp7nCkWSbxBjn5aj3GuQGX2a1JCWXaM7", magicEden: "degods", token: "DGOD" },
-  { amm: "62GyyKoEKsL1iqXPjKkr7zzSxQRPAo8aTe4urfJJFY76", magicEden: "balloonsville", token: "BV" },
-  { amm: "DKGQAdbgY1c4JWR96vgdxX5d8KA35s46pGeisEZvoZ8F", magicEden: "genopets", token: "GENO" },
-  { amm: "czd4CkfHgmX4QPZf2peWiYaJyipzpCx5z1wU9PDaLBK", magicEden: "aurory", token: "AUR" },
+  {
+    amm: "fq96tEMPv8nf2oXg7zjyxMjBwnrfkhtWbKeBEZ5FvAz",
+    magicEden: "thugbirdz",
+    token: "THUGZ",
+    fee: 7,
+  },
+  {
+    amm: "3Qxb8TS5QbLemp7nCkWSbxBjn5aj3GuQGX2a1JCWXaM7",
+    magicEden: "degods",
+    token: "DGOD",
+    fee: 11.99,
+  },
+  {
+    amm: "62GyyKoEKsL1iqXPjKkr7zzSxQRPAo8aTe4urfJJFY76",
+    magicEden: "balloonsville",
+    token: "BV",
+    fee: 8,
+  },
+  {
+    amm: "DKGQAdbgY1c4JWR96vgdxX5d8KA35s46pGeisEZvoZ8F",
+    magicEden: "genopets",
+    token: "GENO",
+    fee: 7,
+  },
+  { amm: "czd4CkfHgmX4QPZf2peWiYaJyipzpCx5z1wU9PDaLBK", magicEden: "aurory", token: "AUR", fee: 7 },
   {
     amm: "FQ3JzCQ7rTSsGmbxK7jyceP5AELabSpFPSMhPuAcnGaL",
     magicEden: "playground_waves",
     token: "PLWAV",
+    fee: 12,
   },
   {
     amm: "DUCCQZbw6KGvm2SNYjF8BkNPG3eWVE1QRKioHdRw1GYK",
     magicEden: "lifinity_flares",
     token: "LIFL",
+    fee: 7,
   },
   {
     amm: "65rRBZwoiG9DHfHtcfYU7rdGoRYzGkhAHX2LYp1mZDxv",
     magicEden: "playground_epoch",
     token: "EPOCH",
+    fee: 7,
   },
-  { amm: "7dC1HRENpfpqthHHpGHc2t4BoGMNFPtvpUTEVHQrAUTW", magicEden: "gooney_toons", token: "GOON" },
+  {
+    amm: "7dC1HRENpfpqthHHpGHc2t4BoGMNFPtvpUTEVHQrAUTW",
+    magicEden: "gooney_toons",
+    token: "GOON",
+    fee: 7,
+  },
   {
     amm: "4zdzDF876Yw2HmRKfZ8rC34mNQWZJanCLr9pvdsqWi57",
     magicEden: "galactic_geckos",
     token: "GGSG",
+    fee: 7,
   },
   {
     amm: "6BHZcaaTBQyrn14fmSPmJsjfnqkWQtsspDtVm1sipnb3",
     magicEden: "pesky_penguins",
     token: "PSK",
+    fee: 7,
   },
   {
     amm: "67NkSUhwU1wSNAHWEJAq7ghrhpbsWsXNYwMUWDhCb8gB",
     magicEden: "honey_genesis_bee",
     token: "HNYG",
+    fee: 7,
   },
   {
     amm: "BQnVEEPBBWLxHc4cSBg4rZR3GVgpW3jGw5kuGVojBqQH",
     magicEden: "famous_fox_federation",
     token: "FFF",
+    fee: 6.2,
   },
   {
     amm: "7yQzTZ9nMpsSePZxgxWpGMK62Zrkr9u7ngEsxyC9j7pG",
     magicEden: "solana_monkey_business",
     token: "SMBD",
+    fee: 8,
   },
 ];
 

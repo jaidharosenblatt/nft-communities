@@ -37,8 +37,7 @@ router.get("/nfts", async (req, res) => {
     const info = await getPrices(sortBy, minNftsSold, maxSol, priceToBuy);
     res.send(info);
   } catch (e) {
-    console.log(e);
-    // sendError(e, res);
+    sendError(e, res);
   }
 });
 
